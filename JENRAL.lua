@@ -121,7 +121,11 @@ end
 Load_JENRAL() 
 print("\27[36m"..[[ 
 ---------------------------------------------
-JENRAL
+|    ____             ____                  |
+|   |  _ \  _____   _|  _ \ _ __ _____  __  |
+|   | | | |/ _ \ \ / / |_) | '__/ _ \ \/ /  |
+|   | |_| |  __/\ V /|  __/| | | (_) >  <   |
+|   |____/ \___| \_/ |_|   |_|  \___/_/\_\  |
 |-------------------------------------------|
 |This Source Was Developed By (ABS) @QvQvQvQ.|
 |  This Is The Source Channel @GENRALTEAM .   |
@@ -4420,7 +4424,7 @@ return false
 end 
 local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
 Dev_Abs(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
-local JENRALTEAM = {"مواححح افيش عافيههه😍🔥💗","امممووااهحح شهلعسل🥺??💘","مواححح،ءوفف اذوب🤤💗"} 
+local JENRALTEAM = {"مواححح افيش عافيههه😍🔥💗","امممووااهحح شهلعسل🥺🍯💘","مواححح،ءوفف اذوب🤤💗"} 
 Dev_Abs(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'md') 
 end 
 if tonumber(msg.reply_to_message_id_) == 0 then
