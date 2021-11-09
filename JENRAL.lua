@@ -842,6 +842,7 @@ return var
 end
 end
 function tdcli_update_callback(data)
+end
 if (data.ID == "UpdateNewCallbackQuery") then
 local Chat_Id2 = data.chat_id_
 local MsgId2 = data.message_id_
@@ -10590,6 +10591,7 @@ local Text = result.content_.text_
 if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) and not Text and not BasicConstructor(result) then
 DeleteMessage(msg.chat_id_,{[0] = data.message_id_})
 Media = 'الميديا'
+end
 if result.content_.ID == "MessagePhoto" then Media = 'الصوره'
 elseif result.content_.ID == "MessageSticker" then Media = 'الملصق'
 elseif result.content_.ID == "MessageVoice" then Media = 'البصمه'
