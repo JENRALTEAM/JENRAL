@@ -4335,7 +4335,15 @@ if text == "ايدي المجموعه" and ChCheck(msg) then Dev_ALI(msg.chat_id
 if text == 'مسح سحكاتي' or text == 'مسح تعديلاتي' or text == 'حذف سحكاتي' or text == 'حذف تعديلاتي' then DevALI:del(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع تعديلاتك بنجاح' , 1, 'md') end
 if text == 'مسح جهاتي' or text == 'مسح اضافاتي' or text == 'حذف جهاتي' or text == 'حذف اضافاتي' then DevALI:del(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع جهاتك المضافه' , 1, 'md') end
 --     Source JENRAL     --
-if text == "المطور" then 
+if text and (text == 'المطور' or text == 'مطور' or text == '↫  المطور ᥀') then
+tdcli_function({ID="GetUser",user_id_=SUDO},function(arg,result)
+local msg_id = msg.id_/2097152/0.5
+Text = "*᥀︙Dev Name ↬ * ["..result.first_name_.."](T.me/"..result.username_..")\n*᥀︙Dev User ↬* [@"..result.username_.."]"
+keyboard = {} 
+keyboard.inline_keyboard = {{{text = ''..result.first_name_..' ',url="t.me/"..result.username_}}}
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/'..result.username_..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+end,nil)
+end
 local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 local DevCh1 = GetInfo.result.username
