@@ -4174,14 +4174,19 @@ DevALI:set(JENRAL..'ALI:viewget'..msg.sender_user_id_,true)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙حسنا قم باعادة توجيه للمنشور الذي تريدني حساب مشاهداته', 1, 'md')
 end
 --     Source JENRAL     --
-if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then
-Text = "ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄʀ ᴊᴇɴʀᴀʟ\n\n[-  ᴊᴇɴʀᴀʟ ᴄʜᴀɴɴᴇʟ  .](http://t.me/GENRALTEAM)\n\n[-  ɪɴғᴏ sᴏᴜʀᴄᴇ .](http://t.me/GENRALTEAM)\n\n[-  ᴊᴇɴʀᴀʟ ᴅᴇᴠᴇʟᴏᴘᴇʀ  .](http://t.me/GENRALTEAM)\n\n[-  ʙᴏᴛ ᴊᴇɴʀᴀʟ ](http://t.me/Ialusbot)"
+if text == 'القناة' or text == 'قناة السورس' or text == 'قناه السورس' or text == 'قنات السورس' then 
+Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙Channel ↬ [@GENRALTEAM]', 1, 'md')    
+end 
+if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then  
+local url,res = https.request('https://vvvzvv.ml/apiteland/Teland.php?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+Text = "𓅛 ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ ᴊᴇɴʀᴀʟ \n\n[𖤓│ᴊᴇɴʀᴀʟ ᴄʜᴀɴɴᴇʟ](http://t.me/GENRALTEAM)\n\n[𖤓│ɪɴғᴏ sᴏᴜʀᴄᴇ](http://t.me/IIIIIIII_8)\n\n[𖤓│ᴊᴇɴʀᴀʟ ᴅᴇᴠᴇʟᴏᴘᴇʀ](http://t.me/QvQvQvQ)\n\n[𖤓│ᴛᴡ ʙᴏᴛ ](http://t.me/Ialusbot)"
 keyboard = {} 
 keyboard.inline_keyboard = {
-{{text = '✫: ᴊᴇɴʀᴀʟ sᴏᴜʀᴄʀ .',url="https://t.me/GENRALTEAM"}},
+{{text = '𓅛︙ᴊᴇɴʀᴀʟ ѕᴏụʀᴄᴇ',url="t.me/venom_source"}},
 }
 local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/GENRALTEAM&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/venom_source&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
 --     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
@@ -6336,7 +6341,7 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
 end 
-if text == "المنشئ" then
+if text ==("المنشئ") then
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100},function(arg,data) 
 local admins = data.members_
 for i=0 , #admins do
@@ -6344,25 +6349,15 @@ if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
 owner_id = admins[i].user_id_
 tdcli_function ({ID = "GetUser",user_id_ = owner_id},function(arg,b) 
 if b.first_name_ == false then
-send(msg.chat_id_, msg.id_," *⋄︙حساب المنشئ محذوف*")
+send(msg.chat_id_, msg.id_," *𖤓│حساب المنشئ محذوف*")
 return false  
 end
-tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = owner_id,offset_ = 0,limit_ = 1},function(arg,getpro) 
-if getpro.photos_[0] then
-Name = '*المنشئ ⇠* ['..b.first_name_..'](tg://user?id='..b.id_..')\n'
-Name = Name..'*البايو ⇠* ['..getbio(owner_id)..']\n'
-keyboard = {}
-keyboard.inline_keyboard = {{{text = ''..b.first_name_..'', url = "https://t.me/"..b.username_..""}},}
-local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id='..msg.chat_id_..'&caption='..URL.escape(Name)..'&photo='..getpro.photos_[0].sizes_[1].photo_.persistent_id_..'&reply_to_message_id='..msg_id..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
-else
-send(msg.chat_id_,msg.id_,Name)
-end
-end,nil)   
+local UserName = (b.username_ or "venom_source")
+send(msg.chat_id_, msg.id_," 𖤓│منشئ الكروب » ["..b.first_name_.."](T.me/"..UserName..")")  
 end,nil)   
 end
 end
-end,nil)  
+end,nil)   
 end
 --     Source JENRAL     --
 if Admin(msg) then
