@@ -4177,16 +4177,20 @@ end
 if text == 'القناة' or text == 'قناة السورس' or text == 'قناه السورس' or text == 'قنات السورس' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙Channel ↬ [@GENRALTEAM]', 1, 'md')    
 end 
-if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then  
-local url,res = https.request('https://vvvzvv.ml/apiteland/Teland.php?id='..msg.sender_user_id_)
-data = JSON.decode(url)
-Text = "𓅛 ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ ᴊᴇɴʀᴀʟ \n\n[𖤓│ᴊᴇɴʀᴀʟ ᴄʜᴀɴɴᴇʟ](http://t.me/GENRALTEAM)\n\n[𖤓│ɪɴғᴏ sᴏᴜʀᴄᴇ](http://t.me/IIIIIIII_8)\n\n[𖤓│ᴊᴇɴʀᴀʟ ᴅᴇᴠᴇʟᴏᴘᴇʀ](http://t.me/QvQvQvQ)\n\n[𖤓│ᴛᴡ ʙᴏᴛ ](http://t.me/Ialusbot)"
-keyboard = {} 
-keyboard.inline_keyboard = {
-{{text = '𓅛︙ᴊᴇɴʀᴀʟ ѕᴏụʀᴄᴇ',url="t.me/venom_source"}},
-}
-local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/venom_source&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+if text == "السورس" or text == "سورس" then 
+local text =  [[
+Welcome To Source
+➣︙ᴊᴇɴʀᴀʟ TEAM
+┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
+➣︙[ᴊᴇɴʀᴀʟ Channel](https://t.me/GENRALTEAM)
+
+➣︙[info Source](https://t.me/IIIIIIII_8)
+
+➣︙[Dev ᴊᴇɴʀᴀʟ](https://t.me/QvQvQvQ)
+┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
+➣︙[Tws ᴊᴇɴʀᴀʟ](https://t.me/Ialusbot)
+]]
+Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, 'md')
 end
 --     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
