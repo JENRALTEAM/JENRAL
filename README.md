@@ -22,8 +22,8 @@
 # <p align="center" > ⤈ ↫ كود تغير ايدي المطور الاساسي وتوكن البوت ↬ ⤈
 # <p align="center" > `cd JENRAL;rm -rf config.lua;./Run`
 # <p align="center" > ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
-# <p align="center" > [Source Ch](https://t.me/TNNN7) • [قناة السورس](https://t.me/TNNN7)
-# <p align="center" > [Exp Source](https://t.me/T7777J) • [شروحات السورس](https://t.me/T7777J)
-# <p align="center" > [Source Prog](https://t.me/IF5IF) • [مبرمج السورس](https://t.me/IF5IF)
-# <p align="center" > [onnection Bot](https://t.me/IF5IFBOT) • [بوت التواصل](https://t.me/IF5IFBOT)
+# <p align="center" > [Source Ch](https://t.me/TNNN7) • [قناة السورس](https://t.me/GENRALTEAM)
+# <p align="center" > [Exp Source](https://t.me/T7777J) • [شروحات السورس](https://t.me/IIIIIIII_8)
+# <p align="center" > [Source Prog](https://t.me/IF5IF) • [مبرمج السورس](https://t.me/QvQvQvQ)
+# <p align="center" > [onnection Bot](https://t.me/IF5IFBOT) • [بوت التواصل](https://t.me/Ialusbot)
 # <p align="center" > ┉ ≈ ┉ ≈ ┉ ≈ ┉ ≈ ┉
